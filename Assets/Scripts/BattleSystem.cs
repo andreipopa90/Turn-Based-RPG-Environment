@@ -18,6 +18,8 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
+    public GameObject AbilityPanel;
+
     public BattleState battleState;
 
     public int currentTurn;
@@ -51,6 +53,11 @@ public class BattleSystem : MonoBehaviour
         sceneCharacters = sceneCharacters.OrderByDescending(x => x.speed).ToList();
         currentTurn = 0;
         BeginBattle();
+    }
+
+    public void OnAttackButtonPress()
+    {
+        AbilityPanel.SetActive(!AbilityPanel.activeSelf);
     }
 
     void BeginBattle()
