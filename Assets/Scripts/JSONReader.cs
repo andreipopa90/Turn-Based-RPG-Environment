@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 using Newtonsoft.Json;
 
-public class JSONReader: MonoBehaviour
+public class JSONReader
 {
-	public void ReadAbilityJSON()
+	public List<Move> ReadMovesJSON()
 	{
-		List<Move> source;
+		List<Move> moves;
 		StreamReader reader = new StreamReader(
 			Path.Combine(@"", "Assets", "Scripts", "Combat", "moves.json"));
 		string json = reader.ReadToEnd();
-		source = JsonConvert.DeserializeObject<List<Move>>(json);
+		moves = JsonConvert.DeserializeObject<List<Move>>(json);
+
+		return moves;
 	}
 }

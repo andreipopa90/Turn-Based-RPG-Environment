@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: 
-  maxHealth: 1
+  maxHealth: 250
   currentHealth: 1
   attack: 1
   defense: 1

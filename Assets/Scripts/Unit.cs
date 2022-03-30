@@ -15,11 +15,11 @@ public class Unit : MonoBehaviour
     public int magicResist;
     public int speed;
     public int level;
-    public List<string> Abbilities;
+    public List<Move> Moves;
 
-	private void Start()
+    private void Start()
 	{
-        Abbilities = new List<string>();
+        Moves = new List<Move>();
         this.currentHealth = this.maxHealth;
 	}
 
@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
             (UpperBound - LowerBound) + LowerBound));
         if (IsDead())
 		{
-			print("I am dead!");
+			print(unitName + " died!");
 			Destroy(GameObject.Find(unitName));
 		}
     }
@@ -43,4 +43,6 @@ public class Unit : MonoBehaviour
     {
         return currentHealth <= 0;
     }
+
+    
 }
