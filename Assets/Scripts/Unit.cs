@@ -15,18 +15,32 @@ public class Unit : MonoBehaviour
     public int magicResist;
     public int speed;
     public int level;
+    public List<string> Abbilities;
 
-    void TakeDamage(int level, int attack, int power, bool magic)
+	private void Start()
+	{
+        Abbilities = new List<string>();
+        this.currentHealth = this.maxHealth;
+	}
+
+	public void TakeDamage(int levelEnemy, int attackEnemy, int powerEnemy, bool magic)
     {
         int defenseUsed = magic ? magicResist : defense;
 
         double randomValue = new System.Random().NextDouble();
 
-        currentHealth -= ((2 * level / 5 + 2) * power * attack / defenseUsed / 50 + 2) * (int) (randomValue * (UpperBound - LowerBound) + LowerBound);
+        this.currentHealth -= (int) (((2 * levelEnemy / 5 + 2) * powerEnemy * attackEnemy /
+            defenseUsed / 50 + 2) * (randomValue *
+            (UpperBound - LowerBound) + LowerBound));
+        if (IsDead())
+		{
+			print("I am dead!");
+			Destroy(GameObject.Find(unitName));
+		}
     }
 
     bool IsDead()
     {
-        return currentHealth > 0;
+        return currentHealth <= 0;
     }
 }

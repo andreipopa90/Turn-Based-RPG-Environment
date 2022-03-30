@@ -2,11 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
-public enum BattleState
-{
-    START, BATTLE, WON, LOST
-}
+using UnityEngine.EventSystems;
 
 public class BattleSystem : MonoBehaviour
 {
@@ -14,92 +10,144 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemy;
 
     List<Unit> sceneCharacters;
+    List<Attack> AttackQueue;
 
-    public BattleHUD playerHUD;
-    public BattleHUD enemyHUD;
+    public BattleHUD MainHUD;
 
     public GameObject AbilityPanel;
-
-    public BattleState battleState;
 
     public int currentTurn;
 
     // Start is called before the first frame update
     void Start()
     {
-        battleState = BattleState.START;
+        JSONReader reader = new();
+        reader.ReadAbilityJSON();
         SetupBattle();
     }
 
     void SetupBattle()
     {
-        GameObject playerObject = Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject playerObject = Instantiate(player,
+            new Vector3(0, 0, 0), Quaternion.identity);
+        playerObject.name = "Player";
+        playerObject.GetComponent<Unit>().unitName = "Player";
 
         for (int i = 0; i < 5; i++)
         {
-            GameObject enemyObject = Instantiate(enemy, new Vector3(-10 + 5 * i, 0, 10), Quaternion.identity);
+            GameObject enemyObject = Instantiate(enemy,
+                new Vector3(-10 + 5 * i, 0, 10), Quaternion.identity);
+            enemyObject.name = "Enemy " + (i + 1);
+            enemyObject.GetComponent<Unit>().unitName = "Enemy " + (i + 1);
         }
 
-        battleState = BattleState.BATTLE;
-        sceneCharacters = new List<Unit>();
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            sceneCharacters.Add(go.GetComponent<Unit>());
-        }
+		sceneCharacters = new List<Unit>
+		{
+			GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>()
+		};
+		List<Unit> enemies = new();
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            sceneCharacters.Add(go.GetComponent<Unit>());
+            enemies.Add(go.GetComponent<Unit>());
         }
-        sceneCharacters = sceneCharacters.OrderByDescending(x => x.speed).ToList();
-        currentTurn = 0;
-        BeginBattle();
-    }
+        sceneCharacters.AddRange(enemies);
 
-    public void OnAttackButtonPress()
-    {
-        AbilityPanel.SetActive(!AbilityPanel.activeSelf);
+        currentTurn = 0;
+        AttackQueue = new();
+        MainHUD.AddEnemySelect(enemies);
+        BeginBattle();
     }
 
     void BeginBattle()
     {
-        
-        print(sceneCharacters.Count);
-        //if (sceneCharacters[currentTurn].Equals("Player"))
-        //{
-        //    PlayerTurn();
-        //} else
-        //{
-        //    EnemyTurn();
-        //}
-
+        PlayerTurn();
     }
 
-    //void PlayerTurn()
-    //{
-    //    currentTurn = (currentTurn + 1) % sceneCharacters.Count;
-    //    if (sceneCharacters[currentTurn].Equals("Player"))
-    //    {
-    //        PlayerTurn();
-    //    }
-    //    else
-    //    {
-    //        EnemyTurn();
-    //    }
-    //}
+    void PlayerTurn()
+    {
+        print("It is your turn!");
+    }
 
-    //void EnemyTurn()
-    //{
+    void EnemyTurn()
+    {
 
-    //    print(sceneCharacters[currentTurn].currentHealth);
+        Attack attack = new(10, 10, 10, 10);
+        attack.SetTarget(GameObject.Find("Player").name);
+        AttackQueue.Add(attack);
 
-    //    currentTurn = (currentTurn + 1) % sceneCharacters.Count;
-    //    if (sceneCharacters[currentTurn].Equals("Player"))
-    //    {
-    //        PlayerTurn();
-    //    }
-    //    else
-    //    {
-    //        EnemyTurn();
-    //    }
-    //}
+        currentTurn = (currentTurn + 1) % sceneCharacters.Count;
+        if (currentTurn == 0)
+		{
+            ResolveAttacks();
+		}
+        if (sceneCharacters[currentTurn].name.Contains("Player"))
+        {
+            PlayerTurn();
+        }
+        else
+        {
+            EnemyTurn();
+        }
+    }
+
+    public void OnAttackButtonPress()
+    {
+        if (!sceneCharacters[currentTurn].name.Contains("Player"))
+		{
+			return;
+		}
+
+		if (MainHUD.EnemyPanel.activeSelf)
+		{
+			MainHUD.EnemyPanel.SetActive(false);
+		}
+        AbilityPanel.SetActive(!AbilityPanel.activeSelf);
+    }
+
+    public void OnAbilityButtonPress()
+    {
+        AbilityPanel.SetActive(!AbilityPanel.activeSelf);
+        MainHUD.EnemyPanel.SetActive(true);
+        SetAbility(EventSystem.current.currentSelectedGameObject.name);
+        
+    }
+
+    public void OnEnemySelect()
+	{
+        Attack attack = AttackQueue[0];
+        attack.SetTarget(EventSystem.current.currentSelectedGameObject.name);
+
+        MainHUD.EnemyPanel.SetActive(false);
+        currentTurn = (currentTurn + 1) % sceneCharacters.Count;
+
+        if (currentTurn == 0)
+        {
+            ResolveAttacks();
+        }
+        if (sceneCharacters[currentTurn].name.Contains("Player"))
+        {
+            PlayerTurn();
+        }
+        else
+        {
+            EnemyTurn();
+        }
+    }
+
+    void SetAbility(string AbilityName)
+	{
+        Attack attack = new(10, 10, 10, 100);
+        AttackQueue.Add(attack);
+	}
+
+    void ResolveAttacks()
+	{
+        AttackQueue = AttackQueue.OrderByDescending(x => x.Speed).ToList();
+        foreach(Attack attack in AttackQueue)
+		{
+            Unit targetUnit = GameObject.Find(attack.GetTarget()).GetComponent<Unit>();
+            targetUnit.TakeDamage(attack.Level, attack.AttackPower, attack.Power, false);
+		}
+        AttackQueue.Clear();
+	}
 }
