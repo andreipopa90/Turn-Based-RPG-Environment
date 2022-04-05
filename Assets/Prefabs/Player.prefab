@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: 
-  maxHealth: 250
+  maxHealth: 500
   currentHealth: 1
   attack: 1
   defense: 1
@@ -151,4 +151,4 @@ MonoBehaviour:
   magicResist: 1
   speed: 1
   level: 1
-  Abbilities: []
+  Moves: []

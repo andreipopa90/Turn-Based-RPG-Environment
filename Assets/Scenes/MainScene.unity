@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 613610430}
   - component: {fileID: 613610429}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AttackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -526,7 +526,6 @@ MonoBehaviour:
   player: {fileID: 3570988537967862248, guid: 0660ba84b49c73345a4b92ac86c2d34b, type: 3}
   enemy: {fileID: 4514163394132142840, guid: 3146865021d27db40a9a06e8911b273f, type: 3}
   MainHUD: {fileID: 1109550341}
-  AbilityPanel: {fileID: 529145405}
   currentTurn: 0
 --- !u!4 &873593343
 Transform:
@@ -658,6 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySelectButton: {fileID: 4525942210413069267, guid: dc471bbf47c1c4df0bad4810f39d57bf, type: 3}
   AbilitySelectButton: {fileID: 3743107842517337815, guid: 01637d6f51480a0409599314245e5dc1, type: 3}
+  AttackButton: {fileID: 613610429}
   EnemyPanel: {fileID: 1561536376}
   AbilityPanel: {fileID: 529145405}
 --- !u!4 &1109550342

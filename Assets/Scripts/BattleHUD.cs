@@ -7,6 +7,7 @@ public class BattleHUD : MonoBehaviour
 
     public Button EnemySelectButton;
     public Button AbilitySelectButton;
+    public Button AttackButton;
     public GameObject EnemyPanel;
     public GameObject AbilityPanel;
 

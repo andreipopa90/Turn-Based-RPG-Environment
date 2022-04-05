@@ -34,7 +34,6 @@ public class Unit : MonoBehaviour
             (UpperBound - LowerBound) + LowerBound));
         if (IsDead())
 		{
-			print(unitName + " died!");
 			Destroy(GameObject.Find(unitName));
 		}
     }
