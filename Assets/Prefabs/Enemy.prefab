@@ -139,7 +139,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4514163394132142840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ade35b050e1f3843b043603c4912e41, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e27b176d2714c14bb0249c94e216fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: 
@@ -151,4 +151,4 @@ MonoBehaviour:
   magicResist: 1
   speed: 1
   level: 1
-  Abbilities: []
+  Moves: []

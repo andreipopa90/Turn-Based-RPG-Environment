@@ -4,10 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class BattleSystem : MonoBehaviour
 {
+
+    private struct Action
+    {
+        public Move Move;
+        public Unit SourceUnit;
+        public Unit TargetUnit;
+    }
+
     private enum BattleState
     {
         START, BATTLE, ACTIONRESOLVE, WIN, LOST
@@ -16,20 +23,22 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemy;
 
     List<Unit> sceneCharacters;
-    List<Attack> AttackQueue;
     List<Move> Moves;
+    List<Action> ActionQueue;
 
     public BattleHUD MainHUD;
 
     public int currentTurn;
 
     private BattleState state;
+    private Move SelectedMove;
 
     // Start is called before the first frame update
     void Start()
     {
         JSONReader reader = new();
         Moves = reader.ReadMovesJSON();
+        ActionQueue = new();
         state = BattleState.START;
         SetupBattle();
     }
@@ -55,15 +64,9 @@ public class BattleSystem : MonoBehaviour
         {
             enemies.Add(go.GetComponent<Unit>());
         }
-        AttackQueue = new();
-        MainHUD.AddAbilitySelect(Moves.GetRange(0, 8));
+        MainHUD.AddAbilitySelect();
         MainHUD.AddEnemySelect(enemies);
         BeginBattle();
-    }
-
-    private void Update()
-    {
-        GatherCharactersInScene();
     }
 
     void GatherCharactersInScene()
@@ -87,7 +90,6 @@ public class BattleSystem : MonoBehaviour
         GatherCharactersInScene();
         state = BattleState.BATTLE;
         MainHUD.AttackButton.gameObject.SetActive(true);
-        print("Number of total characters in scene is: " + sceneCharacters.Count);
         PlayerTurn();
     }
 
@@ -98,10 +100,12 @@ public class BattleSystem : MonoBehaviour
 
     void EnemyTurn()
     {
-
-        Attack attack = new(Moves[0], sceneCharacters[currentTurn].speed, sceneCharacters[currentTurn].level, sceneCharacters[currentTurn].attack);
-        attack.SetTarget(GameObject.Find("Player").name);
-        AttackQueue.Add(attack);
+        Unit CurrentEnemy = sceneCharacters[currentTurn];
+        Action action;
+        action.Move = Moves[new System.Random().Next(0, 8)];
+        action.SourceUnit = CurrentEnemy;
+        action.TargetUnit = GameObject.Find("Player").GetComponent<Unit>();
+        ActionQueue.Add(action);
 
         currentTurn = (currentTurn + 1) % sceneCharacters.Count;
         if (currentTurn == 0)
@@ -116,12 +120,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnAttackButtonPress()
     {
-        //if (GameObject.FindGameObjectWithTag("Player") == null)
-        //{
-        //    print("No player!");
-        //    return;
-        //}
-        if (state.Equals(BattleState.BATTLE) && !sceneCharacters[currentTurn].name.Contains("Player"))
+        if (GameObject.FindGameObjectWithTag("Player") == null || (state.Equals(BattleState.BATTLE) && !sceneCharacters[currentTurn].name.Contains("Player")))
 		{
 			return;
 		}
@@ -136,16 +135,8 @@ public class BattleSystem : MonoBehaviour
     public void OnAbilityButtonPress()
     {
         string MoveName = EventSystem.current.currentSelectedGameObject.name;
-        Move usedMove = null;
-        foreach(Move move in Moves)
-        {
-            if (move.name.Equals(MoveName))
-            {
-                usedMove = move;
-                break;
-            }
-        }
-        AttackQueue.Add(new Attack(usedMove, GameObject.Find("Player").GetComponent<Unit>().speed, GameObject.Find("Player").GetComponent<Unit>().level, GameObject.Find("Player").GetComponent<Unit>().attack));
+        SelectedMove = Moves.Find(x => x.name.Equals(MoveName));
+
         MainHUD.AbilityPanel.SetActive(!MainHUD.AbilityPanel.activeSelf);
         MainHUD.EnemyPanel.SetActive(true);
 
@@ -153,8 +144,11 @@ public class BattleSystem : MonoBehaviour
 
     public void OnEnemySelect()
 	{
-        Attack attack = AttackQueue[0];
-        attack.SetTarget(EventSystem.current.currentSelectedGameObject.name);
+        Action action;
+        action.Move = SelectedMove;
+        action.SourceUnit = sceneCharacters[0].GetComponent<Unit>();
+        action.TargetUnit = GameObject.Find(EventSystem.current.currentSelectedGameObject.name).GetComponent<Unit>();
+        ActionQueue.Add(action);
 
         MainHUD.EnemyPanel.SetActive(false);
         currentTurn = (currentTurn + 1) % sceneCharacters.Count;
@@ -166,30 +160,36 @@ public class BattleSystem : MonoBehaviour
 	{
         MainHUD.AttackButton.gameObject.SetActive(false);
         state = BattleState.ACTIONRESOLVE;
-        AttackQueue = AttackQueue.OrderByDescending(x => x.Speed).ToList();
-        foreach(Attack attack in AttackQueue)
-		{
-            try
+        ActionQueue = ActionQueue.OrderByDescending(x => x.SourceUnit.speed).ToList<Action>();
+        
+        foreach (Action action in ActionQueue)
+        {
+            if (action.SourceUnit.currentHealth > 0)
             {
-                Unit targetUnit = GameObject.Find(attack.GetTarget()).GetComponent<Unit>();
-                targetUnit.TakeDamage(attack.Level, attack.Move.basePower, attack.UnitAttack, false);
-            } catch (NullReferenceException)
-            {
-                GameObject[] enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
-                System.Random rnd = new System.Random();
-                int randomEnemy = rnd.Next(0, enemiesArray.Length);
-                if (enemiesArray.Length > 0)
+                try
                 {
-                    Unit targetUnit = enemiesArray[randomEnemy].GetComponent<Unit>();
-                    targetUnit.TakeDamage(attack.Level, attack.Move.basePower, attack.UnitAttack, false);
-                } else
-                {
-                    state = BattleState.WIN;
+                    action.TargetUnit.TakeDamage(action.Move, action.SourceUnit);
+                    print(action.SourceUnit.unitName + " attacked " + action.TargetUnit.unitName);
                 }
+                catch (NullReferenceException)
+                {
+                    GameObject[] enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
+                    int randomEnemy = new System.Random().Next(0, enemiesArray.Length);
+                    if (enemiesArray.Length > 0)
+                    {
+                        Unit targetUnit = enemiesArray[randomEnemy].GetComponent<Unit>();
+                        targetUnit.TakeDamage(action.Move, action.SourceUnit);
+                        print(action.SourceUnit.unitName + " attacked " + targetUnit.unitName);
+                    }
+                    else
+                    {
+                        state = BattleState.WIN;
+                    }
+                }
+                yield return new WaitForSeconds(1);
             }
         }
-        yield return new WaitForSeconds(2f);
-        AttackQueue.Clear();
+        ActionQueue.Clear();
         BeginBattle();
         
     }

@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour
 
     private void Start()
 	{
-        Moves = new List<Move>();
+        Moves = new();
         this.currentHealth = this.maxHealth;
 	}
 
@@ -36,6 +36,17 @@ public class Unit : MonoBehaviour
 		{
 			Destroy(GameObject.Find(unitName));
 		}
+    }
+
+    public void TakeDamage(Move Move, Unit EnemySource)
+    {
+        int DefenseUsed = Move.category.Equals("Sepcial") ? magicResist : defense;
+        int SourceAttackUsed = Move.category.Equals("Special") ? EnemySource.magicAttack : EnemySource.attack;
+        double RandomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
+
+        int DamageTaken = (int) ((((2 * EnemySource.level / 5 + 2) * (SourceAttackUsed / DefenseUsed) * Move.basePower) / 50 + 2) * RandomValue);
+
+        currentHealth -= DamageTaken;
     }
 
     bool IsDead()

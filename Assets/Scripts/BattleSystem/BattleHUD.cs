@@ -11,19 +11,6 @@ public class BattleHUD : MonoBehaviour
     public GameObject EnemyPanel;
     public GameObject AbilityPanel;
 
-    //public void SetHUD(Unit unit)
-    //{
-    //    nameText.text = unit.unitName;
-    //    levelText.text = "Lvl " + unit.level;
-    //    hpSlider.maxValue = unit.maxHealth;
-    //    hpSlider.value = unit.currentHealth;
-    //}
-
-    //public void SetHealth(int health)
-    //{
-    //    hpSlider.value = health;
-    //}
-
     public void AddEnemySelect(List<Unit> enemyList)
     {
         int Spacing = 0;
@@ -52,8 +39,9 @@ public class BattleHUD : MonoBehaviour
         }
     }
 
-    public void AddAbilitySelect(List<Move> playerMoves)
+    public void AddAbilitySelect()
     {
+        List<Move> playerMoves = GameObject.Find("MoveSelection").GetComponent<MoveSelection>().SelectedMoves;
         int Spacing = 200;
         BattleSystem battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
         for (int i = 0; i < playerMoves.Count; i++)

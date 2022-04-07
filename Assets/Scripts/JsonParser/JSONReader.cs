@@ -8,7 +8,7 @@ public class JSONReader
 	{
 		List<Move> moves;
 		StreamReader reader = new StreamReader(
-			Path.Combine(@"", "Assets", "Scripts", "Combat", "moves.json"));
+			Path.Combine(@"", "Assets", "Scripts", "JsonParser", "moves.json"));
 		string json = reader.ReadToEnd();
 		moves = JsonConvert.DeserializeObject<List<Move>>(json);
 
