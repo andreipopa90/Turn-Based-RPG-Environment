@@ -26,7 +26,7 @@ public class BattleHUD : MonoBehaviour
         {
             Button button = Instantiate(EnemySelectButton,
                 new Vector3(0, 0, 0), Quaternion.identity);
-            button.name = enemyList[i].unitName;
+            button.name = enemyList[i].UnitName;
 
             button.transform.SetParent(EnemyPanel.transform, false);
             RectTransform ButtonTransform = button.GetComponent<RectTransform>();
@@ -35,7 +35,7 @@ public class BattleHUD : MonoBehaviour
             ButtonTransform.anchoredPosition = ButtonPosition;
 
             button.onClick.AddListener(battleSystem.OnEnemySelect);
-            button.GetComponentInChildren<Text>().text = enemyList[i].unitName;
+            button.GetComponentInChildren<Text>().text = enemyList[i].UnitName;
         }
     }
 
@@ -48,7 +48,7 @@ public class BattleHUD : MonoBehaviour
         {
             Button button = Instantiate(AbilitySelectButton,
                 new Vector3(0, 0, 0), Quaternion.identity);
-            button.name = playerMoves[i].name;
+            button.name = playerMoves[i].Name;
 
             button.transform.SetParent(AbilityPanel.transform, false);
             RectTransform ButtonTransform = button.GetComponent<RectTransform>();
@@ -58,7 +58,7 @@ public class BattleHUD : MonoBehaviour
             ButtonTransform.anchoredPosition = ButtonPosition;
 
             button.onClick.AddListener(battleSystem.OnAbilityButtonPress);
-            button.GetComponentInChildren<Text>().text = playerMoves[i].name;
+            button.GetComponentInChildren<Text>().text = playerMoves[i].Name;
         }
     }
 }

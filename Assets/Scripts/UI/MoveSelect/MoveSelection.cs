@@ -17,7 +17,7 @@ public class MoveSelection : MonoBehaviour
     {
         if (SelectedMoves.Count == 8)
         {
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("BattleScene");
         }
     }
 

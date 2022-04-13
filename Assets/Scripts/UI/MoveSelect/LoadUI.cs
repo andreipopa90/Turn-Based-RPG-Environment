@@ -18,13 +18,13 @@ public class LoadUI : MonoBehaviour
         Moves = Reader.ReadMovesJSON();
         foreach (Move Move in Moves)
         {
-            if (Move.basePower <= 50 && (Move.type.Equals("Grass") || Move.type.Equals("Fire") || Move.type.Equals("Water") || Move.type.Equals("Normal")) && !Move.name.Contains("G-Max"))
+            if (Move.BasePower <= 50 && (Move.Type.Equals("Grass") || Move.Type.Equals("Fire") || Move.Type.Equals("Water") || Move.Type.Equals("Normal")) && !Move.Name.Contains("G-Max"))
             {
                 Button Button = Instantiate(MoveButtonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 Button.transform.SetParent(MovesPanel.transform, false);
                 Button.GetComponent<RectTransform>().localScale = new Vector3(2.5f, 1f, 0f);
-                Button.GetComponentInChildren<Text>().text = Move.name;
-                Button.name = Move.name;
+                Button.GetComponentInChildren<Text>().text = Move.Name;
+                Button.name = Move.Name;
                 Button.onClick.AddListener(OnButtonClick);
             }
         }
@@ -34,7 +34,7 @@ public class LoadUI : MonoBehaviour
     {
         GameObject ButtonPressed = EventSystem.current.currentSelectedGameObject;
         Color32 ButtonColor = ButtonPressed.GetComponent<Image>().color;
-        Move Move = Moves.Find(x => x.name.Equals(ButtonPressed.name));
+        Move Move = Moves.Find(x => x.Name.Equals(ButtonPressed.name));
         if (ButtonColor.r == 255 && ButtonColor.g == 255 && ButtonColor.b == 255)
         {
             if (MoveSelection.GetComponent<MoveSelection>().SelectedMoves.Count >= 8)

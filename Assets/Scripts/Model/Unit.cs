@@ -6,52 +6,41 @@ public class Unit : MonoBehaviour
 {
     private const double UpperBound = 1.00;
     private const double LowerBound = 0.85;
-    public string unitName;
-    public int maxHealth;
-    public int currentHealth;
-    public int attack;
-    public int defense;
-    public int magicAttack;
-    public int magicResist;
-    public int speed;
-    public int level;
+    public string UnitName;
+    public int MaxHealth;
+    public int CurrentHealth;
+    public int Attack;
+    public int Defense;
+    public int MagicAttack;
+    public int MagicDefense;
+    public int Speed;
+    public int Level;
     public List<Move> Moves;
 
     private void Start()
 	{
         Moves = new();
-        this.currentHealth = this.maxHealth;
+        this.CurrentHealth = this.MaxHealth;
 	}
-
-	public void TakeDamage(int levelEnemy, int attackEnemy, int powerEnemy, bool magic)
-    {
-        int defenseUsed = magic ? magicResist : defense;
-
-        double randomValue = new System.Random().NextDouble();
-
-        this.currentHealth -= (int) (((2 * levelEnemy / 5 + 2) * powerEnemy * attackEnemy /
-            defenseUsed / 50 + 2) * (randomValue *
-            (UpperBound - LowerBound) + LowerBound));
-        if (IsDead())
-		{
-			Destroy(GameObject.Find(unitName));
-		}
-    }
 
     public void TakeDamage(Move Move, Unit EnemySource)
     {
-        int DefenseUsed = Move.category.Equals("Sepcial") ? magicResist : defense;
-        int SourceAttackUsed = Move.category.Equals("Special") ? EnemySource.magicAttack : EnemySource.attack;
+        int DefenseUsed = Move.Category.Equals("Sepcial") ? MagicDefense : Defense;
+        int SourceAttackUsed = Move.Category.Equals("Special") ? EnemySource.MagicAttack : EnemySource.Attack;
         double RandomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
 
-        int DamageTaken = (int) ((((2 * EnemySource.level / 5 + 2) * (SourceAttackUsed / DefenseUsed) * Move.basePower) / 50 + 2) * RandomValue);
+        int DamageTaken = (int) ((((2 * EnemySource.Level / 5 + 2) * (SourceAttackUsed / DefenseUsed) * Move.BasePower) / 50 + 2) * RandomValue);
 
-        currentHealth -= DamageTaken;
+        CurrentHealth -= DamageTaken;
+        if (IsDead())
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     bool IsDead()
     {
-        return currentHealth <= 0;
+        return CurrentHealth <= 0;
     }
 
     

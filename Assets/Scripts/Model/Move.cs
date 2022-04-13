@@ -3,10 +3,10 @@
 [Serializable]
 public class Move
 {
-	public string name;
-	public string accuracy;
-	public int basePower;
-	public string category;
-	public string target;
-	public string type;
+	public string Name { get; set; }
+	public string Accuracy { get; set; }
+	public int BasePower { get; set; }
+	public string Category { get; set; }
+	public string Target { get; set; }
+	public string Type { get; set; }
 }
