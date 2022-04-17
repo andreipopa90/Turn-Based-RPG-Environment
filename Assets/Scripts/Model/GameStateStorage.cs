@@ -2,15 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MoveSelection : MonoBehaviour
+public class GameStateStorage : MonoBehaviour
 {
 
     public List<Move> SelectedMoves;
+    public int CurrentLevel;
 
     // Start is called before the first frame update
     void Start()
     {
         SelectedMoves = new();
+        CurrentLevel = 1;
     }
 
     public void OnPressLockIn()
@@ -23,7 +25,7 @@ public class MoveSelection : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(GameObject.Find("MoveSelection"));
+        DontDestroyOnLoad(GameObject.Find("GameState"));
     }
 
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class BattleSystem : MonoBehaviour
 {
@@ -34,13 +35,15 @@ public class BattleSystem : MonoBehaviour
 
     private BattleState CurrentState;
     private Move SelectedMove;
+    private GameStateStorage GameState;
 
     // Start is called before the first frame update
     void Start()
     {
         ActionQueue = new();
         CurrentState = BattleState.START;
-        SetUpEnemies();
+        GameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
+        SetUpCharacters();
         SetUpHUD();
         GatherCharactersInScene();
         BeginBattle();
@@ -57,28 +60,27 @@ public class BattleSystem : MonoBehaviour
         MainHUD.AddEnemySelect(Enemies);
     }
 
-    void InstantiateCharacter(string name, Vector3 position, GameObject prefab)
+    GameObject InstantiateCharacter(string name, Vector3 position, GameObject prefab)
     {
         GameObject Character = Instantiate(prefab, position, Quaternion.identity);
         Character.name = name;
         Character.GetComponent<Unit>().UnitName = name;
+        return Character;
     }
 
-    void SetUpEnemies()
+    void SetUpCharacters()
     {
         JSONReader Reader = new();
         Moves = Reader.ReadMovesJSON();
+
+        List<Unit> Enemies = new();
 
         InstantiateCharacter("Player", new Vector3(0, 0, 0), Player);
 
         for (int i = 0; i < 5; i++)
         {
-            InstantiateCharacter("Enemy " + (i + 1), new Vector3(-10 + 5 * i, 0, 10), Enemy);
-        }
-        List<Unit> Enemies = new();
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            Enemies.Add(go.GetComponent<Unit>());
+            GameObject EnemyInstance = InstantiateCharacter("Enemy " + (i + 1), new Vector3(-10 + 5 * i, 0, 10), Enemy);
+            Enemies.Add(EnemyInstance.GetComponent<Unit>());
         }
         EnemyStatus.SetUpEnemyStatusPanels(Enemies);
     }
@@ -210,10 +212,13 @@ public class BattleSystem : MonoBehaviour
         if (SceneCharacters.Count == 1 && SceneCharacters[0].UnitName.Equals("Player"))
         {
             CurrentState = BattleState.WIN;
+            GameState.CurrentLevel += 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else if (SceneCharacters.Count == 1)
         {
             CurrentState = BattleState.LOST;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
         {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovesPanel: {fileID: 1142663263}
   MoveButtonPrefab: {fileID: 3743107842517337815, guid: 01637d6f51480a0409599314245e5dc1, type: 3}
-  MoveSelection: {fileID: 1424339140}
+  GameState: {fileID: 1424339140}
 --- !u!1 &277819605
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,28 +820,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1424339142}
-  - component: {fileID: 1424339141}
+  - component: {fileID: 1424339143}
   m_Layer: 0
-  m_Name: MoveSelection
+  m_Name: GameState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1424339141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424339140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9223fbe216d77594893fb001ee29d478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Moves: []
-  SelectedMoves: []
 --- !u!4 &1424339142
 Transform:
   m_ObjectHideFlags: 0
@@ -857,6 +843,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424339143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424339140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7894235a996f84f13a3042a83a3af26a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectedMoves: []
+  CurrentLevel: 0
 --- !u!1 &1568419489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,8 +1021,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1424339141}
-        m_TargetAssemblyTypeName: MoveSelection, Assembly-CSharp
+      - m_Target: {fileID: 1424339143}
+        m_TargetAssemblyTypeName: GameStateStorage, Assembly-CSharp
         m_MethodName: OnPressLockIn
         m_Mode: 1
         m_Arguments:
@@ -1154,8 +1154,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 168962262}
   m_HandleRect: {fileID: 168962261}
   m_Direction: 3
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

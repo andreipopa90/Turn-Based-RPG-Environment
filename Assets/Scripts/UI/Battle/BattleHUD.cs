@@ -41,7 +41,7 @@ public class BattleHUD : MonoBehaviour
 
     public void AddAbilitySelect()
     {
-        List<Move> playerMoves = GameObject.Find("MoveSelection").GetComponent<MoveSelection>().SelectedMoves;
+        List<Move> playerMoves = GameObject.Find("GameState").GetComponent<GameStateStorage>().SelectedMoves;
         int Spacing = 200;
         BattleSystem battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
         for (int i = 0; i < playerMoves.Count; i++)

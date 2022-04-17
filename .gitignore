@@ -70,3 +70,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Javascript Files From JsonParser
+/[Aa]ssets/[Ss]cripts/JsonParser/*.js
+/[Aa]ssets/[Ss]cripts/JsonParser/*.js.meta

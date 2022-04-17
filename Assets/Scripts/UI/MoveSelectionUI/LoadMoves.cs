@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class LoadUI : MonoBehaviour
+public class LoadMoves : MonoBehaviour
 {
 
     public GameObject MovesPanel;
     public Button MoveButtonPrefab;
-    public GameObject MoveSelection;
+    public GameObject GameState;
     List<Move> Moves;
 
     // Start is called before the first frame update
@@ -37,19 +37,19 @@ public class LoadUI : MonoBehaviour
         Move Move = Moves.Find(x => x.Name.Equals(ButtonPressed.name));
         if (ButtonColor.r == 255 && ButtonColor.g == 255 && ButtonColor.b == 255)
         {
-            if (MoveSelection.GetComponent<MoveSelection>().SelectedMoves.Count >= 8)
+            if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count >= 8)
             {
                 print("Cannot select more than 8 moves");
             }
             else
             {
                 ButtonPressed.GetComponent<Image>().color = new Color(0, 255, 0);
-                MoveSelection.GetComponent<MoveSelection>().SelectedMoves.Add(Move);
+                GameState.GetComponent<GameStateStorage>().SelectedMoves.Add(Move);
             }
         } else if (ButtonColor.r == 0 && ButtonColor.g == 255 && ButtonColor.b == 0)
         {
             ButtonPressed.GetComponent<Image>().color = new Color(255, 255, 255);
-            MoveSelection.GetComponent<MoveSelection>().SelectedMoves.Remove(Move);
+            GameState.GetComponent<GameStateStorage>().SelectedMoves.Remove(Move);
         }
         
     }
