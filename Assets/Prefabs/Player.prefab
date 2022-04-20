@@ -142,13 +142,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e27b176d2714c14bb0249c94e216fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Types: []
   UnitName: Player
-  MaxHealth: 500
+  MaxHealth: 2
   CurrentHealth: 0
-  Attack: 5
+  Attack: 1
   Defense: 1
-  MagicAttack: 5
+  MagicAttack: 1
   MagicDefense: 1
   Speed: 1
-  Level: 1
+  Level: 10
   Moves: []

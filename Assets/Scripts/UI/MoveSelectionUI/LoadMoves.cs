@@ -9,6 +9,7 @@ public class LoadMoves : MonoBehaviour
     public GameObject MovesPanel;
     public Button MoveButtonPrefab;
     public GameObject GameState;
+    public Text SelectedMovesIndicator;
     List<Move> Moves;
 
     // Start is called before the first frame update
@@ -45,11 +46,13 @@ public class LoadMoves : MonoBehaviour
             {
                 ButtonPressed.GetComponent<Image>().color = new Color(0, 255, 0);
                 GameState.GetComponent<GameStateStorage>().SelectedMoves.Add(Move);
+                SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
             }
         } else if (ButtonColor.r == 0 && ButtonColor.g == 255 && ButtonColor.b == 0)
         {
             ButtonPressed.GetComponent<Image>().color = new Color(255, 255, 255);
             GameState.GetComponent<GameStateStorage>().SelectedMoves.Remove(Move);
+            SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
         }
         
     }

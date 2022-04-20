@@ -23,16 +23,13 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject Player;
     public GameObject Enemy;
-
-    private List<Unit> SceneCharacters;
-    private List<Move> Moves;
-    private List<Action> ActionQueue;
-
     public BattleHUD MainHUD;
     public NPCHealthStatus EnemyStatus;
 
     private int CurrentTurn;
-
+    private List<Unit> SceneCharacters;
+    private List<Move> Moves;
+    private List<Action> ActionQueue;
     private BattleState CurrentState;
     private Move SelectedMove;
     private GameStateStorage GameState;
@@ -79,7 +76,12 @@ public class BattleSystem : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            GameObject EnemyInstance = InstantiateCharacter("Enemy " + (i + 1), new Vector3(-10 + 5 * i, 0, 10), Enemy);
+            int RandomNumber = (int)new System.Random().Next(0, GameState.EnemyBaseStats.Count);
+            BaseStat EnemyBase = GameState.EnemyBaseStats[RandomNumber];
+            GameObject EnemyInstance = InstantiateCharacter(EnemyBase.Name + " " + (i + 1), new Vector3(-10 + 5 * i, 0, 10), Enemy);
+            Unit EnemyUnit = EnemyInstance.GetComponent<Unit>();
+            EnemyUnit.Level = GameState.CurrentLevel;
+            EnemyUnit.SetStats(EnemyBase.BaseStats, EnemyBase.Types);
             Enemies.Add(EnemyInstance.GetComponent<Unit>());
         }
         EnemyStatus.SetUpEnemyStatusPanels(Enemies);
@@ -87,11 +89,12 @@ public class BattleSystem : MonoBehaviour
 
     void GatherCharactersInScene()
     {
-        SceneCharacters = new List<Unit>
+        SceneCharacters = new();
+        GameObject PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        if (PlayerObject != null)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>()
-        };
-
+            SceneCharacters.Add(PlayerObject.GetComponent<Unit>());
+        }
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             if (go != null)
@@ -99,6 +102,7 @@ public class BattleSystem : MonoBehaviour
                 SceneCharacters.Add(go.GetComponent<Unit>());
             }
         }
+        
     }
 
     void BeginBattle()
@@ -178,33 +182,36 @@ public class BattleSystem : MonoBehaviour
         
         foreach (Action Action in ActionQueue)
         {
-            if (Action.SourceUnit.CurrentHealth > 0)
+            if (Action.TargetUnit.CurrentHealth > 0)
             {
-                try
+                if (Action.SourceUnit.CurrentHealth > 0)
                 {
-                    Action.TargetUnit.TakeDamage(Action.Move, Action.SourceUnit);
-                    if (!Action.TargetUnit.UnitName.Equals("Player"))
-                        EnemyStatus.UpdateHealthBar(Action.TargetUnit);
-                    print(Action.SourceUnit.UnitName + " used " + Action.Move.Name + " on " + Action.TargetUnit.UnitName);
-                }
-                catch (NullReferenceException)
-                {
-                    GameObject[] enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
-                    int randomEnemy = new System.Random().Next(0, enemiesArray.Length);
-                    if (enemiesArray.Length > 0)
+                    try
                     {
-                        Unit TargetUnit = enemiesArray[randomEnemy].GetComponent<Unit>();
-                        TargetUnit.TakeDamage(Action.Move, Action.SourceUnit);
-                        if (!TargetUnit.UnitName.Equals("Player"))
-                            EnemyStatus.UpdateHealthBar(TargetUnit);
-                        print(Action.SourceUnit.UnitName + " used " + Action.Move.Name + " on " + TargetUnit.UnitName);
+                        Action.TargetUnit.TakeDamage(Action.Move, Action.SourceUnit);
+                        if (!Action.TargetUnit.UnitName.Equals("Player"))
+                            EnemyStatus.UpdateHealthBar(Action.TargetUnit);
+                        print(Action.SourceUnit.UnitName + " used " + Action.Move.Name + " on " + Action.TargetUnit.UnitName);
                     }
-                    else
+                    catch (NullReferenceException)
                     {
-                        CurrentState = BattleState.WIN;
+                        GameObject[] enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
+                        int randomEnemy = new System.Random().Next(0, enemiesArray.Length);
+                        if (enemiesArray.Length > 0)
+                        {
+                            Unit TargetUnit = enemiesArray[randomEnemy].GetComponent<Unit>();
+                            TargetUnit.TakeDamage(Action.Move, Action.SourceUnit);
+                            if (!TargetUnit.UnitName.Equals("Player"))
+                                EnemyStatus.UpdateHealthBar(TargetUnit);
+                            print(Action.SourceUnit.UnitName + " used " + Action.Move.Name + " on " + TargetUnit.UnitName);
+                        }
+                        else
+                        {
+                            CurrentState = BattleState.WIN;
+                        }
                     }
+                    yield return new WaitForSeconds(1);
                 }
-                yield return new WaitForSeconds(1);
             }
         }
         ActionQueue.Clear();
@@ -215,8 +222,9 @@ public class BattleSystem : MonoBehaviour
             GameState.CurrentLevel += 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else if (SceneCharacters.Count == 1)
+        else if (GameObject.FindGameObjectWithTag("Player") == null)
         {
+            print("I should be here");
             CurrentState = BattleState.LOST;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
