@@ -10,12 +10,6 @@ public class NPCHealthStatus : MonoBehaviour
     public GameObject StatusPanel;
     private Dictionary<Unit, GameObject> EnemyPanels;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void SetUpEnemyStatusPanels(List<Unit> Enemies)
     {
         EnemyPanels = new();

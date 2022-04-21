@@ -28,7 +28,6 @@ public class BattleSystem : MonoBehaviour
 
     private int CurrentTurn;
     private List<Unit> SceneCharacters;
-    private List<Move> Moves;
     private List<Action> ActionQueue;
     private BattleState CurrentState;
     private Move SelectedMove;
@@ -66,22 +65,24 @@ public class BattleSystem : MonoBehaviour
     }
 
     void SetUpCharacters()
-    {
-        JSONReader Reader = new();
-        Moves = Reader.ReadMovesJSON();
-
+    { 
         List<Unit> Enemies = new();
 
         InstantiateCharacter("Player", new Vector3(0, 0, 0), Player);
 
         for (int i = 0; i < 5; i++)
         {
-            int RandomNumber = (int)new System.Random().Next(0, GameState.EnemyBaseStats.Count);
+            int RandomNumber = new System.Random().Next(0, GameState.EnemyBaseStats.Count);
             BaseStat EnemyBase = GameState.EnemyBaseStats[RandomNumber];
+            RandomNumber = new System.Random().Next(0, GameState.Natures.Count);
+            Nature EnemyNature = GameState.Natures[RandomNumber];
             GameObject EnemyInstance = InstantiateCharacter(EnemyBase.Name + " " + (i + 1), new Vector3(-10 + 5 * i, 0, 10), Enemy);
+            
             Unit EnemyUnit = EnemyInstance.GetComponent<Unit>();
             EnemyUnit.Level = GameState.CurrentLevel;
-            EnemyUnit.SetStats(EnemyBase.BaseStats, EnemyBase.Types);
+            EnemyUnit.Types = EnemyBase.Types;
+            EnemyUnit.UnitNature = EnemyNature;
+            EnemyUnit.SetStats(EnemyBase.BaseStats);
             Enemies.Add(EnemyInstance.GetComponent<Unit>());
         }
         EnemyStatus.SetUpEnemyStatusPanels(Enemies);
@@ -120,7 +121,7 @@ public class BattleSystem : MonoBehaviour
     {
         Unit CurrentEnemy = SceneCharacters[CurrentTurn];
         Action Action;
-        Action.Move = Moves[new System.Random().Next(0, 8)];
+        Action.Move = GameState.AllMoves[new System.Random().Next(0, 8)];
         Action.SourceUnit = CurrentEnemy;
         Action.TargetUnit = GameObject.Find("Player").GetComponent<Unit>();
         ActionQueue.Add(Action);
@@ -153,7 +154,7 @@ public class BattleSystem : MonoBehaviour
     public void OnAbilityButtonPress()
     {
         string MoveName = EventSystem.current.currentSelectedGameObject.name;
-        SelectedMove = Moves.Find(x => x.Name.Equals(MoveName));
+        SelectedMove = GameState.SelectedMoves.Find(x => x.Name.Equals(MoveName));
 
         MainHUD.AbilityPanel.SetActive(!MainHUD.AbilityPanel.activeSelf);
         MainHUD.EnemyPanel.SetActive(true);
@@ -220,11 +221,10 @@ public class BattleSystem : MonoBehaviour
         {
             CurrentState = BattleState.WIN;
             GameState.CurrentLevel += 1;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("TransitionScene");
         }
         else if (GameObject.FindGameObjectWithTag("Player") == null)
         {
-            print("I should be here");
             CurrentState = BattleState.LOST;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

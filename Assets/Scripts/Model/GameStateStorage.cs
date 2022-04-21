@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameStateStorage : MonoBehaviour
 {
-
-    public List<Move> SelectedMoves;
+    public List<Move> AllMoves { get; set; }
+    public List<Move> SelectedMoves { get; set; }
     public int CurrentLevel { get; set; }
     public List<BaseStat> EnemyBaseStats { get; set; }
     public List<Type> TypeChart { get; set; }
+    public List<Nature> Natures { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -18,15 +18,11 @@ public class GameStateStorage : MonoBehaviour
         JSONReader reader = new();
         EnemyBaseStats = reader.ReadBaseStatsJSON();
         TypeChart = reader.ReadTypeChart();
+        AllMoves = reader.ReadMovesJSON();
+        Natures = reader.ReadNatures();
     }
 
-    public void OnPressLockIn()
-    {
-        if (SelectedMoves.Count == 8)
-        {
-            SceneManager.LoadScene("BattleScene");
-        }
-    }
+    
 
     private void Awake()
     {

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: 58fdaf804c027e34d80fe8d8d2f4cb3f
+  - enabled: 1
+    path: Assets/Scenes/TransitionScene.unity
+    guid: 75cdc0b6568feaa4d8ae4757da2cff2a
   m_configObjects: {}

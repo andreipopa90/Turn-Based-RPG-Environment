@@ -13,14 +13,6 @@ public class BattleHUD : MonoBehaviour
 
     public void AddEnemySelect(List<Unit> enemyList)
     {
-        int Spacing = 0;
-        if (enemyList.Count == 1)
-		{
-            Spacing = 300;
-		} else
-		{
-            Spacing = (int)600 / (enemyList.Count - 1);
-        }
         BattleSystem battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
         for(int i = 0; i < enemyList.Count; i++)
         {
@@ -31,7 +23,7 @@ public class BattleHUD : MonoBehaviour
             button.transform.SetParent(EnemyPanel.transform, false);
             RectTransform ButtonTransform = button.GetComponent<RectTransform>();
             Vector2 ButtonPosition = ButtonTransform.anchoredPosition;
-            ButtonPosition.y = 300 - Spacing * i;
+            ButtonPosition.y = 300 - 150 * i;
             ButtonTransform.anchoredPosition = ButtonPosition;
 
             button.onClick.AddListener(battleSystem.OnEnemySelect);

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class LoadMoves : MonoBehaviour
 {
@@ -36,7 +37,9 @@ public class LoadMoves : MonoBehaviour
         GameObject ButtonPressed = EventSystem.current.currentSelectedGameObject;
         Color32 ButtonColor = ButtonPressed.GetComponent<Image>().color;
         Move Move = Moves.Find(x => x.Name.Equals(ButtonPressed.name));
-        if (ButtonColor.r == 255 && ButtonColor.g == 255 && ButtonColor.b == 255)
+        Color32 White = new(255, 255, 255, 255);
+        Color32 Green = new(0, 255, 0, 255);
+        if (ButtonColor.Equals(White))
         {
             if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count >= 8)
             {
@@ -44,16 +47,24 @@ public class LoadMoves : MonoBehaviour
             }
             else
             {
-                ButtonPressed.GetComponent<Image>().color = new Color(0, 255, 0);
+                ButtonPressed.GetComponent<Image>().color = Green;
                 GameState.GetComponent<GameStateStorage>().SelectedMoves.Add(Move);
                 SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
             }
-        } else if (ButtonColor.r == 0 && ButtonColor.g == 255 && ButtonColor.b == 0)
+        } else if (ButtonColor.Equals(Green))
         {
-            ButtonPressed.GetComponent<Image>().color = new Color(255, 255, 255);
+            ButtonPressed.GetComponent<Image>().color = White;
             GameState.GetComponent<GameStateStorage>().SelectedMoves.Remove(Move);
             SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
         }
         
+    }
+
+    public void OnPressLockIn()
+    {
+        if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count == 8)
+        {
+            SceneManager.LoadScene("BattleScene");
+        }
     }
 }

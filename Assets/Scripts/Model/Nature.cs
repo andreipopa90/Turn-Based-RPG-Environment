@@ -3,7 +3,7 @@
 [Serializable]
 public class Nature
 {
-	string Name { get; set; }
-	string Plus { get; set; }
-	string Minus { get; set; }
+	public string Name { get; set; }
+	public string Plus { get; set; }
+	public string Minus { get; set; }
 }

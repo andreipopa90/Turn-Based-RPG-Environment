@@ -144,12 +144,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Types: []
   UnitName: Player
-  MaxHealth: 2
+  MaxHealth: 1000
   CurrentHealth: 0
-  Attack: 1
-  Defense: 1
-  MagicAttack: 1
-  MagicDefense: 1
-  Speed: 1
-  Level: 10
+  Attack: 1000
+  Defense: 1000
+  MagicAttack: 1000
+  MagicDefense: 1000
+  Speed: 1000
+  Level: 1000
   Moves: []
