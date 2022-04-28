@@ -57,9 +57,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private int DetermineMoveEffectiveness(string MoveType)
+    private double DetermineMoveEffectiveness(string MoveType)
 	{
-        int effectivness = 1;
+        double effectivness = 1;
         GameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
         List<Type> TypeChart = GameState.TypeChart;
         foreach(string type in Types)
@@ -86,15 +86,13 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(Move Move, Unit EnemySource)
     {
-        int Effectiveness = DetermineMoveEffectiveness(Move.Type);
+        double Effectiveness = DetermineMoveEffectiveness(Move.Type);
 
         int DefenseUsed = Move.Category.Equals("Sepcial") ? MagicDefense : Defense;
         int SourceAttackUsed = Move.Category.Equals("Special") ? EnemySource.MagicAttack : EnemySource.Attack;
         double RandomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
 
-        int DamageTaken = (int) ((((2 * EnemySource.Level / 5 + 2) * (SourceAttackUsed / DefenseUsed) * Move.BasePower) / 50 + 2) * RandomValue);
-
-        DamageTaken *= Effectiveness;
+        int DamageTaken = (int) ((((2 * EnemySource.Level / 5 + 2) * (SourceAttackUsed / DefenseUsed) * Move.BasePower) / 50 + 2) * RandomValue * Effectiveness);
 
         CurrentHealth -= DamageTaken;
         if (IsDead())
@@ -111,27 +109,21 @@ public class Unit : MonoBehaviour
 
     int CalculateStats(int BaseStat, string stat)
     {
-        print(stat);
         double NatureModifier = 1;
         if (stat.Equals(UnitNature.Plus)) NatureModifier = 1.1;
         else if (stat.Equals(UnitNature.Minus)) NatureModifier = 0.9;
-        double  Stat = (System.Math.Floor((2 * BaseStat) * Level / 100d) + 5) * NatureModifier;
-        print(Stat);
-        return 0;
+        int Stat = (int)((System.Math.Floor((2 * BaseStat + IV[stat]) * Level / 100d) + 5) * NatureModifier);
+        return Stat;
     }
 
     public void SetStats(Dictionary<string, int> Stats)
 	{
-        CurrentHealth = Stats["hp"]; // CalculateHP(Stats["hp"]);
+        GenerateIVs();
+
+        CurrentHealth = CalculateHP(Stats["hp"]);
         MaxHealth = CurrentHealth;
 
         Attack = CalculateStats(Stats["atk"], "atk");
-        //Defense = CalculateStats(Stats["def"], "def");
-        //MagicAttack = CalculateStats(Stats["spa"], "spa");
-        //MagicDefense = CalculateStats(Stats["spd"], "spd");
-        //Speed = CalculateStats(Stats["spe"], "spe");
-
-        //Attack = Stats["atk"];
         Defense = Stats["def"];
         MagicAttack = Stats["spa"];
         MagicDefense = Stats["spd"];
