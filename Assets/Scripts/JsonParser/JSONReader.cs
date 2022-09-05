@@ -5,49 +5,45 @@ using Newtonsoft.Json;
 public class JSONReader
 {
 
-	private readonly string PathRoot = Path.Combine(@"", "Assets", "Scripts", "JsonParser");
+	private readonly string _pathRoot = Path.Combine(@"", "Assets", "Scripts", "JsonParser");
 
-	public List<Move> ReadMovesJSON()
+	public List<Move> ReadMovesJson()
 	{
-		List<Move> Moves;
-		StreamReader reader = new(Path.Combine(PathRoot, "moves.json"));
-		string json = reader.ReadToEnd();
-		Moves = JsonConvert.DeserializeObject<List<Move>>(json);
+		StreamReader reader = new(Path.Combine(_pathRoot, "moves.json"));
+		var json = reader.ReadToEnd();
+		var moves = JsonConvert.DeserializeObject<List<Move>>(json);
 		reader.Close();
 
-		return Moves;
+		return moves;
 	}
 
-	public List<BaseStat> ReadBaseStatsJSON()
+	public List<BaseStat> ReadBaseStatsJson()
 	{
-		List<BaseStat> BaseStats;
-		StreamReader reader = new(Path.Combine(PathRoot, "pokedex.json"));
-		string json = reader.ReadToEnd();
-		BaseStats = JsonConvert.DeserializeObject<List<BaseStat>>(json);
+		StreamReader reader = new(Path.Combine(_pathRoot, "pokedex.json"));
+		var json = reader.ReadToEnd();
+		var baseStats = JsonConvert.DeserializeObject<List<BaseStat>>(json);
 		reader.Close();
 
-		return BaseStats;
+		return baseStats;
 	}
 
 	public List<Type> ReadTypeChart()
 	{
-		List<Type> TypeChart;
-		StreamReader reader = new(Path.Combine(PathRoot, "typechart.json"));
-		string json = reader.ReadToEnd();
-		TypeChart = JsonConvert.DeserializeObject<List<Type>>(json);
+		StreamReader reader = new(Path.Combine(_pathRoot, "typechart.json"));
+		var json = reader.ReadToEnd();
+		var typeChart = JsonConvert.DeserializeObject<List<Type>>(json);
 		reader.Close();
 
-		return TypeChart;
+		return typeChart;
 	}
 
 	public List<Nature> ReadNatures()
 	{
-		List<Nature> Natures;
-		StreamReader reader = new(Path.Combine(PathRoot, "natures.json"));
-		string json = reader.ReadToEnd();
-		Natures = JsonConvert.DeserializeObject<List<Nature>>(json);
+		StreamReader reader = new(Path.Combine(_pathRoot, "natures.json"));
+		var json = reader.ReadToEnd();
+		var natures = JsonConvert.DeserializeObject<List<Nature>>(json);
 		reader.Close();
 
-		return Natures;
+		return natures;
 	}
 }

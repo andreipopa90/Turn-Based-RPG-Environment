@@ -16,9 +16,9 @@ public class GameStateStorage : MonoBehaviour
         SelectedMoves = new();
         CurrentLevel = 1;
         JSONReader reader = new();
-        EnemyBaseStats = reader.ReadBaseStatsJSON();
+        EnemyBaseStats = reader.ReadBaseStatsJson();
         TypeChart = reader.ReadTypeChart();
-        AllMoves = reader.ReadMovesJSON();
+        AllMoves = reader.ReadMovesJson();
         Natures = reader.ReadNatures();
     }
 

@@ -17,7 +17,7 @@ public class LoadMoves : MonoBehaviour
     void Start()
     {
         JSONReader Reader = new();
-        Moves = Reader.ReadMovesJSON();
+        Moves = Reader.ReadMovesJson();
         foreach (Move Move in Moves)
         {
             if (Move.BasePower <= 50 && (Move.Type.Equals("Grass") || Move.Type.Equals("Fire") || Move.Type.Equals("Water") || Move.Type.Equals("Normal")) && !Move.Name.Contains("G-Max"))
