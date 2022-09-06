@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LogFiles;
+using Model;
+using UI.Battle;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class BattleSystem : MonoBehaviour
 {
@@ -18,13 +21,13 @@ public class BattleSystem : MonoBehaviour
 
     private enum BattleState
     {
-        START, BATTLE, ACTIONRESOLVE, WIN, LOST
+        Start, Battle, ActionResolve, Win, Lost
     }
 
-    public GameObject Player;
-    public GameObject Enemy;
-    public BattleHUD MainHUD;
-    public NPCHealthStatus EnemyStatus;
+    [FormerlySerializedAs("Player")] public GameObject player;
+    [FormerlySerializedAs("Enemy")] public GameObject enemy;
+    [FormerlySerializedAs("MainHUD")] public BattleHUD mainHUD;
+    [FormerlySerializedAs("EnemyStatus")] public NPCHealthStatus enemyStatus;
 
     private int _currentTurn;
     private List<Unit> _sceneCharacters;
@@ -38,7 +41,7 @@ public class BattleSystem : MonoBehaviour
     private void Start()
     {
         _actionQueue = new List<Action>();
-        _currentState = BattleState.START;
+        _currentState = BattleState.Start;
         _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
         _levelLog = Log.GetInstance();
         _levelLog.CurrentLevel = _gameState.CurrentLevel;
@@ -50,29 +53,27 @@ public class BattleSystem : MonoBehaviour
 
     private void SetUpHUD()
     {
-        MainHUD.AddAbilitySelect();
+        mainHUD.AddAbilitySelect();
         var enemies = GameObject.FindGameObjectsWithTag("Enemy")
             .Select(go => go.GetComponent<Unit>()).ToList();
-        MainHUD.AddEnemySelect(enemies);
+        mainHUD.AddEnemySelect(enemies);
     }
 
-    private GameObject InstantiateCharacter(string characterName, Vector3 position, GameObject prefab, bool player = false)
+    private GameObject InstantiateCharacter(string characterName, Vector3 position, GameObject prefab, bool isPlayer = false)
     {
         var character = Instantiate(prefab, position, Quaternion.identity);
         character.name = characterName;
-        character.GetComponent<Unit>().UnitName = characterName;
+        character.GetComponent<Unit>().unitName = characterName;
         var characterUnit = character.GetComponent<Unit>();
-        if (player)
-        {
-            _levelLog.PlayerDefense = characterUnit.Defense > characterUnit.MagicDefense ? "Physical" : "Special";
-            _levelLog.PlayerAttack = characterUnit.Attack > characterUnit.MagicAttack ? "Physical" : "Special";
-            _levelLog.PlayerStats.Add("HP", characterUnit.MaxHealth);
-            _levelLog.PlayerStats.Add("ATK", characterUnit.Attack);
-            _levelLog.PlayerStats.Add("DEF", characterUnit.Defense);
-            _levelLog.PlayerStats.Add("SPA", characterUnit.MagicAttack);
-            _levelLog.PlayerStats.Add("SPD", characterUnit.MagicDefense);
-            _levelLog.PlayerStats.Add("SPE", characterUnit.Speed);
-        }
+        if (!isPlayer) return character;
+        _levelLog.PlayerDefense = characterUnit.defense > characterUnit.magicDefense ? "Physical" : "Special";
+        _levelLog.PlayerAttack = characterUnit.attack > characterUnit.magicAttack ? "Physical" : "Special";
+        _levelLog.PlayerStats["HP"] = characterUnit.maxHealth;
+        _levelLog.PlayerStats["ATK"] =  characterUnit.attack;
+        _levelLog.PlayerStats["DEF"] =  characterUnit.defense;
+        _levelLog.PlayerStats["SPA"] =  characterUnit.magicAttack;
+        _levelLog.PlayerStats["SPD"] =  characterUnit.magicDefense;
+        _levelLog.PlayerStats["SPE"] =  characterUnit.speed;
 
         return character;
     }
@@ -80,10 +81,10 @@ public class BattleSystem : MonoBehaviour
     private GameObject SetUpCharacterStats(GameObject character, BaseStat characterBase, Nature characterNature)
     {
         var characterUnit = character.GetComponent<Unit>();
-        characterUnit.Level = _gameState.CurrentLevel;
-        characterUnit.Types = characterBase.Types;
-        characterUnit.UnitNature = characterNature;
-        characterUnit.SetStats(characterBase.BaseStats);
+        characterUnit.level = _gameState.CurrentLevel;
+        characterUnit.types = characterBase.Types;
+        characterUnit.unitNature = characterNature;
+        characterUnit.SetStats(characterBase);
         return character;
     }
 
@@ -91,7 +92,7 @@ public class BattleSystem : MonoBehaviour
     { 
         List<Unit> enemies = new();
 
-        InstantiateCharacter("Player", new Vector3(0, 0, 0), Player, true);
+        InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
 
         for (var i = 0; i < 5; i++)
         {
@@ -101,21 +102,21 @@ public class BattleSystem : MonoBehaviour
             randomNumber = new System.Random().Next(0, _gameState.Natures.Count);
             var enemyNature = _gameState.Natures[randomNumber];
             var enemyInstance = InstantiateCharacter(enemyBase.Name + " " + (i + 1), 
-                    new Vector3(-10 + 5 * i, 0, 10), Enemy);
+                    new Vector3(-10 + 5 * i, 0, 10), enemy);
             enemyInstance = SetUpCharacterStats(enemyInstance, enemyBase, enemyNature);
             enemies.Add(enemyInstance.GetComponent<Unit>());
         }
-        EnemyStatus.SetUpEnemyStatusPanels(enemies);
+        enemyStatus.SetUpEnemyStatusPanels(enemies);
     }
 
     private void AddEnemyBaseStatsToLogs(BaseStat enemyBase)
     {
-        _levelLog.EnemyStats["HP"].Add(enemyBase.BaseStats["hp"]);
-        _levelLog.EnemyStats["ATK"].Add(enemyBase.BaseStats["atk"]);
-        _levelLog.EnemyStats["DEF"].Add(enemyBase.BaseStats["def"]);
-        _levelLog.EnemyStats["SPA"].Add(enemyBase.BaseStats["spa"]);
-        _levelLog.EnemyStats["SPD"].Add(enemyBase.BaseStats["spd"]);
-        _levelLog.EnemyStats["SPE"].Add(enemyBase.BaseStats["spe"]);
+        _levelLog.EnemyStats["HP"].Add(enemyBase.Hp);
+        _levelLog.EnemyStats["ATK"].Add(enemyBase.Atk);
+        _levelLog.EnemyStats["DEF"].Add(enemyBase.Def);
+        _levelLog.EnemyStats["SPA"].Add(enemyBase.Spa);
+        _levelLog.EnemyStats["SPD"].Add(enemyBase.Spd);
+        _levelLog.EnemyStats["SPE"].Add(enemyBase.Spe);
     }
 
     private void GatherCharactersInScene()
@@ -138,13 +139,13 @@ public class BattleSystem : MonoBehaviour
 
     private void BeginBattle()
     {
-        _currentState = BattleState.BATTLE;
+        _currentState = BattleState.Battle;
         PlayerTurn();
     }
 
     private void PlayerTurn()
     {
-        MainHUD.AttackButton.gameObject.SetActive(true);
+        mainHUD.AttackButton.gameObject.SetActive(true);
     }
 
     private void EnemyTurn()
@@ -174,12 +175,12 @@ public class BattleSystem : MonoBehaviour
 
     public void OnAttackButtonPress()
     {
-        if (GameObject.FindGameObjectWithTag("Player") == null || (_currentState.Equals(BattleState.BATTLE) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
+        if (GameObject.FindGameObjectWithTag("Player") == null || (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
 			return;
 
-		if (MainHUD.EnemyPanel.activeSelf)
-		    MainHUD.EnemyPanel.SetActive(false);
-        MainHUD.AbilityPanel.SetActive(!MainHUD.AbilityPanel.activeSelf);
+		if (mainHUD.EnemyPanel.activeSelf)
+		    mainHUD.EnemyPanel.SetActive(false);
+        mainHUD.AbilityPanel.SetActive(!mainHUD.AbilityPanel.activeSelf);
     }
 
     public void OnAbilityButtonPress()
@@ -187,8 +188,8 @@ public class BattleSystem : MonoBehaviour
         var moveName = EventSystem.current.currentSelectedGameObject.name;
         _selectedMove = _gameState.SelectedMoves.Find(x => x.Name.Equals(moveName));
 
-        MainHUD.AbilityPanel.SetActive(!MainHUD.AbilityPanel.activeSelf);
-        MainHUD.EnemyPanel.SetActive(true);
+        mainHUD.AbilityPanel.SetActive(!mainHUD.AbilityPanel.activeSelf);
+        mainHUD.EnemyPanel.SetActive(true);
 
     }
 
@@ -200,7 +201,7 @@ public class BattleSystem : MonoBehaviour
         action.TargetUnit = GameObject.Find(EventSystem.current.currentSelectedGameObject.name).GetComponent<Unit>();
         _actionQueue.Add(action);
 
-        MainHUD.EnemyPanel.SetActive(false);
+        mainHUD.EnemyPanel.SetActive(false);
         _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
 
         EnemyTurn();
@@ -208,18 +209,18 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ResolveAttacks()
 	{
-        MainHUD.AttackButton.gameObject.SetActive(false);
-        _currentState = BattleState.ACTIONRESOLVE;
-        _actionQueue = _actionQueue.OrderByDescending(x => x.SourceUnit.Speed).ToList<Action>();
+        mainHUD.AttackButton.gameObject.SetActive(false);
+        _currentState = BattleState.ActionResolve;
+        _actionQueue = _actionQueue.OrderByDescending(x => x.SourceUnit.speed).ToList<Action>();
         
         foreach (var action in _actionQueue)
         {
-            if (action.SourceUnit.UnitName.Equals("Player"))
+            if (action.SourceUnit.unitName.Equals("Player"))
             {
                 _levelLog.PlayerMovesUsed.Add(action.Move.Name);
             }
             var target = action.TargetUnit;
-            if (!action.TargetUnit && action.SourceUnit.UnitName.Equals("Player"))
+            if (!action.TargetUnit && action.SourceUnit.unitName.Equals("Player"))
             {
                 var enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
                 var randomEnemy = new System.Random().Next(0, enemiesArray.Length);
@@ -231,9 +232,9 @@ public class BattleSystem : MonoBehaviour
 
             if (!action.SourceUnit || !target) continue;
             target.TakeDamage(action.Move, action.SourceUnit);
-            if (!target.UnitName.Equals("Player"))
+            if (!target.unitName.Equals("Player"))
             {
-                EnemyStatus.UpdateHealthBar(target);
+                enemyStatus.UpdateHealthBar(target);
             }
             yield return new WaitForSeconds(1);
 
@@ -245,15 +246,15 @@ public class BattleSystem : MonoBehaviour
     private void CheckCurrentBattleState()
     {
         GatherCharactersInScene();
-        if (_sceneCharacters.Count == 1 && _sceneCharacters[0].UnitName.Equals("Player"))
+        if (_sceneCharacters.Count == 1 && _sceneCharacters[0].unitName.Equals("Player"))
         {
-            _currentState = BattleState.WIN;
+            _currentState = BattleState.Win;
             _gameState.CurrentLevel += 1;
             SceneManager.LoadScene("TransitionScene");
         }
         else if (GameObject.FindGameObjectWithTag("Player") == null)
         {
-            _currentState = BattleState.LOST;
+            _currentState = BattleState.Lost;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else

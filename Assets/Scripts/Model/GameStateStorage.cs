@@ -1,33 +1,37 @@
 using System.Collections.Generic;
+using JsonParser;
 using UnityEngine;
 
-public class GameStateStorage : MonoBehaviour
+namespace Model
 {
-    public List<Move> AllMoves { get; set; }
-    public List<Move> SelectedMoves { get; set; }
-    public int CurrentLevel { get; set; }
-    public List<BaseStat> EnemyBaseStats { get; set; }
-    public List<Type> TypeChart { get; set; }
-    public List<Nature> Natures { get; set; }
-
-    // Start is called before the first frame update
-    void Start()
+    public class GameStateStorage : MonoBehaviour
     {
-        SelectedMoves = new();
-        CurrentLevel = 1;
-        JSONReader reader = new();
-        EnemyBaseStats = reader.ReadBaseStatsJson();
-        TypeChart = reader.ReadTypeChart();
-        AllMoves = reader.ReadMovesJson();
-        Natures = reader.ReadNatures();
-    }
+        public List<Move> AllMoves { get; set; }
+        public List<Move> SelectedMoves { get; set; }
+        public int CurrentLevel { get; set; }
+        public List<BaseStat> EnemyBaseStats { get; set; }
+        public List<Type> TypeChart { get; set; }
+        public List<Nature> Natures { get; set; }
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+            SelectedMoves = new List<Move>();
+            CurrentLevel = 1;
+            JSONReader reader = new();
+            EnemyBaseStats = reader.ReadBaseStatsJson();
+            TypeChart = reader.ReadTypeChartJson();
+            AllMoves = reader.ReadMovesJson();
+            Natures = reader.ReadNaturesJson();
+        }
 
     
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(GameObject.Find("GameState"));
+        private void Awake()
+        {
+            DontDestroyOnLoad(GameObject.Find("GameState"));
+        }
+
+
     }
-
-
 }

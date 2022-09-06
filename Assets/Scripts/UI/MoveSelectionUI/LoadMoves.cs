@@ -1,70 +1,78 @@
 using System.Collections.Generic;
+using JsonParser;
+using Model;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class LoadMoves : MonoBehaviour
+namespace UI.MoveSelectionUI
 {
-
-    public GameObject MovesPanel;
-    public Button MoveButtonPrefab;
-    public GameObject GameState;
-    public Text SelectedMovesIndicator;
-    List<Move> Moves;
-
-    // Start is called before the first frame update
-    void Start()
+    public class LoadMoves : MonoBehaviour
     {
-        JSONReader Reader = new();
-        Moves = Reader.ReadMovesJson();
-        foreach (Move Move in Moves)
+
+        public GameObject MovesPanel;
+        public Button MoveButtonPrefab;
+        public GameObject GameState;
+        public Text SelectedMovesIndicator;
+        List<Move> Moves;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            if (Move.BasePower <= 50 && (Move.Type.Equals("Grass") || Move.Type.Equals("Fire") || Move.Type.Equals("Water") || Move.Type.Equals("Normal")) && !Move.Name.Contains("G-Max"))
+            JSONReader reader = new();
+            Moves = reader.ReadMovesJson();
+            foreach (var move in Moves)
             {
-                Button Button = Instantiate(MoveButtonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Button.transform.SetParent(MovesPanel.transform, false);
-                Button.GetComponent<RectTransform>().localScale = new Vector3(2.5f, 1f, 0f);
-                Button.GetComponentInChildren<Text>().text = Move.Name;
-                Button.name = Move.Name;
-                Button.onClick.AddListener(OnButtonClick);
+                if (move.BasePower <= 50 && (move.MoveType.Equals("Grass") || 
+                                             move.MoveType.Equals("Fire") || 
+                                             move.MoveType.Equals("Water") || 
+                                             move.MoveType.Equals("Normal")) && !move.Name.Contains("G-Max"))
+                {
+                    var button = Instantiate(MoveButtonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    button.transform.SetParent(MovesPanel.transform, false);
+                    button.GetComponent<RectTransform>().localScale = new Vector3(2.5f, 1f, 0f);
+                    button.GetComponentInChildren<Text>().text = move.Name;
+                    button.name = move.Name;
+                    button.onClick.AddListener(OnButtonClick);
+                }
             }
         }
-    }
 
-    public void OnButtonClick()
-    {
-        GameObject ButtonPressed = EventSystem.current.currentSelectedGameObject;
-        Color32 ButtonColor = ButtonPressed.GetComponent<Image>().color;
-        Move Move = Moves.Find(x => x.Name.Equals(ButtonPressed.name));
-        Color32 White = new(255, 255, 255, 255);
-        Color32 Green = new(0, 255, 0, 255);
-        if (ButtonColor.Equals(White))
+        public void OnButtonClick()
         {
-            if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count >= 8)
+            GameObject ButtonPressed = EventSystem.current.currentSelectedGameObject;
+            Color32 ButtonColor = ButtonPressed.GetComponent<Image>().color;
+            Move Move = Moves.Find(x => x.Name.Equals(ButtonPressed.name));
+            Color32 White = new(255, 255, 255, 255);
+            Color32 Green = new(0, 255, 0, 255);
+            if (ButtonColor.Equals(White))
             {
-                print("Cannot select more than 8 moves");
-            }
-            else
+                if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count >= 8)
+                {
+                    print("Cannot select more than 8 moves");
+                }
+                else
+                {
+                    ButtonPressed.GetComponent<Image>().color = Green;
+                    GameState.GetComponent<GameStateStorage>().SelectedMoves.Add(Move);
+                    SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
+                }
+            } else if (ButtonColor.Equals(Green))
             {
-                ButtonPressed.GetComponent<Image>().color = Green;
-                GameState.GetComponent<GameStateStorage>().SelectedMoves.Add(Move);
+                ButtonPressed.GetComponent<Image>().color = White;
+                GameState.GetComponent<GameStateStorage>().SelectedMoves.Remove(Move);
                 SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
             }
-        } else if (ButtonColor.Equals(Green))
-        {
-            ButtonPressed.GetComponent<Image>().color = White;
-            GameState.GetComponent<GameStateStorage>().SelectedMoves.Remove(Move);
-            SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
-        }
         
-    }
+        }
 
-    public void OnPressLockIn()
-    {
-        if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count == 8)
+        public void OnPressLockIn()
         {
-            SceneManager.LoadScene("BattleScene");
+            if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count == 8)
+            {
+                SceneManager.LoadScene("BattleScene");
+            }
         }
     }
 }

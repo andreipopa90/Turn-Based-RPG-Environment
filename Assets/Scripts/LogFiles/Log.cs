@@ -23,14 +23,23 @@ namespace LogFiles
 
         private Log()
         {
-            EnemyStats = new Dictionary<string, List<int>>();
-            EnemyStats.Add("HP", new List<int>());
-            EnemyStats.Add("ATK", new List<int>());
-            EnemyStats.Add("DEF", new List<int>());
-            EnemyStats.Add("SPA", new List<int>());
-            EnemyStats.Add("SPD", new List<int>());
-            EnemyStats.Add("SPE", new List<int>());
-            PlayerStats = new Dictionary<string, int>();
+            EnemyStats = new Dictionary<string, List<int>>
+            {
+                {"HP", new List<int>()},
+                {"ATK", new List<int>()},
+                {"DEF", new List<int>()},
+                {"SPA", new List<int>()},
+                {"SPD", new List<int>()},
+                {"SPE", new List<int>()}
+            };
+            PlayerStats = new Dictionary<string, int>{
+                {"HP", 0},
+                {"ATK", 0},
+                {"DEF", 0},
+                {"SPA", 0},
+                {"SPD", 0},
+                {"SPE", 0}
+            };
             HasAilments = false;
             PlayerTypes = new List<string>();
             PlayerDefense = string.Empty;

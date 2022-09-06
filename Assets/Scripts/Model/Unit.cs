@@ -1,139 +1,143 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Unit : MonoBehaviour
+namespace Model
 {
-    private GameStateStorage GameState;
-    private const double UpperBound = 1.00;
-    private const double LowerBound = 0.85;
-    public List<string> Types;
-    public string UnitName;
-    public int MaxHealth;
-    public int CurrentHealth;
-    public int Attack;
-    public int Defense;
-    public int MagicAttack;
-    public int MagicDefense;
-    public int Speed;
-    public int Level;
-    public List<Move> Moves;
-    public Dictionary<string, int> IV;
-    public Nature UnitNature;
-
-    void Start()
-	{
-        Moves = new();
-        CurrentHealth = MaxHealth;
-        GenerateIVs();
-	}
-
-    void GenerateIVs()
+    public class Unit : MonoBehaviour
     {
-        IV = new();
-        for (int i = 0; i < 6; i++)
+        private GameStateStorage _gameState;
+        private const double UpperBound = 1.00;
+        private const double LowerBound = 0.85;
+        [FormerlySerializedAs("Types")] public List<string> types;
+        [FormerlySerializedAs("UnitName")] public string unitName;
+        [FormerlySerializedAs("MaxHealth")] public int maxHealth;
+        [FormerlySerializedAs("CurrentHealth")] public int currentHealth;
+        [FormerlySerializedAs("Attack")] public int attack;
+        [FormerlySerializedAs("Defense")] public int defense;
+        [FormerlySerializedAs("MagicAttack")] public int magicAttack;
+        [FormerlySerializedAs("MagicDefense")] public int magicDefense;
+        [FormerlySerializedAs("Speed")] public int speed;
+        [FormerlySerializedAs("Level")] public int level;
+        [FormerlySerializedAs("Moves")] public List<Move> moves;
+        private Dictionary<string, int> _iv;
+        [FormerlySerializedAs("UnitNature")] public Nature unitNature;
+
+        private void Start()
         {
-            int RandomNumber = new System.Random().Next(0, 32);
-            switch (i)
+            moves = new();
+            currentHealth = maxHealth;
+            GenerateIVs();
+        }
+
+        private void GenerateIVs()
+        {
+            _iv = new Dictionary<string, int>();
+            for (var i = 0; i < 6; i++)
             {
-                case 0:
-                    IV["hp"] = RandomNumber;
-                    break;
-                case 1:
-                    IV["atk"] = RandomNumber;
-                    break;
-                case 2:
-                    IV["def"] = RandomNumber;
-                    break;
-                case 3:
-                    IV["spa"] = RandomNumber;
-                    break;
-                case 4:
-                    IV["spd"] = RandomNumber;
-                    break;
-                case 5:
-                    IV["spe"] = RandomNumber;
-                    break;
+                var randomNumber = new System.Random().Next(0, 32);
+                switch (i)
+                {
+                    case 0:
+                        _iv["hp"] = randomNumber;
+                        break;
+                    case 1:
+                        _iv["atk"] = randomNumber;
+                        break;
+                    case 2:
+                        _iv["def"] = randomNumber;
+                        break;
+                    case 3:
+                        _iv["spa"] = randomNumber;
+                        break;
+                    case 4:
+                        _iv["spd"] = randomNumber;
+                        break;
+                    case 5:
+                        _iv["spe"] = randomNumber;
+                        break;
+                }
             }
         }
-    }
 
-    private double DetermineMoveEffectiveness(string MoveType)
-	{
-        double effectivness = 1;
-        GameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
-        List<Type> TypeChart = GameState.TypeChart;
-        foreach(string type in Types)
-		{
-            Dictionary<string, int> damageTaken = TypeChart.Find(x => x.Name.Equals(type.ToLower())).DamageTaken;
-            switch(damageTaken[MoveType])
-			{
-                case 0:
-                    effectivness *= 1;
-                    break;
-                case 1:
-                    effectivness *= 2;
-                    break;
-                case 2:
-                    effectivness /= 2;
-                    break;
-                default:
-                    effectivness *= 0;
-                    break;
-			}
-		}
-        return effectivness;
-	}
-
-    public void TakeDamage(Move Move, Unit EnemySource)
-    {
-        double Effectiveness = DetermineMoveEffectiveness(Move.Type);
-
-        int DefenseUsed = Move.Category.Equals("Sepcial") ? MagicDefense : Defense;
-        int SourceAttackUsed = Move.Category.Equals("Special") ? EnemySource.MagicAttack : EnemySource.Attack;
-        double RandomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
-
-        int DamageTaken = (int) ((((2 * EnemySource.Level / 5 + 2) * (SourceAttackUsed / DefenseUsed) * Move.BasePower) / 50 + 2) * RandomValue * Effectiveness);
-
-        CurrentHealth -= DamageTaken;
-        if (IsDead())
+        private double DetermineMoveEffectiveness(string moveType)
         {
-            Destroy(this.gameObject);
+            double effectiveness = 1;
+            _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
+            var typeChart = _gameState.TypeChart;
+            foreach(var type in types)
+            {
+                var damageTaken = typeChart.Find(x => x.Name.Equals(type)).DamageTaken;
+                switch(damageTaken[moveType])
+                {
+                    case 0:
+                        effectiveness *= 1;
+                        break;
+                    case 1:
+                        effectiveness *= 2;
+                        break;
+                    case 2:
+                        effectiveness /= 2;
+                        break;
+                    default:
+                        effectiveness *= 0;
+                        break;
+                }
+            }
+            return effectiveness;
         }
-    }
 
-    int CalculateHP(int BaseHP)
-    {
-        int HP = (int) System.Math.Floor((2 * BaseHP + IV["hp"]) * Level / 100f) + Level + 10;
-        return HP;
-    }
+        public void TakeDamage(Move move, Unit enemySource)
+        {
+            var effectiveness = DetermineMoveEffectiveness(move.MoveType);
 
-    int CalculateStats(int BaseStat, string stat)
-    {
-        double NatureModifier = 1;
-        if (stat.Equals(UnitNature.Plus)) NatureModifier = 1.1;
-        else if (stat.Equals(UnitNature.Minus)) NatureModifier = 0.9;
-        int Stat = (int)((System.Math.Floor((2 * BaseStat + IV[stat]) * Level / 100d) + 5) * NatureModifier);
-        return Stat;
-    }
+            var defenseUsed = move.Category.Equals("Special") ? magicDefense : defense;
+            var sourceAttackUsed = move.Category.Equals("Special") ? enemySource.magicAttack : enemySource.attack;
+            var randomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
 
-    public void SetStats(Dictionary<string, int> Stats)
-	{
-        GenerateIVs();
+            var damageTaken = (int) ((((2 * enemySource.level / 5 + 2) * (sourceAttackUsed / defenseUsed) * move.BasePower) / 50 + 2) * randomValue * effectiveness);
 
-        CurrentHealth = CalculateHP(Stats["hp"]);
-        MaxHealth = CurrentHealth;
+            currentHealth -= damageTaken;
+            if (IsDead())
+            {
+                Destroy(this.gameObject);
+            }
+        }
 
-        Attack = CalculateStats(Stats["atk"], "atk");
-        Defense = Stats["def"];
-        MagicAttack = Stats["spa"];
-        MagicDefense = Stats["spd"];
-        Speed = Stats["spe"];
-    }
+        private int CalculateHp(int baseHp)
+        {
+            var hp = (int) System.Math.Floor((2 * baseHp + _iv["hp"]) * level / 100f) + level + 10;
+            return hp;
+        }
 
-    bool IsDead()
-    {
-        return CurrentHealth <= 0;
-    }
+        private int CalculateStats(int baseStat, string stat)
+        {
+            double natureModifier = 1;
+            if (stat.Equals(unitNature.Plus)) natureModifier = 1.1;
+            else if (stat.Equals(unitNature.Minus)) natureModifier = 0.9;
+            var statValue = (int)((System.Math.Floor((2 * baseStat + _iv[stat]) * level / 100d) + 5) * natureModifier);
+            return statValue;
+        }
+
+        public void SetStats(BaseStat stats)
+        {
+            GenerateIVs();
+
+            currentHealth = CalculateHp(stats.Hp);
+            maxHealth = currentHealth;
+
+            attack = CalculateStats(stats.Atk, "atk");
+            defense = stats.Def;
+            magicAttack = stats.Spa;
+            magicDefense = stats.Spd;
+            speed = stats.Spe;
+        }
+
+        private bool IsDead()
+        {
+            return currentHealth <= 0;
+        }
 
     
+    }
 }

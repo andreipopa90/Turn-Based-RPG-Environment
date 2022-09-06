@@ -523,10 +523,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74132fc3bafbefd4199a2f8afae41760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 3570988537967862248, guid: 0660ba84b49c73345a4b92ac86c2d34b, type: 3}
-  Enemy: {fileID: 4514163394132142840, guid: 3146865021d27db40a9a06e8911b273f, type: 3}
-  MainHUD: {fileID: 1506087958}
-  EnemyStatus: {fileID: 1506087959}
+  player: {fileID: 3570988537967862248, guid: 0660ba84b49c73345a4b92ac86c2d34b, type: 3}
+  enemy: {fileID: 4514163394132142840, guid: 3146865021d27db40a9a06e8911b273f, type: 3}
+  mainHUD: {fileID: 1506087958}
+  enemyStatus: {fileID: 1506087959}
 --- !u!4 &873593343
 Transform:
   m_ObjectHideFlags: 0
