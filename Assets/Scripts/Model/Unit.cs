@@ -22,42 +22,36 @@ namespace Model
         [FormerlySerializedAs("Moves")] public List<Move> moves;
         private Dictionary<string, int> _iv;
         [FormerlySerializedAs("UnitNature")] public Nature unitNature;
+        public List<string> Affixes { get; set; }
 
         private void Start()
         {
-            moves = new();
+            moves = new List<Move>();
             currentHealth = maxHealth;
+            Affixes = new List<string>();
             GenerateIVs();
         }
 
         private void GenerateIVs()
         {
             _iv = new Dictionary<string, int>();
-            for (var i = 0; i < 6; i++)
-            {
-                var randomNumber = new System.Random().Next(0, 32);
-                switch (i)
-                {
-                    case 0:
-                        _iv["hp"] = randomNumber;
-                        break;
-                    case 1:
-                        _iv["atk"] = randomNumber;
-                        break;
-                    case 2:
-                        _iv["def"] = randomNumber;
-                        break;
-                    case 3:
-                        _iv["spa"] = randomNumber;
-                        break;
-                    case 4:
-                        _iv["spd"] = randomNumber;
-                        break;
-                    case 5:
-                        _iv["spe"] = randomNumber;
-                        break;
-                }
-            }
+            var randomNumber = new System.Random().Next(0, 32);
+            _iv["hp"] = randomNumber;
+            
+            randomNumber = new System.Random().Next(0, 32);
+            _iv["atk"] = randomNumber;
+            
+            randomNumber = new System.Random().Next(0, 32);
+            _iv["def"] = randomNumber;
+            
+            randomNumber = new System.Random().Next(0, 32);
+            _iv["spa"] = randomNumber;
+            
+            randomNumber = new System.Random().Next(0, 32);
+            _iv["spd"] = randomNumber;
+            
+            randomNumber = new System.Random().Next(0, 32);
+            _iv["spe"] = randomNumber;
         }
 
         private double DetermineMoveEffectiveness(string moveType)
@@ -98,9 +92,10 @@ namespace Model
             var damageTaken = (int) ((((2 * enemySource.level / 5 + 2) * (sourceAttackUsed / defenseUsed) * move.BasePower) / 50 + 2) * randomValue * effectiveness);
 
             currentHealth -= damageTaken;
+            if (Affixes.Contains("Sturdy")) currentHealth = 1;
             if (IsDead())
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
 

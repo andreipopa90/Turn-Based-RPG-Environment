@@ -10,43 +10,44 @@ namespace UI.Battle
 
         public GameObject EnemyStatusPanel;
         public GameObject StatusPanel;
-        private Dictionary<Unit, GameObject> EnemyPanels;
+        private Dictionary<Unit, GameObject> _enemyPanels;
 
-        public void SetUpEnemyStatusPanels(List<Unit> Enemies)
+        public void SetUpEnemyStatusPanels(List<Unit> enemies)
         {
-            EnemyPanels = new();
-            for (int i = 0; i < 5; i++)
+            _enemyPanels = new Dictionary<Unit, GameObject>();
+            for (var i = 0; i < 3; i++)
             {
-                GameObject EnemyStatus = Instantiate(EnemyStatusPanel, new Vector3(0, 0, 0), Quaternion.identity);
-                EnemyStatus.transform.SetParent(StatusPanel.transform, false);
-                RectTransform StatusPanelTransform = EnemyStatus.GetComponent<RectTransform>();
-                Vector2 StatusPanelPosition = StatusPanelTransform.anchoredPosition;
-                StatusPanelPosition.x = -320 + i * 160;
-                StatusPanelPosition.y = 125;
-                StatusPanelTransform.anchoredPosition = StatusPanelPosition;
-                EnemyPanels.Add(Enemies[i], EnemyStatus);
+                var enemyStatus = Instantiate(EnemyStatusPanel, 
+                    new Vector3(0, 0, 0), Quaternion.identity);
+                enemyStatus.transform.SetParent(StatusPanel.transform, false);
+                var statusPanelTransform = enemyStatus.GetComponent<RectTransform>();
+                var statusPanelPosition = statusPanelTransform.anchoredPosition;
+                statusPanelPosition.x = -200 + i * 200;
+                statusPanelPosition.y = 125;
+                statusPanelTransform.anchoredPosition = statusPanelPosition;
+                _enemyPanels.Add(enemies[i], enemyStatus);
 
-                UpdateHealthBar(Enemies[i]);
-                UpdateDescriptionText(Enemies[i]);
+                UpdateHealthBar(enemies[i]);
+                UpdateDescriptionText(enemies[i]);
             
             }
         }
 
-        void UpdateDescriptionText(Unit EnemyUnit)
+        private void UpdateDescriptionText(Unit enemyUnit)
         {
-            Text StatusText = EnemyPanels[EnemyUnit].GetComponentInChildren<Text>();
-            StatusText.text = EnemyUnit.unitName + "\nLevel: " + EnemyUnit.level;
+            var statusText = _enemyPanels[enemyUnit].GetComponentInChildren<Text>();
+            statusText.text = enemyUnit.unitName + "\nLevel: " + enemyUnit.level;
         }
 
-        public void UpdateHealthBar(Unit EnemyUnit)
+        public void UpdateHealthBar(Unit enemyUnit)
         {
-            Slider HealthSlider = EnemyPanels[EnemyUnit].GetComponentInChildren<Slider>();
-            HealthSlider.maxValue = EnemyUnit.maxHealth;
-            HealthSlider.value = Mathf.Max(0, EnemyUnit.currentHealth);
+            var healthSlider = _enemyPanels[enemyUnit].GetComponentInChildren<Slider>();
+            healthSlider.maxValue = enemyUnit.maxHealth;
+            healthSlider.value = Mathf.Max(0, enemyUnit.currentHealth);
 
-            if (HealthSlider.value == 0)
+            if (healthSlider.value == 0)
             {
-                Destroy(EnemyPanels[EnemyUnit]);
+                Destroy(_enemyPanels[enemyUnit]);
             }
         }
     }

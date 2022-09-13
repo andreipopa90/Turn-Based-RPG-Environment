@@ -94,7 +94,7 @@ public class BattleSystem : MonoBehaviour
 
         InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
 
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 3; i++)
         {
             var randomNumber = new System.Random().Next(0, _gameState.EnemyBaseStats.Count);
             var enemyBase = _gameState.EnemyBaseStats[randomNumber];
@@ -102,7 +102,7 @@ public class BattleSystem : MonoBehaviour
             randomNumber = new System.Random().Next(0, _gameState.Natures.Count);
             var enemyNature = _gameState.Natures[randomNumber];
             var enemyInstance = InstantiateCharacter(enemyBase.Name + " " + (i + 1), 
-                    new Vector3(-10 + 5 * i, 0, 10), enemy);
+                    new Vector3(-7 + 7 * i, 0, 10), enemy);
             enemyInstance = SetUpCharacterStats(enemyInstance, enemyBase, enemyNature);
             enemies.Add(enemyInstance.GetComponent<Unit>());
         }
@@ -154,7 +154,7 @@ public class BattleSystem : MonoBehaviour
         {
             var currentEnemy = _sceneCharacters[_currentTurn];
             Action action;
-            action.Move = _gameState.AllMoves[new System.Random().Next(0, 8)];
+            action.Move = _gameState.AllMoves[new System.Random().Next(0, 6)];
             action.SourceUnit = currentEnemy;
             action.TargetUnit = GameObject.Find("Player").GetComponent<Unit>();
             _actionQueue.Add(action);
@@ -260,6 +260,14 @@ public class BattleSystem : MonoBehaviour
         else
         {
             BeginBattle();
+        }
+    }
+
+    private void HandleAffixes(Unit character)
+    {
+        foreach (var affix in character.Affixes)
+        {
+            
         }
     }
 }

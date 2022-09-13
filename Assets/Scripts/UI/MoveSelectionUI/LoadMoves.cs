@@ -18,7 +18,7 @@ namespace UI.MoveSelectionUI
         List<Move> Moves;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             JSONReader reader = new();
             Moves = reader.ReadMovesJson();
@@ -48,28 +48,28 @@ namespace UI.MoveSelectionUI
             Color32 Green = new(0, 255, 0, 255);
             if (ButtonColor.Equals(White))
             {
-                if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count >= 8)
+                if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count >= 6)
                 {
-                    print("Cannot select more than 8 moves");
+                    print("Cannot select more than 6 moves");
                 }
                 else
                 {
                     ButtonPressed.GetComponent<Image>().color = Green;
                     GameState.GetComponent<GameStateStorage>().SelectedMoves.Add(Move);
-                    SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
+                    SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/6";
                 }
             } else if (ButtonColor.Equals(Green))
             {
                 ButtonPressed.GetComponent<Image>().color = White;
                 GameState.GetComponent<GameStateStorage>().SelectedMoves.Remove(Move);
-                SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/8";
+                SelectedMovesIndicator.text = "Selected Moves: " + GameState.GetComponent<GameStateStorage>().SelectedMoves.Count + "/6";
             }
         
         }
 
         public void OnPressLockIn()
         {
-            if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count == 8)
+            if (GameState.GetComponent<GameStateStorage>().SelectedMoves.Count == 6)
             {
                 SceneManager.LoadScene("BattleScene");
             }

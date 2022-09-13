@@ -16,18 +16,18 @@ namespace UI.Battle
 
         public void AddEnemySelect(List<Unit> enemyList)
         {
-            BattleSystem battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
-            for(int i = 0; i < enemyList.Count; i++)
+            var battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
+            for(var i = 0; i < enemyList.Count; i++)
             {
-                Button button = Instantiate(EnemySelectButton,
+                var button = Instantiate(EnemySelectButton,
                     new Vector3(0, 0, 0), Quaternion.identity);
                 button.name = enemyList[i].unitName;
 
                 button.transform.SetParent(EnemyPanel.transform, false);
-                RectTransform ButtonTransform = button.GetComponent<RectTransform>();
-                Vector2 ButtonPosition = ButtonTransform.anchoredPosition;
-                ButtonPosition.y = 300 - 150 * i;
-                ButtonTransform.anchoredPosition = ButtonPosition;
+                var buttonTransform = button.GetComponent<RectTransform>();
+                var buttonPosition = buttonTransform.anchoredPosition;
+                buttonPosition.y = 150 - 150 * i;
+                buttonTransform.anchoredPosition = buttonPosition;
 
                 button.onClick.AddListener(battleSystem.OnEnemySelect);
                 button.GetComponentInChildren<Text>().text = enemyList[i].unitName;
@@ -36,21 +36,21 @@ namespace UI.Battle
 
         public void AddAbilitySelect()
         {
-            List<Move> playerMoves = GameObject.Find("GameState").GetComponent<GameStateStorage>().SelectedMoves;
-            int Spacing = 200;
-            BattleSystem battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
-            for (int i = 0; i < playerMoves.Count; i++)
+            var playerMoves = GameObject.Find("GameState").GetComponent<GameStateStorage>().SelectedMoves;
+            const int spacing = 200;
+            var battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
+            for (var i = 0; i < playerMoves.Count; i++)
             {
-                Button button = Instantiate(AbilitySelectButton,
+                var button = Instantiate(AbilitySelectButton,
                     new Vector3(0, 0, 0), Quaternion.identity);
                 button.name = playerMoves[i].Name;
 
                 button.transform.SetParent(AbilityPanel.transform, false);
-                RectTransform ButtonTransform = button.GetComponent<RectTransform>();
-                Vector2 ButtonPosition = ButtonTransform.anchoredPosition;
-                ButtonPosition.x = (i >= 4) ? 450 : -450;
-                ButtonPosition.y = (i < 4) ? (300 - Spacing * i) : (300 - Spacing * (i - 4));
-                ButtonTransform.anchoredPosition = ButtonPosition;
+                var buttonTransform = button.GetComponent<RectTransform>();
+                var buttonPosition = buttonTransform.anchoredPosition;
+                buttonPosition.x = i < 3 ? -450 : 450;
+                buttonPosition.y = i < 3 ? 200 - spacing * i : 200 - spacing * (i - 3);
+                buttonTransform.anchoredPosition = buttonPosition;
 
                 button.onClick.AddListener(battleSystem.OnAbilityButtonPress);
                 button.GetComponentInChildren<Text>().text = playerMoves[i].Name;

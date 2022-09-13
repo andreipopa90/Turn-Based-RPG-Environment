@@ -1,0 +1,4 @@
+
+„csharpsquid:S101"cRename class 'NPCHealthStatus' to match pascal case naming rules, consider using 'NpcHealthStatus'.(ÊØÊ«þÿÿÿÿ
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(’Ó¹‹
+fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(‰°àŠùÿÿÿÿ
