@@ -44,10 +44,10 @@ namespace UI.TransitionUI
 
         private void AddMoveButtons()
         {
-            for(var i = 0; i < 8; i++)
+            for(var i = 0; i < 6; i++)
             {
-                var x = i < 4 ? -200 : 200;
-                var y = i < 4 ? 150 - i * 100 : 150 - (i - 4) * 100;
+                var x = i < 3 ? -200 : 200;
+                var y = i < 3 ? 100 - i * 100 : 100 - (i - 3) * 100;
                 var buttonInstance = InstantiateButton(new Vector2(x, y), 
                     new Vector3(1.5f, 1.5f, 0f), GameState.SelectedMoves[i].Name, MovesPanel);
                 buttonInstance.onClick.AddListener(OnClickOwnMove);

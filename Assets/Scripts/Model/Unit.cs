@@ -23,12 +23,14 @@ namespace Model
         private Dictionary<string, int> _iv;
         [FormerlySerializedAs("UnitNature")] public Nature unitNature;
         public List<string> Affixes { get; set; }
+        public List<string> Ailments { get; set; }
 
         private void Start()
         {
             moves = new List<Move>();
             currentHealth = maxHealth;
             Affixes = new List<string>();
+            Ailments = new List<string>();
             GenerateIVs();
         }
 
@@ -97,6 +99,11 @@ namespace Model
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void Heal(int healAmount)
+        {
+            currentHealth += healAmount;
         }
 
         private int CalculateHp(int baseHp)
