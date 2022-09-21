@@ -12,6 +12,7 @@ namespace Model
         public List<BaseStat> EnemyBaseStats { get; set; }
         public List<Type> TypeChart { get; set; }
         public List<Nature> Natures { get; set; }
+        public string StarterPokemon { get; set; }
 
         // Start is called before the first frame update
         private void Start()
@@ -23,6 +24,7 @@ namespace Model
             TypeChart = reader.ReadTypeChartJson();
             AllMoves = reader.ReadMovesJson();
             Natures = reader.ReadNaturesJson();
+            StarterPokemon = string.Empty;
         }
 
     

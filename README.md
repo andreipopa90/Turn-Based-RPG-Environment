@@ -8,7 +8,7 @@ Unity Version 2021.2.17f1
 <li>Fix screen size issues - Done</li>
 <li>Implement affixes - Currently Doing</li>
 <li>Implement ailments</li>
-<li>Update moves json</li>
+<li>Update moves json - Done</li>
 <li>Add points spread at level end</li>
 <li>Chose start Pokemon</li>
 <li>Player health bar</li>

@@ -66,6 +66,17 @@ public class BattleSystem : MonoBehaviour
         character.GetComponent<Unit>().unitName = characterName;
         var characterUnit = character.GetComponent<Unit>();
         if (!isPlayer) return character;
+
+        var starter = _gameState.EnemyBaseStats.Find(b => b.Name.Equals(_gameState.StarterPokemon));
+        characterUnit.attack = starter.Atk;
+        characterUnit.defense = starter.Def;
+        characterUnit.level = _gameState.CurrentLevel + 4;
+        characterUnit.speed = starter.Spe;
+        characterUnit.magicAttack = starter.Spa;
+        characterUnit.magicDefense = starter.Spd;
+        characterUnit.maxHealth = starter.Hp;
+        characterUnit.currentHealth = characterUnit.maxHealth;
+        characterUnit.types = starter.Types;
         _levelLog.PlayerDefense = characterUnit.defense > characterUnit.magicDefense ? "Physical" : "Special";
         _levelLog.PlayerAttack = characterUnit.attack > characterUnit.magicAttack ? "Physical" : "Special";
         _levelLog.PlayerStats["HP"] = characterUnit.maxHealth;
