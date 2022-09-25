@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Model;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,19 +9,20 @@ using Random = System.Random;
 
 namespace UI.TransitionUI
 {
-    class LoadTransitionUI : MonoBehaviour
+    internal class TransitionUI : MonoBehaviour
     {
         private GameStateStorage GameState;
         public Button AbilityButtonPrefab;
         public GameObject MovesPanel;
         public GameObject NewMovesPanel;
-        Color32 White = new(255, 255, 255, 255);
-        Color32 Green = new(0, 255, 0, 255);
-        Color32 Red = new(255, 0, 0, 255);
+        private readonly Color32 _white = new(255, 255, 255, 255);
+        private readonly Color32 _green = new(0, 255, 0, 255);
+        private readonly Color32 _red = new(255, 0, 0, 255);
         private bool _pressedOwn;
         private bool _pressedNew;
         private string _ownMove = string.Empty;
         private string _newMove = string.Empty;
+        
 
         private void Start()
         {
@@ -83,16 +85,16 @@ namespace UI.TransitionUI
         {
             var buttonPressed = EventSystem.current.currentSelectedGameObject;
             if (_pressedOwn && !buttonPressed.GetComponentInChildren<Text>().text.Equals(_ownMove)) return;
-            if (buttonPressed.GetComponent<Image>().color.Equals(White))
+            if (buttonPressed.GetComponent<Image>().color.Equals(_white))
             {
                 _pressedOwn = true;
-                buttonPressed.GetComponent<Image>().color = Red;
+                buttonPressed.GetComponent<Image>().color = _red;
                 _ownMove = buttonPressed.GetComponentInChildren<Text>().text;
             }
             else
             {
                 _pressedOwn = false;
-                buttonPressed.GetComponent<Image>().color = White;
+                buttonPressed.GetComponent<Image>().color = _white;
                 _ownMove = "";
             }
         }
@@ -101,16 +103,16 @@ namespace UI.TransitionUI
         {
             var buttonPressed = EventSystem.current.currentSelectedGameObject;
             if (_pressedNew && !buttonPressed.GetComponentInChildren<Text>().text.Equals(_newMove)) return;
-            if (buttonPressed.GetComponent<Image>().color.Equals(White))
+            if (buttonPressed.GetComponent<Image>().color.Equals(_white))
             {
                 _pressedNew = true;
-                buttonPressed.GetComponent<Image>().color = Green;
+                buttonPressed.GetComponent<Image>().color = _green;
                 _newMove = buttonPressed.GetComponentInChildren<Text>().text;
             }
             else
             {
                 _pressedNew = false;
-                buttonPressed.GetComponent<Image>().color = White;
+                buttonPressed.GetComponent<Image>().color = _white;
                 _newMove = "";
             }
         }

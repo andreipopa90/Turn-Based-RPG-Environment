@@ -8,24 +8,25 @@ using UnityEngine.UI;
 
 namespace UI.MoveSelectionUI
 {
-    public class ChooseStarter : MonoBehaviour
+    public class StarterPicker : MonoBehaviour
     {
 
         public Image imageComponent;
         private Color32 _imageColor;
         private bool Selected { get; set; }
 
-        private readonly Dictionary<string, string> _nameMatcher = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _nameMatcher = new()
         {
             {"Pokemon 1", "Blaziken"},
             {"Pokemon 2", "Sceptile"},
             {"Pokemon 3", "Swampert"}
         };
 
-        [FormerlySerializedAs("ChosenIndicator")] public Text chosenIndicator;
+        [FormerlySerializedAs("ChosenIndicator")]
+        public Text chosenIndicator;
 
         private GameStateStorage GameState { get; set; }
-        
+
         private void Start()
         {
             GameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
@@ -54,14 +55,17 @@ namespace UI.MoveSelectionUI
                 Selected = !Selected;
                 GameState.StarterPokemon = _nameMatcher[name];
                 UpdateText(GameState.StarterPokemon);
+                var starter = GameState.EnemyBaseStats.Find(b => b.Name.Equals(GameState.StarterPokemon));
+                GameState.StarterStats = starter;
+
             }
             else if (_nameMatcher[name].Equals(GameState.StarterPokemon))
             {
                 Selected = !Selected;
                 GameState.StarterPokemon = string.Empty;
                 UpdateText(GameState.StarterPokemon);
+                GameState.StarterStats = new BaseStat();
             }
-            print(GameState.StarterPokemon);
         }
 
         private void UpdateText(string starterName)

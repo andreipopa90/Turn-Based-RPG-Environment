@@ -5,6 +5,7 @@ namespace Model
 	[Serializable]
 	public class Move
 	{
+		public string KeyName { get; set; }
 		public string Name { get; set; }
 		public int Accuracy { get; set; }
 		public int BasePower { get; set; }

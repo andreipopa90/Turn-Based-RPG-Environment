@@ -28,6 +28,7 @@ public class BattleSystem : MonoBehaviour
     [FormerlySerializedAs("Enemy")] public GameObject enemy;
     [FormerlySerializedAs("MainHUD")] public BattleHUD mainHUD;
     [FormerlySerializedAs("EnemyStatus")] public NPCHealthStatus enemyStatus;
+    public NPCHealthStatus playerStatus;
 
     private int _currentTurn;
     private List<Unit> _sceneCharacters;
@@ -67,16 +68,10 @@ public class BattleSystem : MonoBehaviour
         var characterUnit = character.GetComponent<Unit>();
         if (!isPlayer) return character;
 
-        var starter = _gameState.EnemyBaseStats.Find(b => b.Name.Equals(_gameState.StarterPokemon));
-        characterUnit.attack = starter.Atk;
-        characterUnit.defense = starter.Def;
-        characterUnit.level = _gameState.CurrentLevel + 4;
-        characterUnit.speed = starter.Spe;
-        characterUnit.magicAttack = starter.Spa;
-        characterUnit.magicDefense = starter.Spd;
-        characterUnit.maxHealth = starter.Hp;
-        characterUnit.currentHealth = characterUnit.maxHealth;
-        characterUnit.types = starter.Types;
+        characterUnit.level = _gameState.CurrentLevel + 14;
+        characterUnit.types = _gameState.StarterStats.Types;
+        characterUnit.SetStats(_gameState.StarterStats);
+        // Add to logs.
         _levelLog.PlayerDefense = characterUnit.defense > characterUnit.magicDefense ? "Physical" : "Special";
         _levelLog.PlayerAttack = characterUnit.attack > characterUnit.magicAttack ? "Physical" : "Special";
         _levelLog.PlayerStats["HP"] = characterUnit.maxHealth;
@@ -103,7 +98,7 @@ public class BattleSystem : MonoBehaviour
     { 
         List<Unit> enemies = new();
 
-        InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
+        var playerInstance = InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
 
         for (var i = 0; i < 3; i++)
         {
@@ -118,6 +113,7 @@ public class BattleSystem : MonoBehaviour
             enemies.Add(enemyInstance.GetComponent<Unit>());
         }
         enemyStatus.SetUpEnemyStatusPanels(enemies);
+        playerStatus.SetUpPlayerStatusPanels(playerInstance.GetComponent<Unit>());
     }
 
     private void AddEnemyBaseStatsToLogs(BaseStat enemyBase)

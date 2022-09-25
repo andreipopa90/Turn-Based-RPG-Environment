@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -31,6 +32,7 @@ namespace Model
             currentHealth = maxHealth;
             Affixes = new List<string>();
             Ailments = new List<string>();
+            _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             GenerateIVs();
         }
 
@@ -59,11 +61,10 @@ namespace Model
         private double DetermineMoveEffectiveness(string moveType)
         {
             double effectiveness = 1;
-            _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             var typeChart = _gameState.TypeChart;
-            foreach(var type in types)
+            foreach (var damageTaken in types.Select(type => 
+                         typeChart.Find(x => x.Name.Equals(type)).DamageTaken))
             {
-                var damageTaken = typeChart.Find(x => x.Name.Equals(type)).DamageTaken;
                 switch(damageTaken[moveType])
                 {
                     case 0:
@@ -91,10 +92,15 @@ namespace Model
             var sourceAttackUsed = move.Category.Equals("Special") ? enemySource.magicAttack : enemySource.attack;
             var randomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
 
-            var damageTaken = (int) ((((2 * enemySource.level / 5 + 2) * (sourceAttackUsed / defenseUsed) * move.BasePower) / 50 + 2) * randomValue * effectiveness);
+            var damageTaken = (int) (((2 * enemySource.level / 5 + 2) * 
+                (sourceAttackUsed / defenseUsed) * move.BasePower / 50 + 2) * randomValue * effectiveness);
 
             currentHealth -= damageTaken;
-            if (Affixes.Contains("Sturdy")) currentHealth = 1;
+            if (Affixes.Contains("Sturdy"))
+            {
+                currentHealth = 1;
+                Affixes.Remove("Sturdy");
+            }
             if (IsDead())
             {
                 Destroy(gameObject);
@@ -114,6 +120,7 @@ namespace Model
 
         private int CalculateStats(int baseStat, string stat)
         {
+            if (level == 1) return baseStat;
             double natureModifier = 1;
             if (stat.Equals(unitNature.Plus)) natureModifier = 1.1;
             else if (stat.Equals(unitNature.Minus)) natureModifier = 0.9;
@@ -129,10 +136,10 @@ namespace Model
             maxHealth = currentHealth;
 
             attack = CalculateStats(stats.Atk, "atk");
-            defense = stats.Def;
-            magicAttack = stats.Spa;
-            magicDefense = stats.Spd;
-            speed = stats.Spe;
+            defense = CalculateStats(stats.Def, "def");
+            magicAttack = CalculateStats(stats.Spa, "spa");
+            magicDefense = CalculateStats(stats.Spd, "spd");
+            speed = CalculateStats(stats.Spe, "spe");
         }
 
         private bool IsDead()

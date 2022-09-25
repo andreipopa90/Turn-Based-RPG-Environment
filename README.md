@@ -9,10 +9,10 @@ Unity Version 2021.2.17f1
 <li>Implement affixes - Currently Doing</li>
 <li>Implement ailments</li>
 <li>Update moves json - Done</li>
-<li>Add points spread at level end</li>
-<li>Chose start Pokemon</li>
-<li>Player health bar</li>
+<li>Add points spread at level end - Done</li>
+<li>Chose start Pokemon - Done</li>
+<li>Player health bar - Done</li>
 <li>Add some 3D models</li>
-<li>Fix sizing</li>
+<li>Fix sizing - Done</li>
 <li>Integration with Grammar</li>
 </ul>

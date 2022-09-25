@@ -49,5 +49,16 @@ namespace JsonParser
 
 			return natures;
 		}
+
+		public List<StartMoves> ReadStartMovesJson()
+		{
+			StreamReader reader = new(Path.Combine(_pathRoot, "learnsets.json"));
+			var json = reader.ReadToEnd();
+			var startingMoves = JsonConvert.DeserializeObject<List<StartMoves>>(json);
+			reader.Close();
+			
+			return startingMoves;
+		}
+		
 	}
 }
