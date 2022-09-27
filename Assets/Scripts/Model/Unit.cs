@@ -10,19 +10,19 @@ namespace Model
         private GameStateStorage _gameState;
         private const double UpperBound = 1.00;
         private const double LowerBound = 0.85;
-        [FormerlySerializedAs("Types")] public List<string> types;
-        [FormerlySerializedAs("UnitName")] public string unitName;
-        [FormerlySerializedAs("MaxHealth")] public int maxHealth;
-        [FormerlySerializedAs("CurrentHealth")] public int currentHealth;
-        [FormerlySerializedAs("Attack")] public int attack;
-        [FormerlySerializedAs("Defense")] public int defense;
-        [FormerlySerializedAs("MagicAttack")] public int magicAttack;
-        [FormerlySerializedAs("MagicDefense")] public int magicDefense;
-        [FormerlySerializedAs("Speed")] public int speed;
-        [FormerlySerializedAs("Level")] public int level;
-        [FormerlySerializedAs("Moves")] public List<Move> moves;
+        public List<string> types;
+        public string unitName;
+        public int maxHealth;
+        public int currentHealth;
+        public int atk;
+        public int def;
+        public int spa;
+        public int spd;
+        public int spe;
+        public int level;
+        public List<Move> moves;
         private Dictionary<string, int> _iv;
-        [FormerlySerializedAs("UnitNature")] public Nature unitNature;
+        public Nature unitNature;
         public List<string> Affixes { get; set; }
         public List<string> Ailments { get; set; }
 
@@ -84,12 +84,12 @@ namespace Model
             return effectiveness;
         }
 
-        public void TakeDamage(Move move, Unit enemySource)
+        public int TakeDamage(Move move, Unit enemySource)
         {
             var effectiveness = DetermineMoveEffectiveness(move.MoveType);
 
-            var defenseUsed = move.Category.Equals("Special") ? magicDefense : defense;
-            var sourceAttackUsed = move.Category.Equals("Special") ? enemySource.magicAttack : enemySource.attack;
+            var defenseUsed = move.Category.Equals("Special") ? spd : def;
+            var sourceAttackUsed = move.Category.Equals("Special") ? enemySource.spa : enemySource.atk;
             var randomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
 
             var damageTaken = (int) (((2 * enemySource.level / 5 + 2) * 
@@ -105,6 +105,8 @@ namespace Model
             {
                 Destroy(gameObject);
             }
+
+            return damageTaken;
         }
 
         public void Heal(int healAmount)
@@ -135,11 +137,11 @@ namespace Model
             currentHealth = CalculateHp(stats.Hp);
             maxHealth = currentHealth;
 
-            attack = CalculateStats(stats.Atk, "atk");
-            defense = CalculateStats(stats.Def, "def");
-            magicAttack = CalculateStats(stats.Spa, "spa");
-            magicDefense = CalculateStats(stats.Spd, "spd");
-            speed = CalculateStats(stats.Spe, "spe");
+            atk = CalculateStats(stats.Atk, "atk");
+            def = CalculateStats(stats.Def, "def");
+            spa = CalculateStats(stats.Spa, "spa");
+            spd = CalculateStats(stats.Spd, "spd");
+            spe = CalculateStats(stats.Spe, "spe");
         }
 
         private bool IsDead()

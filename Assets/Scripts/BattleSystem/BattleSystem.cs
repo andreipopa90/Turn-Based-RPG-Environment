@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,7 @@ public class BattleSystem : MonoBehaviour
         _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
         _levelLog = Log.GetInstance();
         _levelLog.CurrentLevel = _gameState.CurrentLevel;
+        _sceneCharacters = new List<Unit>();
         SetUpCharacters();
         SetUpHUD();
         GatherCharactersInScene();
@@ -68,18 +70,18 @@ public class BattleSystem : MonoBehaviour
         var characterUnit = character.GetComponent<Unit>();
         if (!isPlayer) return character;
 
-        characterUnit.level = _gameState.CurrentLevel + 14;
+        characterUnit.level = _gameState.CurrentLevel + 39;
         characterUnit.types = _gameState.StarterStats.Types;
         characterUnit.SetStats(_gameState.StarterStats);
         // Add to logs.
-        _levelLog.PlayerDefense = characterUnit.defense > characterUnit.magicDefense ? "Physical" : "Special";
-        _levelLog.PlayerAttack = characterUnit.attack > characterUnit.magicAttack ? "Physical" : "Special";
+        _levelLog.PlayerDefense = characterUnit.def > characterUnit.spd ? "Physical" : "Special";
+        _levelLog.PlayerAttack = characterUnit.atk > characterUnit.spa ? "Physical" : "Special";
         _levelLog.PlayerStats["HP"] = characterUnit.maxHealth;
-        _levelLog.PlayerStats["ATK"] =  characterUnit.attack;
-        _levelLog.PlayerStats["DEF"] =  characterUnit.defense;
-        _levelLog.PlayerStats["SPA"] =  characterUnit.magicAttack;
-        _levelLog.PlayerStats["SPD"] =  characterUnit.magicDefense;
-        _levelLog.PlayerStats["SPE"] =  characterUnit.speed;
+        _levelLog.PlayerStats["ATK"] =  characterUnit.atk;
+        _levelLog.PlayerStats["DEF"] =  characterUnit.def;
+        _levelLog.PlayerStats["SPA"] =  characterUnit.spa;
+        _levelLog.PlayerStats["SPD"] =  characterUnit.spd;
+        _levelLog.PlayerStats["SPE"] =  characterUnit.spe;
 
         return character;
     }
@@ -134,11 +136,11 @@ public class BattleSystem : MonoBehaviour
         {
             _sceneCharacters.Add(playerObject.GetComponent<Unit>());
         }
-        foreach (var go in GameObject.FindGameObjectsWithTag("Enemy"))
+        foreach (var enemies in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if (go)
+            if (enemies)
             {
-                _sceneCharacters.Add(go.GetComponent<Unit>());
+                _sceneCharacters.Add(enemies.GetComponent<Unit>());
             }
         }
         
@@ -214,22 +216,22 @@ public class BattleSystem : MonoBehaviour
         EnemyTurn();
     }
 
-    IEnumerator ResolveAttacks()
+    private IEnumerator ResolveAttacks()
 	{
         mainHUD.AttackButton.gameObject.SetActive(false);
         _currentState = BattleState.ActionResolve;
-        _actionQueue = _actionQueue.OrderByDescending(x => x.SourceUnit.speed).ToList<Action>();
+        _actionQueue = _actionQueue.OrderByDescending(x => x.SourceUnit.spe).ToList();
         
         foreach (var action in _actionQueue)
         {
-            if (HandleAction(action)) continue;
-            yield return new WaitForSeconds(1);
+            HandleAction(action);
+            yield return new WaitForSeconds(0.75f);
         }
         _actionQueue.Clear();
         CheckCurrentBattleState();
     }
-
-    private bool HandleAction(Action action)
+    
+    private void HandleAction(Action action)
     {
         if (action.SourceUnit.unitName.Equals("Player"))
         {
@@ -247,14 +249,49 @@ public class BattleSystem : MonoBehaviour
             }
         }
 
-        if (!action.SourceUnit || !target) return true;
-        target.TakeDamage(action.Move, action.SourceUnit);
+        if (!action.SourceUnit || !target) return;
+        if (action.Move.Category.Equals("Status") 
+            && action.Move.Target.Equals("self") 
+            && action.Move.Boosts is not null)
+        {
+            foreach (var key in action.Move.Boosts.Keys)
+            {
+                var value = action.Move.Boosts[key];
+                var stat = (int) action.SourceUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).GetValue(action.SourceUnit);
+                action.SourceUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).SetValue(action.SourceUnit, stat * (value + 2) / 2);
+            }
+            
+        }
+        else if (action.Move.Category.Equals("Status") 
+                 && !action.Move.Target.Equals("self") 
+                 && action.Move.Boosts is not null)
+        {
+            foreach (var key in action.Move.Boosts.Keys)
+            {
+                var value = action.Move.Boosts[key];
+                var stat = (int) action.TargetUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).GetValue(action.TargetUnit);
+                action.TargetUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).SetValue(action.TargetUnit, stat * 2 / (-1 * value + 2));
+            }
+        }
+        else
+        {
+            var damageTaken = target.TakeDamage(action.Move, action.SourceUnit);
+            if (action.Move.Drain is not null)
+            {
+                if (action.Move.Drain.Contains(1))
+                    action.SourceUnit.Heal(damageTaken / 2);
+                else action.SourceUnit.Heal(damageTaken * 3 / 4);
+            }
+        }
+
         if (!target.unitName.Equals("Player"))
         {
             enemyStatus.UpdateHealthBar(target);
         }
-
-        return false;
+        else
+        {
+            playerStatus.UpdateHealthBar(target);
+        }
     }
 
     private void CheckCurrentBattleState()
