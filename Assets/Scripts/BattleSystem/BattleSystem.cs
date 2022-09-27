@@ -222,32 +222,39 @@ public class BattleSystem : MonoBehaviour
         
         foreach (var action in _actionQueue)
         {
-            if (action.SourceUnit.unitName.Equals("Player"))
-            {
-                _levelLog.PlayerMovesUsed.Add(action.Move.Name);
-            }
-            var target = action.TargetUnit;
-            if (!action.TargetUnit && action.SourceUnit.unitName.Equals("Player"))
-            {
-                var enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
-                var randomEnemy = new System.Random().Next(0, enemiesArray.Length);
-                if (enemiesArray.Length > 0)
-                {
-                    target = enemiesArray[randomEnemy].GetComponent<Unit>();
-                }
-            }
-
-            if (!action.SourceUnit || !target) continue;
-            target.TakeDamage(action.Move, action.SourceUnit);
-            if (!target.unitName.Equals("Player"))
-            {
-                enemyStatus.UpdateHealthBar(target);
-            }
+            if (HandleAction(action)) continue;
             yield return new WaitForSeconds(1);
-
         }
         _actionQueue.Clear();
         CheckCurrentBattleState();
+    }
+
+    private bool HandleAction(Action action)
+    {
+        if (action.SourceUnit.unitName.Equals("Player"))
+        {
+            _levelLog.PlayerMovesUsed.Add(action.Move.Name);
+        }
+
+        var target = action.TargetUnit;
+        if (!action.TargetUnit && action.SourceUnit.unitName.Equals("Player"))
+        {
+            var enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
+            var randomEnemy = new System.Random().Next(0, enemiesArray.Length);
+            if (enemiesArray.Length > 0)
+            {
+                target = enemiesArray[randomEnemy].GetComponent<Unit>();
+            }
+        }
+
+        if (!action.SourceUnit || !target) return true;
+        target.TakeDamage(action.Move, action.SourceUnit);
+        if (!target.unitName.Equals("Player"))
+        {
+            enemyStatus.UpdateHealthBar(target);
+        }
+
+        return false;
     }
 
     private void CheckCurrentBattleState()
@@ -259,7 +266,7 @@ public class BattleSystem : MonoBehaviour
             _gameState.CurrentLevel += 1;
             SceneManager.LoadScene("TransitionScene");
         }
-        else if (GameObject.FindGameObjectWithTag("Player") == null)
+        else if (!GameObject.FindGameObjectWithTag("Player"))
         {
             _currentState = BattleState.Lost;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
