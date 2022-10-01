@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Model
         public int level;
         public List<Move> moves;
         private Dictionary<string, int> _iv;
+        private Dictionary<string, int> _ev;
         public Nature unitNature;
         public List<string> Affixes { get; set; }
         public List<string> Ailments { get; set; }
@@ -60,7 +62,7 @@ namespace Model
 
         private double DetermineMoveEffectiveness(string moveType)
         {
-            double effectiveness = 1;
+            var effectiveness = 1.0;
             var typeChart = _gameState.TypeChart;
             foreach (var damageTaken in types.Select(type => 
                          typeChart.Find(x => x.Name.Equals(type)).DamageTaken))
@@ -88,15 +90,16 @@ namespace Model
         {
             var effectiveness = DetermineMoveEffectiveness(move.MoveType);
 
-            var defenseUsed = move.Category.Equals("Special") ? spd : def;
-            var sourceAttackUsed = move.Category.Equals("Special") ? enemySource.spa : enemySource.atk;
+            var defenseUsed = (double) (move.Category.Equals("Special") ? spd : def);
+            var sourceAttackUsed = (double) (move.Category.Equals("Special") ? enemySource.spa : enemySource.atk);
             var randomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
+            var stab = enemySource.types.Contains(move.MoveType) ? 1.5 : 1.0;
 
-            var damageTaken = (int) (((2 * enemySource.level / 5 + 2) * 
-                (sourceAttackUsed / defenseUsed) * move.BasePower / 50 + 2) * randomValue * effectiveness);
+            var damageTaken = (int) (((2.0 * enemySource.level / 5.0 + 2) * 
+                (sourceAttackUsed / defenseUsed) * move.BasePower / 50.0 + 2) * randomValue * effectiveness * stab);
 
             currentHealth -= damageTaken;
-            if (Affixes.Contains("Sturdy"))
+            if (Affixes.Contains("Sturdy") && currentHealth <= 0)
             {
                 currentHealth = 1;
                 Affixes.Remove("Sturdy");
@@ -109,14 +112,21 @@ namespace Model
             return damageTaken;
         }
 
+        public int DamageCalculation()
+        {
+            const double damageTaken = ((2.0 * 75.0 / 5.0 + 2.0) * (123.0 / 163.0) * 65.0 / 50.0 + 2.0) * 0.85 * 1.5 * 4;
+            var damage = (int) Math.Floor(damageTaken);
+            return damage;
+        }
+
         public void Heal(int healAmount)
         {
-            currentHealth += healAmount;
+            currentHealth = Math.Min(currentHealth + healAmount, maxHealth);
         }
 
         private int CalculateHp(int baseHp)
         {
-            var hp = (int) System.Math.Floor((2 * baseHp + _iv["hp"]) * level / 100f) + level + 10;
+            var hp = (int) Math.Floor((2 * baseHp + _iv["hp"] + Math.Floor(_ev["hp"] / 4.0)) * level / 100f) + level + 10;
             return hp;
         }
 
@@ -126,13 +136,14 @@ namespace Model
             double natureModifier = 1;
             if (stat.Equals(unitNature.Plus)) natureModifier = 1.1;
             else if (stat.Equals(unitNature.Minus)) natureModifier = 0.9;
-            var statValue = (int)((System.Math.Floor((2 * baseStat + _iv[stat]) * level / 100d) + 5) * natureModifier);
+            var statValue = (int) Math.Floor((Math.Floor((2 * baseStat + _iv[stat] + Math.Floor(_ev[stat] / 4.0)) * level / 100d) + 5) * natureModifier);
             return statValue;
         }
 
         public void SetStats(BaseStat stats)
         {
             GenerateIVs();
+            GenerateEVs();
 
             currentHealth = CalculateHp(stats.Hp);
             maxHealth = currentHealth;
@@ -143,6 +154,25 @@ namespace Model
             spd = CalculateStats(stats.Spd, "spd");
             spe = CalculateStats(stats.Spe, "spe");
         }
+
+        private void GenerateEVs()
+        {
+            _ev = new Dictionary<string, int>
+            {
+                {"hp", 0},
+                {"atk", 0},
+                {"def", 0},
+                {"spa", 0},
+                {"spd", 0},
+                {"spe", 0}
+            };
+        }
+
+        public void AddAffixes(List<string> newAffixes)
+        {
+            Affixes = newAffixes;
+        }
+        
 
         private bool IsDead()
         {

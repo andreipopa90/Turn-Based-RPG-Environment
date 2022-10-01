@@ -233,6 +233,7 @@ public class BattleSystem : MonoBehaviour
     
     private void HandleAction(Action action)
     {
+        print(action.SourceUnit.DamageCalculation());
         if (action.SourceUnit.unitName.Equals("Player"))
         {
             _levelLog.PlayerMovesUsed.Add(action.Move.Name);
