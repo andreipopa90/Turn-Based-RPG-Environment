@@ -95,8 +95,9 @@ namespace Model
             var randomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
             var stab = enemySource.types.Contains(move.MoveType) ? 1.5 : 1.0;
 
-            var damageTaken = (int) (((2.0 * enemySource.level / 5.0 + 2) * 
-                (sourceAttackUsed / defenseUsed) * move.BasePower / 50.0 + 2) * randomValue * effectiveness * stab);
+            var damageTaken = (int) (((Math.Round(2.0 * enemySource.level / 5.0, 2) + 2) * 
+                                         Math.Round(sourceAttackUsed / defenseUsed * move.BasePower / 50.0, 2) + 2) * 
+                                     randomValue * effectiveness * stab);
 
             currentHealth -= damageTaken;
             if (Affixes.Contains("Sturdy") && currentHealth <= 0)
@@ -110,13 +111,6 @@ namespace Model
             }
 
             return damageTaken;
-        }
-
-        public int DamageCalculation()
-        {
-            const double damageTaken = ((2.0 * 75.0 / 5.0 + 2.0) * (123.0 / 163.0) * 65.0 / 50.0 + 2.0) * 0.85 * 1.5 * 4;
-            var damage = (int) Math.Floor(damageTaken);
-            return damage;
         }
 
         public void Heal(int healAmount)

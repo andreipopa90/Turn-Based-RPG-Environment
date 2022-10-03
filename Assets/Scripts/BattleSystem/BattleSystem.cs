@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LogFiles;
 using Model;
+using Newtonsoft.Json.Linq;
 using UI.Battle;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -62,7 +63,8 @@ public class BattleSystem : MonoBehaviour
         mainHUD.AddEnemySelect(enemies);
     }
 
-    private GameObject InstantiateCharacter(string characterName, Vector3 position, GameObject prefab, bool isPlayer = false)
+    private GameObject InstantiateCharacter(string characterName, Vector3 position, GameObject prefab, 
+        bool isPlayer = false)
     {
         var character = Instantiate(prefab, position, Quaternion.identity);
         character.name = characterName;
@@ -100,7 +102,8 @@ public class BattleSystem : MonoBehaviour
     { 
         List<Unit> enemies = new();
 
-        var playerInstance = InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
+        var playerInstance = 
+            InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
 
         for (var i = 0; i < 3; i++)
         {
@@ -184,7 +187,8 @@ public class BattleSystem : MonoBehaviour
 
     public void OnAttackButtonPress()
     {
-        if (GameObject.FindGameObjectWithTag("Player") == null || (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
+        if (GameObject.FindGameObjectWithTag("Player") == null || 
+            (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
 			return;
 
 		if (mainHUD.EnemyPanel.activeSelf)
@@ -233,57 +237,15 @@ public class BattleSystem : MonoBehaviour
     
     private void HandleAction(Action action)
     {
-        print(action.SourceUnit.DamageCalculation());
         if (action.SourceUnit.unitName.Equals("Player"))
         {
             _levelLog.PlayerMovesUsed.Add(action.Move.Name);
         }
 
-        var target = action.TargetUnit;
-        if (!action.TargetUnit && action.SourceUnit.unitName.Equals("Player"))
-        {
-            var enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
-            var randomEnemy = new System.Random().Next(0, enemiesArray.Length);
-            if (enemiesArray.Length > 0)
-            {
-                target = enemiesArray[randomEnemy].GetComponent<Unit>();
-            }
-        }
+        var target = GetTarget(action);
 
         if (!action.SourceUnit || !target) return;
-        if (action.Move.Category.Equals("Status") 
-            && action.Move.Target.Equals("self") 
-            && action.Move.Boosts is not null)
-        {
-            foreach (var key in action.Move.Boosts.Keys)
-            {
-                var value = action.Move.Boosts[key];
-                var stat = (int) action.SourceUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).GetValue(action.SourceUnit);
-                action.SourceUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).SetValue(action.SourceUnit, stat * (value + 2) / 2);
-            }
-            
-        }
-        else if (action.Move.Category.Equals("Status") 
-                 && !action.Move.Target.Equals("self") 
-                 && action.Move.Boosts is not null)
-        {
-            foreach (var key in action.Move.Boosts.Keys)
-            {
-                var value = action.Move.Boosts[key];
-                var stat = (int) action.TargetUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).GetValue(action.TargetUnit);
-                action.TargetUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key)).SetValue(action.TargetUnit, stat * 2 / (-1 * value + 2));
-            }
-        }
-        else
-        {
-            var damageTaken = target.TakeDamage(action.Move, action.SourceUnit);
-            if (action.Move.Drain is not null)
-            {
-                if (action.Move.Drain.Contains(1))
-                    action.SourceUnit.Heal(damageTaken / 2);
-                else action.SourceUnit.Heal(damageTaken * 3 / 4);
-            }
-        }
+        HandleAction(action, target);
 
         if (!target.unitName.Equals("Player"))
         {
@@ -293,6 +255,83 @@ public class BattleSystem : MonoBehaviour
         {
             playerStatus.UpdateHealthBar(target);
         }
+    }
+
+    private static void HandleStatus(Move move, Unit targetUnit, bool buff = true)
+    {
+        var boosts = ((JObject)move.Secondary["boosts"]).ToObject<Dictionary<string, int>>();
+        foreach (var key in boosts.Keys)
+        {
+            var value = boosts[key];
+            var stat = (int)targetUnit.GetType()
+                .GetFields().ToList().Find(p => p.Name.ToLower().Equals(key))
+                .GetValue(targetUnit);
+            var newStatValue = buff ? stat * (value + 2) / 2 : stat * 2 / (-1 * value + 2);
+            targetUnit.GetType().GetFields().ToList().Find(p => p.Name.ToLower().Equals(key))
+                .SetValue(targetUnit, newStatValue);
+        }
+    }
+
+    private static void HandleAction(Action action, Unit target)
+    {
+        switch (action.Move.Category)
+        {
+            case "Status" when action.Move.Target.Equals("self") && action.Move.Secondary.ContainsKey("boosts"):
+            {
+                HandleStatus(action.Move, action.SourceUnit);
+                break;
+            }
+            case "Status" when !action.Move.Target.Equals("self") && action.Move.Secondary.ContainsKey("boosts"):
+            {
+                HandleStatus(action.Move, action.TargetUnit, false);
+                break;
+            }
+            default:
+            {
+                var damageTaken = target.TakeDamage(action.Move, action.SourceUnit);
+                HandleDrain(action, damageTaken);
+                HandleStatusAilment(action);
+                break;
+            }
+        }
+    }
+
+    private static void HandleStatusAilment(Action action)
+    {
+        var random = new System.Random().Next(0, 100);
+        if (action.Move.Secondary.ContainsKey("status") && random <= 33)
+        {
+            action.TargetUnit.Ailments.Add(action.Move.Secondary["status"]);
+        }
+    }
+
+    private static void HandleDrain(Action action, int damageTaken)
+    {
+        if (!action.Move.Secondary.ContainsKey("drain")) return;
+        if (action.Move.Secondary["drain"] == 1)
+        {
+            action.SourceUnit.Heal(damageTaken / 2);
+        }
+        else
+        {
+            action.SourceUnit.Heal(damageTaken * 3 / 4);
+        }
+        
+    }
+
+    private static Unit GetTarget(Action action)
+    {
+        var target = action.TargetUnit;
+        if (action.TargetUnit || !action.SourceUnit.unitName.Equals("Player")) return target;
+        
+        var enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
+        var randomEnemy = new System.Random().Next(0, enemiesArray.Length);
+        if (enemiesArray.Length > 0)
+        {
+            target = enemiesArray[randomEnemy].GetComponent<Unit>();
+        }
+
+        return target;
     }
 
     private void CheckCurrentBattleState()

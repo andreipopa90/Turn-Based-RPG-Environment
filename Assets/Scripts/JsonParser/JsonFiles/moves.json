@@ -7,7 +7,10 @@
     "category":"Special",
     "pp":1,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"absorb",
@@ -18,10 +21,9 @@
     "pp":25,
     "target":"normal",
     "movetype":"Grass",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"accelerock",
@@ -31,7 +33,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"acid",
@@ -41,7 +46,10 @@
     "category":"Special",
     "pp":30,
     "target":"allAdjacentFoes",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"acidarmor",
@@ -52,8 +60,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Poison",
-    "boosts":{
-      "def":2
+    "secondary":{
+      "boosts":{
+        "def":2
+      }
     }
   },
   {
@@ -64,7 +74,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"acidspray",
@@ -74,7 +87,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"acrobatics",
@@ -84,7 +100,10 @@
     "category":"Physical",
     "pp":15,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aerialace",
@@ -94,7 +113,10 @@
     "category":"Physical",
     "pp":20,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aeroblast",
@@ -104,7 +126,10 @@
     "category":"Special",
     "pp":5,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"agility",
@@ -115,8 +140,10 @@
     "pp":30,
     "target":"self",
     "movetype":"Psychic",
-    "boosts":{
-      "spe":2
+    "secondary":{
+      "boosts":{
+        "spe":2
+      }
     }
   },
   {
@@ -127,7 +154,10 @@
     "category":"Special",
     "pp":25,
     "target":"allAdjacentFoes",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"airslash",
@@ -137,7 +167,10 @@
     "category":"Special",
     "pp":15,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"alloutpummeling",
@@ -147,7 +180,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"amnesia",
@@ -158,8 +194,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Psychic",
-    "boosts":{
-      "spd":2
+    "secondary":{
+      "boosts":{
+        "spd":2
+      }
     }
   },
   {
@@ -170,7 +208,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"ancientpower",
@@ -180,7 +221,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"appleacid",
@@ -190,7 +234,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aquajet",
@@ -200,7 +247,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aquatail",
@@ -210,7 +260,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"armthrust",
@@ -220,7 +273,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aromaticmist",
@@ -231,8 +287,10 @@
     "pp":20,
     "target":"adjacentAlly",
     "movetype":"Fairy",
-    "boosts":{
-      "spd":1
+    "secondary":{
+      "boosts":{
+        "spd":1
+      }
     }
   },
   {
@@ -243,7 +301,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"astonish",
@@ -253,7 +314,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"astralbarrage",
@@ -263,7 +327,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"attackorder",
@@ -273,7 +340,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aurasphere",
@@ -283,7 +353,10 @@
     "category":"Special",
     "pp":20,
     "target":"any",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aurawheel",
@@ -293,7 +366,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"aurorabeam",
@@ -303,7 +379,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"autotomize",
@@ -314,8 +393,10 @@
     "pp":15,
     "target":"self",
     "movetype":"Steel",
-    "boosts":{
-      "spe":2
+    "secondary":{
+      "boosts":{
+        "spe":2
+      }
     }
   },
   {
@@ -326,7 +407,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"babydolleyes",
@@ -337,8 +421,10 @@
     "pp":30,
     "target":"normal",
     "movetype":"Fairy",
-    "boosts":{
-      "atk":-1
+    "secondary":{
+      "boosts":{
+        "atk":-1
+      }
     }
   },
   {
@@ -349,7 +435,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"barrage",
@@ -359,7 +448,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"barrier",
@@ -370,8 +462,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Psychic",
-    "boosts":{
-      "def":2
+    "secondary":{
+      "boosts":{
+        "def":2
+      }
     }
   },
   {
@@ -382,7 +476,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"beatup",
@@ -392,7 +489,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"behemothbash",
@@ -402,7 +502,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"behemothblade",
@@ -412,7 +515,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"belch",
@@ -422,7 +528,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bide",
@@ -432,7 +541,10 @@
     "category":"Physical",
     "pp":10,
     "target":"self",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bind",
@@ -442,7 +554,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bite",
@@ -452,7 +567,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"blackholeeclipse",
@@ -462,7 +580,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"blastburn",
@@ -472,7 +593,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"blazekick",
@@ -484,7 +608,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -496,7 +619,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bloomdoom",
@@ -506,7 +632,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"blueflare",
@@ -518,7 +647,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":20,
       "status":"brn"
     }
   },
@@ -530,7 +658,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bodyslam",
@@ -542,7 +673,6 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -554,7 +684,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"boltstrike",
@@ -566,7 +699,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":20,
       "status":"par"
     }
   },
@@ -578,7 +710,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bonemerang",
@@ -588,7 +723,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bonerush",
@@ -598,7 +736,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"boomburst",
@@ -608,7 +749,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacent",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bounce",
@@ -620,7 +764,6 @@
     "target":"any",
     "movetype":"Flying",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -633,10 +776,9 @@
     "pp":20,
     "target":"normal",
     "movetype":"Water",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"branchpoke",
@@ -646,7 +788,10 @@
     "category":"Physical",
     "pp":40,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bravebird",
@@ -656,7 +801,10 @@
     "category":"Physical",
     "pp":15,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"breakingswipe",
@@ -666,7 +814,10 @@
     "category":"Physical",
     "pp":15,
     "target":"allAdjacentFoes",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"breakneckblitz",
@@ -676,7 +827,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"brickbreak",
@@ -686,7 +840,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"brine",
@@ -696,7 +853,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"brutalswing",
@@ -706,7 +866,10 @@
     "category":"Physical",
     "pp":20,
     "target":"allAdjacent",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bubble",
@@ -716,7 +879,10 @@
     "category":"Special",
     "pp":30,
     "target":"allAdjacentFoes",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bubblebeam",
@@ -726,7 +892,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bugbite",
@@ -736,7 +905,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bugbuzz",
@@ -746,7 +918,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bulkup",
@@ -757,9 +932,11 @@
     "pp":20,
     "target":"self",
     "movetype":"Fighting",
-    "boosts":{
-      "atk":1,
-      "def":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "def":1
+      }
     }
   },
   {
@@ -770,7 +947,10 @@
     "category":"Physical",
     "pp":20,
     "target":"allAdjacent",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bulletpunch",
@@ -780,7 +960,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"bulletseed",
@@ -790,7 +973,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"burningjealousy",
@@ -800,7 +986,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"burnup",
@@ -810,7 +999,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"buzzybuzz",
@@ -822,7 +1014,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":100,
       "status":"par"
     }
   },
@@ -835,9 +1026,11 @@
     "pp":20,
     "target":"self",
     "movetype":"Psychic",
-    "boosts":{
-      "spa":1,
-      "spd":1
+    "secondary":{
+      "boosts":{
+        "spa":1,
+        "spd":1
+      }
     }
   },
   {
@@ -849,8 +1042,10 @@
     "pp":20,
     "target":"allAdjacentFoes",
     "movetype":"Normal",
-    "boosts":{
-      "spa":-2
+    "secondary":{
+      "boosts":{
+        "spa":-2
+      }
     }
   },
   {
@@ -861,7 +1056,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"charge",
@@ -872,8 +1070,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Electric",
-    "boosts":{
-      "spd":1
+    "secondary":{
+      "boosts":{
+        "spd":1
+      }
     }
   },
   {
@@ -884,7 +1084,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"charm",
@@ -895,8 +1098,10 @@
     "pp":20,
     "target":"normal",
     "movetype":"Fairy",
-    "boosts":{
-      "atk":-2
+    "secondary":{
+      "boosts":{
+        "atk":-2
+      }
     }
   },
   {
@@ -907,7 +1112,10 @@
     "category":"Special",
     "pp":20,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"chipaway",
@@ -917,7 +1125,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"circlethrow",
@@ -927,7 +1138,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"clamp",
@@ -937,7 +1151,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"clangingscales",
@@ -947,7 +1164,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"clangoroussoul",
@@ -958,12 +1178,14 @@
     "pp":5,
     "target":"self",
     "movetype":"Dragon",
-    "boosts":{
-      "atk":1,
-      "def":1,
-      "spa":1,
-      "spd":1,
-      "spe":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "def":1,
+        "spa":1,
+        "spd":1,
+        "spe":1
+      }
     }
   },
   {
@@ -974,7 +1196,10 @@
     "category":"Special",
     "pp":1,
     "target":"allAdjacentFoes",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"clearsmog",
@@ -984,7 +1209,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"closecombat",
@@ -994,7 +1222,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"coaching",
@@ -1005,9 +1236,11 @@
     "pp":10,
     "target":"adjacentAlly",
     "movetype":"Fighting",
-    "boosts":{
-      "atk":1,
-      "def":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "def":1
+      }
     }
   },
   {
@@ -1019,10 +1252,12 @@
     "pp":20,
     "target":"self",
     "movetype":"Poison",
-    "boosts":{
-      "atk":1,
-      "def":1,
-      "accuracy":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "def":1,
+        "accuracy":1
+      }
     }
   },
   {
@@ -1033,7 +1268,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"confide",
@@ -1044,8 +1282,10 @@
     "pp":20,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "spa":-1
+    "secondary":{
+      "boosts":{
+        "spa":-1
+      }
     }
   },
   {
@@ -1056,7 +1296,10 @@
     "category":"Special",
     "pp":25,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"constrict",
@@ -1066,7 +1309,10 @@
     "category":"Physical",
     "pp":35,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"continentalcrush",
@@ -1076,7 +1322,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"coreenforcer",
@@ -1086,7 +1335,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"corkscrewcrash",
@@ -1096,7 +1348,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"cosmicpower",
@@ -1107,9 +1362,11 @@
     "pp":20,
     "target":"self",
     "movetype":"Psychic",
-    "boosts":{
-      "def":1,
-      "spd":1
+    "secondary":{
+      "boosts":{
+        "def":1,
+        "spd":1
+      }
     }
   },
   {
@@ -1121,8 +1378,10 @@
     "pp":10,
     "target":"self",
     "movetype":"Grass",
-    "boosts":{
-      "def":3
+    "secondary":{
+      "boosts":{
+        "def":3
+      }
     }
   },
   {
@@ -1134,8 +1393,10 @@
     "pp":40,
     "target":"allAdjacentFoes",
     "movetype":"Grass",
-    "boosts":{
-      "spe":-2
+    "secondary":{
+      "boosts":{
+        "spe":-2
+      }
     }
   },
   {
@@ -1146,7 +1407,10 @@
     "category":"Physical",
     "pp":20,
     "target":"scripted",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"covet",
@@ -1156,7 +1420,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"crabhammer",
@@ -1166,7 +1433,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"crosschop",
@@ -1176,7 +1446,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"crosspoison",
@@ -1188,7 +1461,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":10,
       "status":"psn"
     }
   },
@@ -1200,7 +1472,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"crushclaw",
@@ -1210,7 +1485,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"crushgrip",
@@ -1220,7 +1498,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"cut",
@@ -1230,7 +1511,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"darkestlariat",
@@ -1240,7 +1524,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"darkpulse",
@@ -1250,7 +1537,10 @@
     "category":"Special",
     "pp":15,
     "target":"any",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dazzlinggleam",
@@ -1260,7 +1550,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"decorate",
@@ -1271,9 +1564,11 @@
     "pp":15,
     "target":"normal",
     "movetype":"Fairy",
-    "boosts":{
-      "atk":2,
-      "spa":2
+    "secondary":{
+      "boosts":{
+        "atk":2,
+        "spa":2
+      }
     }
   },
   {
@@ -1285,9 +1580,11 @@
     "pp":10,
     "target":"self",
     "movetype":"Bug",
-    "boosts":{
-      "def":1,
-      "spd":1
+    "secondary":{
+      "boosts":{
+        "def":1,
+        "spd":1
+      }
     }
   },
   {
@@ -1299,8 +1596,10 @@
     "pp":40,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "def":1
+    "secondary":{
+      "boosts":{
+        "def":1
+      }
     }
   },
   {
@@ -1311,7 +1610,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"diamondstorm",
@@ -1321,7 +1623,10 @@
     "category":"Physical",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dig",
@@ -1331,7 +1636,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"disarmingvoice",
@@ -1341,7 +1649,10 @@
     "category":"Special",
     "pp":15,
     "target":"allAdjacentFoes",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"discharge",
@@ -1353,7 +1664,6 @@
     "target":"allAdjacent",
     "movetype":"Electric",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -1365,7 +1675,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dizzypunch",
@@ -1375,7 +1688,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"doomdesire",
@@ -1385,7 +1701,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"doubleedge",
@@ -1395,7 +1714,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"doublehit",
@@ -1405,7 +1727,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"doubleironbash",
@@ -1415,7 +1740,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"doublekick",
@@ -1425,7 +1753,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"doubleslap",
@@ -1435,7 +1766,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"doubleteam",
@@ -1446,8 +1780,10 @@
     "pp":15,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "evasion":1
+    "secondary":{
+      "boosts":{
+        "evasion":1
+      }
     }
   },
   {
@@ -1458,7 +1794,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragonascent",
@@ -1468,7 +1807,10 @@
     "category":"Physical",
     "pp":5,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragonbreath",
@@ -1480,7 +1822,6 @@
     "target":"normal",
     "movetype":"Dragon",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -1492,7 +1833,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragondance",
@@ -1503,9 +1847,11 @@
     "pp":20,
     "target":"self",
     "movetype":"Dragon",
-    "boosts":{
-      "atk":1,
-      "spe":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "spe":1
+      }
     }
   },
   {
@@ -1516,7 +1862,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragonenergy",
@@ -1526,7 +1875,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragonhammer",
@@ -1536,7 +1888,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragonpulse",
@@ -1546,7 +1901,10 @@
     "category":"Special",
     "pp":10,
     "target":"any",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragonrage",
@@ -1556,7 +1914,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragonrush",
@@ -1566,7 +1927,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dragontail",
@@ -1576,7 +1940,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"drainingkiss",
@@ -1587,10 +1954,9 @@
     "pp":10,
     "target":"normal",
     "movetype":"Fairy",
-    "drain":[
-      3,
-      4
-    ]
+    "secondary":{
+      "drain":3
+    }
   },
   {
     "keyname":"drainpunch",
@@ -1601,10 +1967,9 @@
     "pp":10,
     "target":"normal",
     "movetype":"Fighting",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"dreameater",
@@ -1615,10 +1980,9 @@
     "pp":15,
     "target":"normal",
     "movetype":"Psychic",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"drillpeck",
@@ -1628,7 +1992,10 @@
     "category":"Physical",
     "pp":20,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"drillrun",
@@ -1638,7 +2005,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"drumbeating",
@@ -1648,7 +2018,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dualchop",
@@ -1658,7 +2031,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dualwingbeat",
@@ -1668,7 +2044,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dynamaxcannon",
@@ -1678,7 +2057,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"dynamicpunch",
@@ -1688,7 +2070,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"earthpower",
@@ -1698,7 +2083,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"earthquake",
@@ -1708,7 +2096,10 @@
     "category":"Physical",
     "pp":10,
     "target":"allAdjacent",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"echoedvoice",
@@ -1718,7 +2109,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"eerieimpulse",
@@ -1729,8 +2123,10 @@
     "pp":15,
     "target":"normal",
     "movetype":"Electric",
-    "boosts":{
-      "spa":-2
+    "secondary":{
+      "boosts":{
+        "spa":-2
+      }
     }
   },
   {
@@ -1741,7 +2137,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"eggbomb",
@@ -1751,7 +2150,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"electroball",
@@ -1761,7 +2163,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"electroweb",
@@ -1771,7 +2176,10 @@
     "category":"Special",
     "pp":15,
     "target":"allAdjacentFoes",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"ember",
@@ -1783,7 +2191,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -1795,7 +2202,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"energyball",
@@ -1805,7 +2215,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"eruption",
@@ -1815,7 +2228,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"eternabeam",
@@ -1825,7 +2241,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"expandingforce",
@@ -1835,7 +2254,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"explosion",
@@ -1845,7 +2267,10 @@
     "category":"Physical",
     "pp":5,
     "target":"allAdjacent",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"extrasensory",
@@ -1855,7 +2280,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"extremeevoboost",
@@ -1866,12 +2294,14 @@
     "pp":1,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "atk":2,
-      "def":2,
-      "spa":2,
-      "spd":2,
-      "spe":2
+    "secondary":{
+      "boosts":{
+        "atk":2,
+        "def":2,
+        "spa":2,
+        "spd":2,
+        "spe":2
+      }
     }
   },
   {
@@ -1882,7 +2312,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"facade",
@@ -1892,7 +2325,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fairywind",
@@ -1902,7 +2338,10 @@
     "category":"Special",
     "pp":30,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fakeout",
@@ -1912,7 +2351,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"faketears",
@@ -1923,8 +2365,10 @@
     "pp":20,
     "target":"normal",
     "movetype":"Dark",
-    "boosts":{
-      "spd":-2
+    "secondary":{
+      "boosts":{
+        "spd":-2
+      }
     }
   },
   {
@@ -1935,7 +2379,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"falseswipe",
@@ -1945,7 +2392,10 @@
     "category":"Physical",
     "pp":40,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"featherdance",
@@ -1956,8 +2406,10 @@
     "pp":15,
     "target":"normal",
     "movetype":"Flying",
-    "boosts":{
-      "atk":-2
+    "secondary":{
+      "boosts":{
+        "atk":-2
+      }
     }
   },
   {
@@ -1968,7 +2420,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"feintattack",
@@ -1978,7 +2433,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fellstinger",
@@ -1988,7 +2446,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fierydance",
@@ -1998,7 +2459,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fierywrath",
@@ -2008,7 +2472,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"finalgambit",
@@ -2018,7 +2485,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fireblast",
@@ -2030,7 +2500,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -2042,7 +2511,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"firelash",
@@ -2052,7 +2524,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"firepledge",
@@ -2062,7 +2537,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"firepunch",
@@ -2074,7 +2552,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -2086,7 +2563,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"firstimpression",
@@ -2096,7 +2576,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fishiousrend",
@@ -2106,7 +2589,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fissure",
@@ -2116,7 +2602,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"flail",
@@ -2126,7 +2615,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"flameburst",
@@ -2136,7 +2628,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"flamecharge",
@@ -2146,7 +2641,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"flamewheel",
@@ -2158,7 +2656,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -2172,7 +2669,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -2186,7 +2682,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -2199,8 +2694,10 @@
     "pp":20,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "accuracy":-1
+    "secondary":{
+      "boosts":{
+        "accuracy":-1
+      }
     }
   },
   {
@@ -2211,7 +2708,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"flatter",
@@ -2222,8 +2722,10 @@
     "pp":15,
     "target":"normal",
     "movetype":"Dark",
-    "boosts":{
-      "spa":1
+    "secondary":{
+      "boosts":{
+        "spa":1
+      }
     }
   },
   {
@@ -2234,7 +2736,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fling",
@@ -2244,7 +2749,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"flipturn",
@@ -2254,7 +2762,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"floatyfall",
@@ -2264,7 +2775,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fly",
@@ -2274,7 +2788,10 @@
     "category":"Physical",
     "pp":15,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"flyingpress",
@@ -2284,7 +2801,10 @@
     "category":"Physical",
     "pp":10,
     "target":"any",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"focusblast",
@@ -2294,7 +2814,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"focuspunch",
@@ -2304,7 +2827,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"forcepalm",
@@ -2316,7 +2842,6 @@
     "target":"normal",
     "movetype":"Fighting",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -2328,7 +2853,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"freezedry",
@@ -2338,7 +2866,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"freezeshock",
@@ -2350,7 +2881,6 @@
     "target":"normal",
     "movetype":"Ice",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -2362,7 +2892,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"freezyfrost",
@@ -2372,7 +2905,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"frenzyplant",
@@ -2382,7 +2918,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"frostbreath",
@@ -2392,7 +2931,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"frustration",
@@ -2402,7 +2944,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"furyattack",
@@ -2412,7 +2957,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"furycutter",
@@ -2422,7 +2970,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"furyswipes",
@@ -2432,7 +2983,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fusionbolt",
@@ -2442,7 +2996,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"fusionflare",
@@ -2452,7 +3009,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"futuresight",
@@ -2462,7 +3022,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"geargrind",
@@ -2472,7 +3035,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"genesissupernova",
@@ -2482,7 +3048,10 @@
     "category":"Special",
     "pp":1,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"geomancy",
@@ -2493,10 +3062,12 @@
     "pp":10,
     "target":"self",
     "movetype":"Fairy",
-    "boosts":{
-      "spa":2,
-      "spd":2,
-      "spe":2
+    "secondary":{
+      "boosts":{
+        "spa":2,
+        "spd":2,
+        "spe":2
+      }
     }
   },
   {
@@ -2508,10 +3079,9 @@
     "pp":10,
     "target":"normal",
     "movetype":"Grass",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"gigaimpact",
@@ -2521,7 +3091,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gigavolthavoc",
@@ -2531,7 +3104,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"glaciallance",
@@ -2541,7 +3117,10 @@
     "category":"Physical",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"glaciate",
@@ -2551,7 +3130,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"glitzyglow",
@@ -2561,7 +3143,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxbefuddle",
@@ -2571,7 +3156,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxcannonade",
@@ -2581,7 +3169,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxcentiferno",
@@ -2591,7 +3182,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxchistrike",
@@ -2601,7 +3195,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxcuddle",
@@ -2611,7 +3208,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxdepletion",
@@ -2621,7 +3221,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxdrumsolo",
@@ -2631,7 +3234,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxfinale",
@@ -2641,7 +3247,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxfireball",
@@ -2651,7 +3260,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxfoamburst",
@@ -2661,7 +3273,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxgoldrush",
@@ -2671,7 +3286,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxgravitas",
@@ -2681,7 +3299,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxhydrosnipe",
@@ -2691,7 +3312,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxmalodor",
@@ -2701,7 +3325,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxmeltdown",
@@ -2711,7 +3338,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxoneblow",
@@ -2721,7 +3351,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxrapidflow",
@@ -2731,7 +3364,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxreplenish",
@@ -2741,7 +3377,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxresonance",
@@ -2751,7 +3390,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxsandblast",
@@ -2761,7 +3403,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxsmite",
@@ -2771,7 +3416,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxsnooze",
@@ -2781,7 +3429,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxsteelsurge",
@@ -2791,7 +3442,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxstonesurge",
@@ -2801,7 +3455,10 @@
     "category":"Physical",
     "pp":5,
     "target":"adjacentFoe",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxstunshock",
@@ -2811,7 +3468,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxsweetness",
@@ -2821,7 +3481,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxtartness",
@@ -2831,7 +3494,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxterror",
@@ -2841,7 +3507,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxvinelash",
@@ -2851,7 +3520,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxvolcalith",
@@ -2861,7 +3533,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxvoltcrash",
@@ -2871,7 +3546,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxwildfire",
@@ -2881,7 +3559,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gmaxwindrage",
@@ -2891,7 +3572,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"grassknot",
@@ -2901,7 +3585,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"grasspledge",
@@ -2911,7 +3598,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"grassyglide",
@@ -2921,7 +3611,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gravapple",
@@ -2931,7 +3624,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"growl",
@@ -2942,8 +3638,10 @@
     "pp":40,
     "target":"allAdjacentFoes",
     "movetype":"Normal",
-    "boosts":{
-      "atk":-1
+    "secondary":{
+      "boosts":{
+        "atk":-1
+      }
     }
   },
   {
@@ -2955,9 +3653,11 @@
     "pp":20,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "atk":1,
-      "spa":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "spa":1
+      }
     }
   },
   {
@@ -2968,7 +3668,10 @@
     "category":"Special",
     "pp":1,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"guillotine",
@@ -2978,7 +3681,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gunkshot",
@@ -2990,7 +3696,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":30,
       "status":"psn"
     }
   },
@@ -3002,7 +3707,10 @@
     "category":"Special",
     "pp":35,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"gyroball",
@@ -3012,7 +3720,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hammerarm",
@@ -3022,7 +3733,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"harden",
@@ -3033,8 +3747,10 @@
     "pp":30,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "def":1
+    "secondary":{
+      "boosts":{
+        "def":1
+      }
     }
   },
   {
@@ -3045,7 +3761,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"headcharge",
@@ -3055,7 +3774,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"headsmash",
@@ -3065,7 +3787,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"heartstamp",
@@ -3075,7 +3800,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"heatcrash",
@@ -3085,7 +3813,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"heatwave",
@@ -3097,7 +3828,6 @@
     "target":"allAdjacentFoes",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -3109,7 +3839,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hex",
@@ -3119,7 +3852,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpower",
@@ -3129,7 +3865,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerbug",
@@ -3139,7 +3878,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerdark",
@@ -3149,7 +3891,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerdragon",
@@ -3159,7 +3904,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerelectric",
@@ -3169,7 +3917,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerfighting",
@@ -3179,7 +3930,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerfire",
@@ -3189,7 +3943,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerflying",
@@ -3199,7 +3956,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerghost",
@@ -3209,7 +3969,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowergrass",
@@ -3219,7 +3982,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerground",
@@ -3229,7 +3995,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerice",
@@ -3239,7 +4008,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerpoison",
@@ -3249,7 +4021,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerpsychic",
@@ -3259,7 +4034,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerrock",
@@ -3269,7 +4047,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowersteel",
@@ -3279,7 +4060,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hiddenpowerwater",
@@ -3289,7 +4073,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"highhorsepower",
@@ -3299,7 +4086,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"highjumpkick",
@@ -3309,7 +4099,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"holdback",
@@ -3319,7 +4112,10 @@
     "category":"Physical",
     "pp":40,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"honeclaws",
@@ -3330,9 +4126,11 @@
     "pp":15,
     "target":"self",
     "movetype":"Dark",
-    "boosts":{
-      "atk":1,
-      "accuracy":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "accuracy":1
+      }
     }
   },
   {
@@ -3343,7 +4141,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"horndrill",
@@ -3353,7 +4154,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hornleech",
@@ -3364,10 +4168,9 @@
     "pp":10,
     "target":"normal",
     "movetype":"Grass",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"howl",
@@ -3378,8 +4181,10 @@
     "pp":40,
     "target":"allies",
     "movetype":"Normal",
-    "boosts":{
-      "atk":1
+    "secondary":{
+      "boosts":{
+        "atk":1
+      }
     }
   },
   {
@@ -3390,7 +4195,10 @@
     "category":"Special",
     "pp":10,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hydrocannon",
@@ -3400,7 +4208,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hydropump",
@@ -3410,7 +4221,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hydrovortex",
@@ -3420,7 +4234,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hyperbeam",
@@ -3430,7 +4247,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hyperfang",
@@ -3440,7 +4260,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hyperspacefury",
@@ -3450,7 +4273,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hyperspacehole",
@@ -3460,7 +4286,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"hypervoice",
@@ -3470,7 +4299,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"iceball",
@@ -3480,7 +4312,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"icebeam",
@@ -3490,7 +4325,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"iceburn",
@@ -3502,7 +4340,6 @@
     "target":"normal",
     "movetype":"Ice",
     "secondary":{
-      "chance":30,
       "status":"brn"
     }
   },
@@ -3514,7 +4351,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"icehammer",
@@ -3524,7 +4364,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"icepunch",
@@ -3534,7 +4377,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"iceshard",
@@ -3544,7 +4390,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"iciclecrash",
@@ -3554,7 +4403,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"iciclespear",
@@ -3564,7 +4416,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"icywind",
@@ -3574,7 +4429,10 @@
     "category":"Special",
     "pp":15,
     "target":"allAdjacentFoes",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"incinerate",
@@ -3584,7 +4442,10 @@
     "category":"Special",
     "pp":15,
     "target":"allAdjacentFoes",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"inferno",
@@ -3596,7 +4457,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":100,
       "status":"brn"
     }
   },
@@ -3608,7 +4468,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"infestation",
@@ -3618,7 +4481,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"irondefense",
@@ -3629,8 +4495,10 @@
     "pp":15,
     "target":"self",
     "movetype":"Steel",
-    "boosts":{
-      "def":2
+    "secondary":{
+      "boosts":{
+        "def":2
+      }
     }
   },
   {
@@ -3641,7 +4509,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"irontail",
@@ -3651,7 +4522,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"jawlock",
@@ -3661,7 +4535,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"judgment",
@@ -3671,7 +4548,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"jumpkick",
@@ -3681,7 +4561,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"karatechop",
@@ -3691,7 +4574,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"kinesis",
@@ -3702,8 +4588,10 @@
     "pp":15,
     "target":"normal",
     "movetype":"Psychic",
-    "boosts":{
-      "accuracy":-1
+    "secondary":{
+      "boosts":{
+        "accuracy":-1
+      }
     }
   },
   {
@@ -3714,7 +4602,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"landswrath",
@@ -3724,7 +4615,10 @@
     "category":"Physical",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lashout",
@@ -3734,7 +4628,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lastresort",
@@ -3744,7 +4641,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lavaplume",
@@ -3756,7 +4656,6 @@
     "target":"allAdjacent",
     "movetype":"Fire",
     "secondary":{
-      "chance":30,
       "status":"brn"
     }
   },
@@ -3768,7 +4667,10 @@
     "category":"Physical",
     "pp":40,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"leafblade",
@@ -3778,7 +4680,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"leafstorm",
@@ -3788,7 +4693,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"leaftornado",
@@ -3798,7 +4706,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"leechlife",
@@ -3809,10 +4720,9 @@
     "pp":10,
     "target":"normal",
     "movetype":"Bug",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"leer",
@@ -3823,8 +4733,10 @@
     "pp":30,
     "target":"allAdjacentFoes",
     "movetype":"Normal",
-    "boosts":{
-      "def":-1
+    "secondary":{
+      "boosts":{
+        "def":-1
+      }
     }
   },
   {
@@ -3835,7 +4747,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lick",
@@ -3847,7 +4762,6 @@
     "target":"normal",
     "movetype":"Ghost",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -3859,7 +4773,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lightthatburnsthesky",
@@ -3869,7 +4786,10 @@
     "category":"Special",
     "pp":1,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"liquidation",
@@ -3879,7 +4799,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lowkick",
@@ -3889,7 +4812,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lowsweep",
@@ -3899,7 +4825,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lunge",
@@ -3909,7 +4838,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"lusterpurge",
@@ -3919,7 +4851,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"machpunch",
@@ -3929,7 +4864,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"magicalleaf",
@@ -3939,7 +4877,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"magmastorm",
@@ -3949,7 +4890,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"magnetbomb",
@@ -3959,7 +4903,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"magnitude",
@@ -3969,7 +4916,10 @@
     "category":"Physical",
     "pp":30,
     "target":"allAdjacent",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maliciousmoonsault",
@@ -3979,7 +4929,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxairstream",
@@ -3989,7 +4942,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxdarkness",
@@ -3999,7 +4955,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxflare",
@@ -4009,7 +4968,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxflutterby",
@@ -4019,7 +4981,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxgeyser",
@@ -4029,7 +4994,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxhailstorm",
@@ -4039,7 +5007,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxknuckle",
@@ -4049,7 +5020,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxlightning",
@@ -4059,7 +5033,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxmindstorm",
@@ -4069,7 +5046,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxooze",
@@ -4079,7 +5059,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxovergrowth",
@@ -4089,7 +5072,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxphantasm",
@@ -4099,7 +5085,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxquake",
@@ -4109,7 +5098,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxrockfall",
@@ -4119,7 +5111,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxstarfall",
@@ -4129,7 +5124,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxsteelspike",
@@ -4139,7 +5137,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxstrike",
@@ -4149,7 +5150,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"maxwyrmwind",
@@ -4159,7 +5163,10 @@
     "category":"Physical",
     "pp":10,
     "target":"adjacentFoe",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"meditate",
@@ -4170,8 +5177,10 @@
     "pp":40,
     "target":"self",
     "movetype":"Psychic",
-    "boosts":{
-      "atk":1
+    "secondary":{
+      "boosts":{
+        "atk":1
+      }
     }
   },
   {
@@ -4183,10 +5192,9 @@
     "pp":15,
     "target":"normal",
     "movetype":"Grass",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"megahorn",
@@ -4196,7 +5204,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"megakick",
@@ -4206,7 +5217,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"megapunch",
@@ -4216,7 +5230,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"memento",
@@ -4227,9 +5244,11 @@
     "pp":10,
     "target":"normal",
     "movetype":"Dark",
-    "boosts":{
-      "atk":-2,
-      "spa":-2
+    "secondary":{
+      "boosts":{
+        "atk":-2,
+        "spa":-2
+      }
     }
   },
   {
@@ -4240,7 +5259,10 @@
     "category":"Special",
     "pp":1,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"metalburst",
@@ -4250,7 +5272,10 @@
     "category":"Physical",
     "pp":10,
     "target":"scripted",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"metalclaw",
@@ -4260,7 +5285,10 @@
     "category":"Physical",
     "pp":35,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"metalsound",
@@ -4271,8 +5299,10 @@
     "pp":40,
     "target":"normal",
     "movetype":"Steel",
-    "boosts":{
-      "spd":-2
+    "secondary":{
+      "boosts":{
+        "spd":-2
+      }
     }
   },
   {
@@ -4283,7 +5313,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"meteorbeam",
@@ -4293,7 +5326,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"meteormash",
@@ -4303,7 +5339,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mindblown",
@@ -4313,7 +5352,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacent",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"minimize",
@@ -4324,8 +5366,10 @@
     "pp":10,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "evasion":2
+    "secondary":{
+      "boosts":{
+        "evasion":2
+      }
     }
   },
   {
@@ -4336,7 +5380,10 @@
     "category":"Special",
     "pp":20,
     "target":"scripted",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mirrorshot",
@@ -4346,7 +5393,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mistball",
@@ -4356,7 +5406,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mistyexplosion",
@@ -4366,7 +5419,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacent",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"moonblast",
@@ -4376,7 +5432,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"moongeistbeam",
@@ -4386,7 +5445,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mudbomb",
@@ -4396,7 +5458,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mudshot",
@@ -4406,7 +5471,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mudslap",
@@ -4416,7 +5484,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"muddywater",
@@ -4426,7 +5497,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"multiattack",
@@ -4436,7 +5510,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"mysticalfire",
@@ -4446,7 +5523,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"nastyplot",
@@ -4457,8 +5537,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Dark",
-    "boosts":{
-      "spa":2
+    "secondary":{
+      "boosts":{
+        "spa":2
+      }
     }
   },
   {
@@ -4469,7 +5551,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"naturesmadness",
@@ -4479,7 +5564,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"needlearm",
@@ -4489,7 +5577,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"neverendingnightmare",
@@ -4499,7 +5590,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"nightdaze",
@@ -4509,7 +5603,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"nightshade",
@@ -4519,7 +5616,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"nightslash",
@@ -4529,7 +5629,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"nobleroar",
@@ -4540,9 +5643,11 @@
     "pp":30,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "atk":-1,
-      "spa":-1
+    "secondary":{
+      "boosts":{
+        "atk":-1,
+        "spa":-1
+      }
     }
   },
   {
@@ -4554,12 +5659,14 @@
     "pp":5,
     "target":"self",
     "movetype":"Fighting",
-    "boosts":{
-      "atk":1,
-      "def":1,
-      "spa":1,
-      "spd":1,
-      "spe":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "def":1,
+        "spa":1,
+        "spd":1,
+        "spe":1
+      }
     }
   },
   {
@@ -4572,7 +5679,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":100,
       "status":"par"
     }
   },
@@ -4585,10 +5691,9 @@
     "pp":10,
     "target":"any",
     "movetype":"Flying",
-    "drain":[
-      3,
-      4
-    ]
+    "secondary":{
+      "drain":3
+    }
   },
   {
     "keyname":"oceanicoperetta",
@@ -4598,7 +5703,10 @@
     "category":"Special",
     "pp":1,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"octazooka",
@@ -4608,7 +5716,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"ominouswind",
@@ -4618,7 +5729,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"originpulse",
@@ -4628,7 +5742,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"outrage",
@@ -4638,7 +5755,10 @@
     "category":"Physical",
     "pp":10,
     "target":"randomNormal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"overdrive",
@@ -4648,7 +5768,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"overheat",
@@ -4658,7 +5781,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"paleowave",
@@ -4668,7 +5794,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"paraboliccharge",
@@ -4679,10 +5808,9 @@
     "pp":20,
     "target":"allAdjacent",
     "movetype":"Electric",
-    "drain":[
-      1,
-      2
-    ]
+    "secondary":{
+      "drain":1
+    }
   },
   {
     "keyname":"payback",
@@ -4692,7 +5820,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"payday",
@@ -4702,7 +5833,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"peck",
@@ -4712,7 +5846,10 @@
     "category":"Physical",
     "pp":35,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"petalblizzard",
@@ -4722,7 +5859,10 @@
     "category":"Physical",
     "pp":15,
     "target":"allAdjacent",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"petaldance",
@@ -4732,7 +5872,10 @@
     "category":"Special",
     "pp":10,
     "target":"randomNormal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"phantomforce",
@@ -4742,7 +5885,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"photongeyser",
@@ -4752,7 +5898,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"pikapapow",
@@ -4762,7 +5911,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"pinmissile",
@@ -4772,7 +5924,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"plasmafists",
@@ -4782,7 +5937,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"playnice",
@@ -4793,8 +5951,10 @@
     "pp":20,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "atk":-1
+    "secondary":{
+      "boosts":{
+        "atk":-1
+      }
     }
   },
   {
@@ -4805,7 +5965,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"pluck",
@@ -4815,7 +5978,10 @@
     "category":"Physical",
     "pp":20,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"poisonfang",
@@ -4825,7 +5991,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"poisonjab",
@@ -4837,7 +6006,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":30,
       "status":"psn"
     }
   },
@@ -4851,7 +6019,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":30,
       "status":"psn"
     }
   },
@@ -4865,7 +6032,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":10,
       "status":"psn"
     }
   },
@@ -4877,7 +6043,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"poltergeist",
@@ -4887,7 +6056,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"pound",
@@ -4897,7 +6069,10 @@
     "category":"Physical",
     "pp":35,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"powdersnow",
@@ -4907,7 +6082,10 @@
     "category":"Special",
     "pp":25,
     "target":"allAdjacentFoes",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"powergem",
@@ -4917,7 +6095,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"powertrip",
@@ -4927,7 +6108,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"poweruppunch",
@@ -4937,7 +6121,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"powerwhip",
@@ -4947,7 +6134,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"precipiceblades",
@@ -4957,7 +6147,10 @@
     "category":"Physical",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"present",
@@ -4967,7 +6160,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"prismaticlaser",
@@ -4977,7 +6173,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psybeam",
@@ -4987,7 +6186,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psychic",
@@ -4997,7 +6199,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psychicfangs",
@@ -5007,7 +6212,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psychoboost",
@@ -5017,7 +6225,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psychocut",
@@ -5027,7 +6238,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psyshock",
@@ -5037,7 +6251,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psystrike",
@@ -5047,7 +6264,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"psywave",
@@ -5057,7 +6277,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"pulverizingpancake",
@@ -5067,7 +6290,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"punishment",
@@ -5077,7 +6303,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"pursuit",
@@ -5087,7 +6316,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"pyroball",
@@ -5099,7 +6331,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":10,
       "status":"brn"
     }
   },
@@ -5111,7 +6342,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"quiverdance",
@@ -5122,10 +6356,12 @@
     "pp":20,
     "target":"self",
     "movetype":"Bug",
-    "boosts":{
-      "spa":1,
-      "spd":1,
-      "spe":1
+    "secondary":{
+      "boosts":{
+        "spa":1,
+        "spd":1,
+        "spe":1
+      }
     }
   },
   {
@@ -5136,7 +6372,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rapidspin",
@@ -5146,7 +6385,10 @@
     "category":"Physical",
     "pp":40,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"razorleaf",
@@ -5156,7 +6398,10 @@
     "category":"Physical",
     "pp":25,
     "target":"allAdjacentFoes",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"razorshell",
@@ -5166,7 +6411,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"razorwind",
@@ -5176,7 +6424,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"relicsong",
@@ -5186,7 +6437,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"retaliate",
@@ -5196,7 +6450,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"return",
@@ -5206,7 +6463,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"revelationdance",
@@ -5216,7 +6476,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"revenge",
@@ -5226,7 +6489,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"reversal",
@@ -5236,7 +6502,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"risingvoltage",
@@ -5246,7 +6515,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"roaroftime",
@@ -5256,7 +6528,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rockblast",
@@ -5266,7 +6541,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rockclimb",
@@ -5276,7 +6554,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rockpolish",
@@ -5287,8 +6568,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Rock",
-    "boosts":{
-      "spe":2
+    "secondary":{
+      "boosts":{
+        "spe":2
+      }
     }
   },
   {
@@ -5299,7 +6582,10 @@
     "category":"Physical",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rocksmash",
@@ -5309,7 +6595,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rockthrow",
@@ -5319,7 +6608,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rocktomb",
@@ -5329,7 +6621,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rockwrecker",
@@ -5339,7 +6634,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rollingkick",
@@ -5349,7 +6647,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"rollout",
@@ -5359,7 +6660,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"round",
@@ -5369,7 +6673,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sacredfire",
@@ -5381,7 +6688,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":50,
       "status":"brn"
     }
   },
@@ -5393,7 +6699,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sandattack",
@@ -5404,8 +6713,10 @@
     "pp":15,
     "target":"normal",
     "movetype":"Ground",
-    "boosts":{
-      "accuracy":-1
+    "secondary":{
+      "boosts":{
+        "accuracy":-1
+      }
     }
   },
   {
@@ -5416,7 +6727,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sappyseed",
@@ -5426,7 +6740,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"savagespinout",
@@ -5436,7 +6753,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"scald",
@@ -5448,7 +6768,6 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-      "chance":30,
       "status":"brn"
     }
   },
@@ -5460,7 +6779,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"scaryface",
@@ -5471,8 +6793,10 @@
     "pp":10,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "spe":-2
+    "secondary":{
+      "boosts":{
+        "spe":-2
+      }
     }
   },
   {
@@ -5485,7 +6809,6 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-      "chance":30,
       "status":"brn"
     }
   },
@@ -5497,7 +6820,10 @@
     "category":"Physical",
     "pp":35,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"screech",
@@ -5508,8 +6834,10 @@
     "pp":40,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "def":-2
+    "secondary":{
+      "boosts":{
+        "def":-2
+      }
     }
   },
   {
@@ -5522,7 +6850,6 @@
     "target":"allAdjacent",
     "movetype":"Fire",
     "secondary":{
-      "chance":30,
       "status":"brn"
     }
   },
@@ -5534,7 +6861,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"secretpower",
@@ -5546,7 +6876,6 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -5558,7 +6887,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"seedbomb",
@@ -5568,7 +6900,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"seedflare",
@@ -5578,7 +6913,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"seismictoss",
@@ -5588,7 +6926,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"selfdestruct",
@@ -5598,7 +6939,10 @@
     "category":"Physical",
     "pp":5,
     "target":"allAdjacent",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shadowball",
@@ -5608,7 +6952,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shadowbone",
@@ -5618,7 +6965,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shadowclaw",
@@ -5628,7 +6978,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shadowforce",
@@ -5638,7 +6991,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shadowpunch",
@@ -5648,7 +7004,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shadowsneak",
@@ -5658,7 +7017,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shadowstrike",
@@ -5668,7 +7030,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sharpen",
@@ -5679,8 +7044,10 @@
     "pp":30,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "atk":1
+    "secondary":{
+      "boosts":{
+        "atk":1
+      }
     }
   },
   {
@@ -5691,7 +7058,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sheercold",
@@ -5701,7 +7071,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shellsidearm",
@@ -5713,7 +7086,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":20,
       "status":"psn"
     }
   },
@@ -5726,12 +7098,14 @@
     "pp":15,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "def":-1,
-      "spd":-1,
-      "atk":2,
-      "spa":2,
-      "spe":2
+    "secondary":{
+      "boosts":{
+        "def":-1,
+        "spd":-1,
+        "atk":2,
+        "spa":2,
+        "spe":2
+      }
     }
   },
   {
@@ -5742,7 +7116,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"shiftgear",
@@ -5753,9 +7130,11 @@
     "pp":10,
     "target":"self",
     "movetype":"Steel",
-    "boosts":{
-      "spe":2,
-      "atk":1
+    "secondary":{
+      "boosts":{
+        "spe":2,
+        "atk":1
+      }
     }
   },
   {
@@ -5766,7 +7145,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"signalbeam",
@@ -5776,7 +7158,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"silverwind",
@@ -5786,7 +7171,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sinisterarrowraid",
@@ -5796,7 +7184,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sizzlyslide",
@@ -5808,7 +7199,6 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "chance":100,
       "status":"brn"
     }
   },
@@ -5820,7 +7210,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"skullbash",
@@ -5830,7 +7223,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"skyattack",
@@ -5840,7 +7236,10 @@
     "category":"Physical",
     "pp":5,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"skydrop",
@@ -5850,7 +7249,10 @@
     "category":"Physical",
     "pp":10,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"skyuppercut",
@@ -5860,7 +7262,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"slam",
@@ -5870,7 +7275,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"slash",
@@ -5880,7 +7288,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sludge",
@@ -5892,7 +7303,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":30,
       "status":"psn"
     }
   },
@@ -5906,7 +7316,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":30,
       "status":"psn"
     }
   },
@@ -5920,7 +7329,6 @@
     "target":"allAdjacent",
     "movetype":"Poison",
     "secondary":{
-      "chance":10,
       "status":"psn"
     }
   },
@@ -5932,7 +7340,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"smartstrike",
@@ -5942,7 +7353,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"smellingsalts",
@@ -5952,7 +7366,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"smog",
@@ -5964,7 +7381,6 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "chance":40,
       "status":"psn"
     }
   },
@@ -5977,8 +7393,10 @@
     "pp":20,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "accuracy":-1
+    "secondary":{
+      "boosts":{
+        "accuracy":-1
+      }
     }
   },
   {
@@ -5989,7 +7407,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"snarl",
@@ -5999,7 +7420,10 @@
     "category":"Special",
     "pp":15,
     "target":"allAdjacentFoes",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"snipeshot",
@@ -6009,7 +7433,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"snore",
@@ -6019,7 +7446,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"solarbeam",
@@ -6029,7 +7459,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"solarblade",
@@ -6039,7 +7472,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sonicboom",
@@ -6049,7 +7485,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"soulstealing7starstrike",
@@ -6059,7 +7498,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"spacialrend",
@@ -6069,7 +7511,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"spark",
@@ -6081,7 +7526,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -6093,7 +7537,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacent",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sparklyswirl",
@@ -6103,7 +7550,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"spectralthief",
@@ -6113,7 +7563,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"spikecannon",
@@ -6123,7 +7576,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"spiritbreak",
@@ -6133,7 +7589,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"spiritshackle",
@@ -6143,7 +7602,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ghost"
+    "movetype":"Ghost",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"spitup",
@@ -6153,7 +7615,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"splinteredstormshards",
@@ -6163,7 +7628,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"splishysplash",
@@ -6175,7 +7643,6 @@
     "target":"allAdjacentFoes",
     "movetype":"Water",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -6189,7 +7656,6 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-      "chance":30,
       "status":"brn"
     }
   },
@@ -6201,7 +7667,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"steelbeam",
@@ -6211,7 +7680,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"steelroller",
@@ -6221,7 +7693,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"steelwing",
@@ -6231,7 +7706,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"stokedsparksurfer",
@@ -6243,7 +7721,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":100,
       "status":"par"
     }
   },
@@ -6255,7 +7732,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"stompingtantrum",
@@ -6265,7 +7745,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"stoneedge",
@@ -6275,7 +7758,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Rock"
+    "movetype":"Rock",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"storedpower",
@@ -6285,7 +7771,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"stormthrow",
@@ -6295,7 +7784,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"strangesteam",
@@ -6305,7 +7797,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"strength",
@@ -6315,7 +7810,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"stringshot",
@@ -6326,8 +7824,10 @@
     "pp":40,
     "target":"allAdjacentFoes",
     "movetype":"Bug",
-    "boosts":{
-      "spe":-2
+    "secondary":{
+      "boosts":{
+        "spe":-2
+      }
     }
   },
   {
@@ -6338,7 +7838,10 @@
     "category":"Physical",
     "pp":1,
     "target":"randomNormal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"strugglebug",
@@ -6348,7 +7851,10 @@
     "category":"Special",
     "pp":20,
     "target":"allAdjacentFoes",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"submission",
@@ -6358,7 +7864,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"subzeroslammer",
@@ -6368,7 +7877,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"suckerpunch",
@@ -6378,7 +7890,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"sunsteelstrike",
@@ -6388,7 +7903,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Steel"
+    "movetype":"Steel",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"superfang",
@@ -6398,7 +7916,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"superpower",
@@ -6408,7 +7929,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"supersonicskystrike",
@@ -6418,7 +7942,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"surf",
@@ -6428,7 +7955,10 @@
     "category":"Special",
     "pp":15,
     "target":"allAdjacent",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"surgingstrikes",
@@ -6438,7 +7968,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"swagger",
@@ -6449,8 +7982,10 @@
     "pp":15,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "atk":2
+    "secondary":{
+      "boosts":{
+        "atk":2
+      }
     }
   },
   {
@@ -6462,8 +7997,10 @@
     "pp":20,
     "target":"allAdjacentFoes",
     "movetype":"Normal",
-    "boosts":{
-      "evasion":-2
+    "secondary":{
+      "boosts":{
+        "evasion":-2
+      }
     }
   },
   {
@@ -6474,7 +8011,10 @@
     "category":"Special",
     "pp":20,
     "target":"allAdjacentFoes",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"swordsdance",
@@ -6485,8 +8025,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "atk":2
+    "secondary":{
+      "boosts":{
+        "atk":2
+      }
     }
   },
   {
@@ -6497,7 +8039,10 @@
     "category":"Special",
     "pp":10,
     "target":"allAdjacent",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"tackle",
@@ -6507,7 +8052,10 @@
     "category":"Physical",
     "pp":35,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"tailglow",
@@ -6518,8 +8066,10 @@
     "pp":20,
     "target":"self",
     "movetype":"Bug",
-    "boosts":{
-      "spa":3
+    "secondary":{
+      "boosts":{
+        "spa":3
+      }
     }
   },
   {
@@ -6530,7 +8080,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"tailwhip",
@@ -6541,8 +8094,10 @@
     "pp":30,
     "target":"allAdjacentFoes",
     "movetype":"Normal",
-    "boosts":{
-      "def":-1
+    "secondary":{
+      "boosts":{
+        "def":-1
+      }
     }
   },
   {
@@ -6553,7 +8108,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"tarshot",
@@ -6564,8 +8122,10 @@
     "pp":15,
     "target":"normal",
     "movetype":"Rock",
-    "boosts":{
-      "spe":-1
+    "secondary":{
+      "boosts":{
+        "spe":-1
+      }
     }
   },
   {
@@ -6577,9 +8137,11 @@
     "pp":20,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "atk":-1,
-      "spa":-1
+    "secondary":{
+      "boosts":{
+        "atk":-1,
+        "spa":-1
+      }
     }
   },
   {
@@ -6590,7 +8152,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"tectonicrage",
@@ -6600,7 +8165,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"terrainpulse",
@@ -6610,7 +8178,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thief",
@@ -6620,7 +8191,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thousandarrows",
@@ -6630,7 +8204,10 @@
     "category":"Physical",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thousandwaves",
@@ -6640,7 +8217,10 @@
     "category":"Physical",
     "pp":10,
     "target":"allAdjacentFoes",
-    "movetype":"Ground"
+    "movetype":"Ground",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thrash",
@@ -6650,7 +8230,10 @@
     "category":"Physical",
     "pp":10,
     "target":"randomNormal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"throatchop",
@@ -6660,7 +8243,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thunder",
@@ -6672,7 +8258,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":30,
       "status":"par"
     }
   },
@@ -6686,7 +8271,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":10,
       "status":"par"
     }
   },
@@ -6698,7 +8282,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thunderfang",
@@ -6708,7 +8295,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thunderouskick",
@@ -6718,7 +8308,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"thunderpunch",
@@ -6730,7 +8323,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":10,
       "status":"par"
     }
   },
@@ -6744,7 +8336,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":10,
       "status":"par"
     }
   },
@@ -6757,9 +8348,11 @@
     "pp":20,
     "target":"normal",
     "movetype":"Normal",
-    "boosts":{
-      "atk":-1,
-      "def":-1
+    "secondary":{
+      "boosts":{
+        "atk":-1,
+        "def":-1
+      }
     }
   },
   {
@@ -6771,8 +8364,10 @@
     "pp":20,
     "target":"normal",
     "movetype":"Poison",
-    "boosts":{
-      "spe":-1
+    "secondary":{
+      "boosts":{
+        "spe":-1
+      }
     }
   },
   {
@@ -6783,7 +8378,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"tripleaxel",
@@ -6793,7 +8391,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Ice"
+    "movetype":"Ice",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"triplekick",
@@ -6803,7 +8404,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"tropkick",
@@ -6813,7 +8417,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"trumpcard",
@@ -6823,7 +8430,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"twineedle",
@@ -6835,7 +8445,6 @@
     "target":"normal",
     "movetype":"Bug",
     "secondary":{
-      "chance":20,
       "status":"psn"
     }
   },
@@ -6847,7 +8456,10 @@
     "category":"Physical",
     "pp":1,
     "target":"normal",
-    "movetype":"Fairy"
+    "movetype":"Fairy",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"twister",
@@ -6857,7 +8469,10 @@
     "category":"Special",
     "pp":20,
     "target":"allAdjacentFoes",
-    "movetype":"Dragon"
+    "movetype":"Dragon",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"uturn",
@@ -6867,7 +8482,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"uproar",
@@ -6877,7 +8495,10 @@
     "category":"Special",
     "pp":10,
     "target":"randomNormal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"vacuumwave",
@@ -6887,7 +8508,10 @@
     "category":"Special",
     "pp":30,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"vcreate",
@@ -6897,7 +8521,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Fire"
+    "movetype":"Fire",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"veeveevolley",
@@ -6907,7 +8534,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"venoshock",
@@ -6917,7 +8547,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Poison"
+    "movetype":"Poison",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"vinewhip",
@@ -6927,7 +8560,10 @@
     "category":"Physical",
     "pp":25,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"visegrip",
@@ -6937,7 +8573,10 @@
     "category":"Physical",
     "pp":30,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"vitalthrow",
@@ -6947,7 +8586,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"voltswitch",
@@ -6957,7 +8599,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"volttackle",
@@ -6969,7 +8614,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":10,
       "status":"par"
     }
   },
@@ -6981,7 +8625,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Fighting"
+    "movetype":"Fighting",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"waterfall",
@@ -6991,7 +8638,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"watergun",
@@ -7001,7 +8651,10 @@
     "category":"Special",
     "pp":25,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"waterpledge",
@@ -7011,7 +8664,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"waterpulse",
@@ -7021,7 +8677,10 @@
     "category":"Special",
     "pp":20,
     "target":"any",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"watershuriken",
@@ -7031,7 +8690,10 @@
     "category":"Special",
     "pp":20,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"waterspout",
@@ -7041,7 +8703,10 @@
     "category":"Special",
     "pp":5,
     "target":"allAdjacentFoes",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"weatherball",
@@ -7051,7 +8716,10 @@
     "category":"Special",
     "pp":10,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"whirlpool",
@@ -7061,7 +8729,10 @@
     "category":"Special",
     "pp":15,
     "target":"normal",
-    "movetype":"Water"
+    "movetype":"Water",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"wickedblow",
@@ -7071,7 +8742,10 @@
     "category":"Physical",
     "pp":5,
     "target":"normal",
-    "movetype":"Dark"
+    "movetype":"Dark",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"wildcharge",
@@ -7081,7 +8755,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"wingattack",
@@ -7091,7 +8768,10 @@
     "category":"Physical",
     "pp":35,
     "target":"any",
-    "movetype":"Flying"
+    "movetype":"Flying",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"withdraw",
@@ -7102,8 +8782,10 @@
     "pp":40,
     "target":"self",
     "movetype":"Water",
-    "boosts":{
-      "def":1
+    "secondary":{
+      "boosts":{
+        "def":1
+      }
     }
   },
   {
@@ -7114,7 +8796,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Grass"
+    "movetype":"Grass",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"workup",
@@ -7125,9 +8810,11 @@
     "pp":30,
     "target":"self",
     "movetype":"Normal",
-    "boosts":{
-      "atk":1,
-      "spa":1
+    "secondary":{
+      "boosts":{
+        "atk":1,
+        "spa":1
+      }
     }
   },
   {
@@ -7138,7 +8825,10 @@
     "category":"Physical",
     "pp":20,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"wringout",
@@ -7148,7 +8838,10 @@
     "category":"Special",
     "pp":5,
     "target":"normal",
-    "movetype":"Normal"
+    "movetype":"Normal",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"xscissor",
@@ -7158,7 +8851,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Bug"
+    "movetype":"Bug",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"zapcannon",
@@ -7170,7 +8866,6 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "chance":100,
       "status":"par"
     }
   },
@@ -7182,7 +8877,10 @@
     "category":"Physical",
     "pp":15,
     "target":"normal",
-    "movetype":"Psychic"
+    "movetype":"Psychic",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"zingzap",
@@ -7192,7 +8890,10 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   },
   {
     "keyname":"zippyzap",
@@ -7202,6 +8903,9 @@
     "category":"Physical",
     "pp":10,
     "target":"normal",
-    "movetype":"Electric"
+    "movetype":"Electric",
+    "secondary":{
+
+    }
   }
 ]
