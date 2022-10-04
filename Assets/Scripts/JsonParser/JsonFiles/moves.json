@@ -48,7 +48,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Poison",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -89,7 +94,12 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spd":-2
+        }
+      }
     }
   },
   {
@@ -223,7 +233,18 @@
     "target":"normal",
     "movetype":"Rock",
     "secondary":{
-
+      "self-buff":{
+        "chance":10,
+        "self":{
+          "boosts":{
+            "atk":1,
+            "def":1,
+            "spa":1,
+            "spd":1,
+            "spe":1
+          }
+        }
+      }
     }
   },
   {
@@ -236,7 +257,12 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -368,7 +394,14 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-
+      "self-buff":{
+        "chance":100,
+        "self":{
+          "boosts":{
+            "spe":1
+          }
+        }
+      }
     }
   },
   {
@@ -381,7 +414,12 @@
     "target":"normal",
     "movetype":"Ice",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "atk":-1
+        }
+      }
     }
   },
   {
@@ -608,7 +646,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -647,7 +688,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":20,
+        "status":"brn"
+      }
     }
   },
   {
@@ -673,7 +717,10 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -699,7 +746,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":20,
+        "status":"par"
+      }
     }
   },
   {
@@ -764,7 +814,10 @@
     "target":"any",
     "movetype":"Flying",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -816,7 +869,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Dragon",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "atk":-1
+        }
+      }
     }
   },
   {
@@ -881,7 +939,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Water",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -894,7 +957,12 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -920,7 +988,12 @@
     "target":"normal",
     "movetype":"Bug",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -949,7 +1022,12 @@
     "target":"allAdjacent",
     "movetype":"Ground",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -1014,7 +1092,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":100,
+        "status":"par"
+      }
     }
   },
   {
@@ -1086,7 +1167,14 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-
+      "self-buff":{
+        "chance":70,
+        "self":{
+          "boosts":{
+            "spa":1
+          }
+        }
+      }
     }
   },
   {
@@ -1311,7 +1399,12 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -1461,7 +1554,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":10,
+        "status":"psn"
+      }
     }
   },
   {
@@ -1474,7 +1570,12 @@
     "target":"normal",
     "movetype":"Dark",
     "secondary":{
-
+      "debuff":{
+        "chance":20,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -1487,7 +1588,12 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -1664,7 +1770,10 @@
     "target":"allAdjacent",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -1822,7 +1931,10 @@
     "target":"normal",
     "movetype":"Dragon",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -2020,7 +2132,12 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -2085,7 +2202,12 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -2178,7 +2300,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Electric",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -2191,7 +2318,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -2217,7 +2347,12 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -2461,7 +2596,14 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-
+      "self-buff":{
+        "chance":50,
+        "self":{
+          "boosts":{
+            "spa":1
+          }
+        }
+      }
     }
   },
   {
@@ -2500,7 +2642,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -2526,7 +2671,12 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -2552,7 +2702,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -2643,7 +2796,14 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-
+      "self-buff":{
+        "chance":100,
+        "self":{
+          "boosts":{
+            "spe":1
+          }
+        }
+      }
     }
   },
   {
@@ -2656,7 +2816,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -2669,7 +2832,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -2682,7 +2848,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -2710,7 +2879,12 @@
     "target":"normal",
     "movetype":"Steel",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -2816,7 +2990,12 @@
     "target":"normal",
     "movetype":"Fighting",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -2842,7 +3021,10 @@
     "target":"normal",
     "movetype":"Fighting",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -2881,7 +3063,10 @@
     "target":"normal",
     "movetype":"Ice",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -3050,7 +3235,12 @@
     "target":"normal",
     "movetype":"Psychic",
     "secondary":{
+      "self-buff":{
+        "chance":100,
+        "self":{
 
+        }
+      }
     }
   },
   {
@@ -3132,7 +3322,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Ice",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -3626,7 +3821,12 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -3696,7 +3896,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":30,
+        "status":"psn"
+      }
     }
   },
   {
@@ -3828,7 +4031,10 @@
     "target":"allAdjacentFoes",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -4340,7 +4546,10 @@
     "target":"normal",
     "movetype":"Ice",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":30,
+        "status":"brn"
+      }
     }
   },
   {
@@ -4431,7 +4640,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Ice",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -4457,7 +4671,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":100,
+        "status":"brn"
+      }
     }
   },
   {
@@ -4524,7 +4741,12 @@
     "target":"normal",
     "movetype":"Steel",
     "secondary":{
-
+      "debuff":{
+        "chance":30,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -4656,7 +4878,10 @@
     "target":"allAdjacent",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":30,
+        "status":"brn"
+      }
     }
   },
   {
@@ -4708,7 +4933,12 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "accuracy":-1
+        }
+      }
     }
   },
   {
@@ -4762,7 +4992,10 @@
     "target":"normal",
     "movetype":"Ghost",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -4801,7 +5034,12 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-
+      "debuff":{
+        "chance":20,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -4827,7 +5065,12 @@
     "target":"normal",
     "movetype":"Fighting",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -4840,7 +5083,12 @@
     "target":"normal",
     "movetype":"Bug",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "atk":-1
+        }
+      }
     }
   },
   {
@@ -4853,7 +5101,12 @@
     "target":"normal",
     "movetype":"Psychic",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -5287,7 +5540,14 @@
     "target":"normal",
     "movetype":"Steel",
     "secondary":{
-
+      "self-buff":{
+        "chance":10,
+        "self":{
+          "boosts":{
+            "atk":1
+          }
+        }
+      }
     }
   },
   {
@@ -5341,7 +5601,14 @@
     "target":"normal",
     "movetype":"Steel",
     "secondary":{
-
+      "self-buff":{
+        "chance":20,
+        "self":{
+          "boosts":{
+            "atk":1
+          }
+        }
+      }
     }
   },
   {
@@ -5395,7 +5662,12 @@
     "target":"normal",
     "movetype":"Steel",
     "secondary":{
-
+      "debuff":{
+        "chance":30,
+        "boosts":{
+          "accuracy":-1
+        }
+      }
     }
   },
   {
@@ -5408,7 +5680,12 @@
     "target":"normal",
     "movetype":"Psychic",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "spa":-1
+        }
+      }
     }
   },
   {
@@ -5434,7 +5711,12 @@
     "target":"normal",
     "movetype":"Fairy",
     "secondary":{
-
+      "debuff":{
+        "chance":30,
+        "boosts":{
+          "spa":-1
+        }
+      }
     }
   },
   {
@@ -5460,7 +5742,12 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-
+      "debuff":{
+        "chance":30,
+        "boosts":{
+          "accuracy":-1
+        }
+      }
     }
   },
   {
@@ -5473,7 +5760,12 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -5486,7 +5778,12 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "accuracy":-1
+        }
+      }
     }
   },
   {
@@ -5499,7 +5796,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Water",
     "secondary":{
-
+      "debuff":{
+        "chance":30,
+        "boosts":{
+          "accuracy":-1
+        }
+      }
     }
   },
   {
@@ -5525,7 +5827,12 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spa":-1
+        }
+      }
     }
   },
   {
@@ -5605,7 +5912,12 @@
     "target":"normal",
     "movetype":"Dark",
     "secondary":{
-
+      "debuff":{
+        "chance":40,
+        "boosts":{
+          "accuracy":-1
+        }
+      }
     }
   },
   {
@@ -5679,7 +5991,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":100,
+        "status":"par"
+      }
     }
   },
   {
@@ -5718,7 +6033,12 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "accuracy":-1
+        }
+      }
     }
   },
   {
@@ -5731,7 +6051,18 @@
     "target":"normal",
     "movetype":"Ghost",
     "secondary":{
-
+      "self-buff":{
+        "chance":10,
+        "self":{
+          "boosts":{
+            "atk":1,
+            "def":1,
+            "spa":1,
+            "spd":1,
+            "spe":1
+          }
+        }
+      }
     }
   },
   {
@@ -5796,7 +6127,12 @@
     "target":"normal",
     "movetype":"Rock",
     "secondary":{
-
+      "debuff":{
+        "chance":20,
+        "boosts":{
+          "atk":-1
+        }
+      }
     }
   },
   {
@@ -5967,7 +6303,12 @@
     "target":"normal",
     "movetype":"Fairy",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "atk":-1
+        }
+      }
     }
   },
   {
@@ -6006,7 +6347,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":30,
+        "status":"psn"
+      }
     }
   },
   {
@@ -6019,7 +6363,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":30,
+        "status":"psn"
+      }
     }
   },
   {
@@ -6032,7 +6379,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":10,
+        "status":"psn"
+      }
     }
   },
   {
@@ -6123,7 +6473,14 @@
     "target":"normal",
     "movetype":"Fighting",
     "secondary":{
-
+      "self-buff":{
+        "chance":100,
+        "self":{
+          "boosts":{
+            "atk":1
+          }
+        }
+      }
     }
   },
   {
@@ -6201,7 +6558,12 @@
     "target":"normal",
     "movetype":"Psychic",
     "secondary":{
-
+      "debuff":{
+        "chance":10,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -6331,7 +6693,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":10,
+        "status":"brn"
+      }
     }
   },
   {
@@ -6387,7 +6752,14 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-
+      "self-buff":{
+        "chance":100,
+        "self":{
+          "boosts":{
+            "spe":1
+          }
+        }
+      }
     }
   },
   {
@@ -6413,7 +6785,12 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -6597,7 +6974,12 @@
     "target":"normal",
     "movetype":"Fighting",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -6623,7 +7005,12 @@
     "target":"normal",
     "movetype":"Rock",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spe":-1
+        }
+      }
     }
   },
   {
@@ -6688,7 +7075,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":50,
+        "status":"brn"
+      }
     }
   },
   {
@@ -6768,7 +7158,10 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":30,
+        "status":"brn"
+      }
     }
   },
   {
@@ -6809,7 +7202,10 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":30,
+        "status":"brn"
+      }
     }
   },
   {
@@ -6850,7 +7246,10 @@
     "target":"allAdjacent",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":30,
+        "status":"brn"
+      }
     }
   },
   {
@@ -6876,7 +7275,10 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -6915,7 +7317,12 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-
+      "debuff":{
+        "chance":40,
+        "boosts":{
+          "spd":-2
+        }
+      }
     }
   },
   {
@@ -6954,7 +7361,12 @@
     "target":"normal",
     "movetype":"Ghost",
     "secondary":{
-
+      "debuff":{
+        "chance":20,
+        "boosts":{
+          "spd":-1
+        }
+      }
     }
   },
   {
@@ -6967,7 +7379,12 @@
     "target":"normal",
     "movetype":"Ghost",
     "secondary":{
-
+      "debuff":{
+        "chance":20,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -7032,7 +7449,12 @@
     "target":"normal",
     "movetype":"Ghost",
     "secondary":{
-
+      "debuff":{
+        "chance":50,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -7086,7 +7508,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":20,
+        "status":"psn"
+      }
     }
   },
   {
@@ -7173,7 +7598,18 @@
     "target":"normal",
     "movetype":"Bug",
     "secondary":{
-
+      "self-buff":{
+        "chance":10,
+        "self":{
+          "boosts":{
+            "atk":1,
+            "def":1,
+            "spa":1,
+            "spd":1,
+            "spe":1
+          }
+        }
+      }
     }
   },
   {
@@ -7199,7 +7635,10 @@
     "target":"normal",
     "movetype":"Fire",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":100,
+        "status":"brn"
+      }
     }
   },
   {
@@ -7212,7 +7651,12 @@
     "target":"normal",
     "movetype":"Bug",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spa":-1
+        }
+      }
     }
   },
   {
@@ -7303,7 +7747,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":30,
+        "status":"psn"
+      }
     }
   },
   {
@@ -7316,7 +7763,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":30,
+        "status":"psn"
+      }
     }
   },
   {
@@ -7329,7 +7779,10 @@
     "target":"allAdjacent",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":10,
+        "status":"psn"
+      }
     }
   },
   {
@@ -7381,7 +7834,10 @@
     "target":"normal",
     "movetype":"Poison",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":40,
+        "status":"psn"
+      }
     }
   },
   {
@@ -7422,7 +7878,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Dark",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spa":-1
+        }
+      }
     }
   },
   {
@@ -7526,7 +7987,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -7591,7 +8055,12 @@
     "target":"normal",
     "movetype":"Fairy",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spa":-1
+        }
+      }
     }
   },
   {
@@ -7643,7 +8112,10 @@
     "target":"allAdjacentFoes",
     "movetype":"Water",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -7656,7 +8128,10 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-      "status":"brn"
+      "status":{
+        "chance":30,
+        "status":"brn"
+      }
     }
   },
   {
@@ -7708,7 +8183,14 @@
     "target":"normal",
     "movetype":"Steel",
     "secondary":{
-
+      "self-buff":{
+        "chance":10,
+        "self":{
+          "boosts":{
+            "def":1
+          }
+        }
+      }
     }
   },
   {
@@ -7721,7 +8203,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":100,
+        "status":"par"
+      }
     }
   },
   {
@@ -7853,7 +8338,12 @@
     "target":"allAdjacentFoes",
     "movetype":"Bug",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "spa":-1
+        }
+      }
     }
   },
   {
@@ -8258,7 +8748,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":30,
+        "status":"par"
+      }
     }
   },
   {
@@ -8271,7 +8764,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":10,
+        "status":"par"
+      }
     }
   },
   {
@@ -8310,7 +8806,12 @@
     "target":"normal",
     "movetype":"Fighting",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "def":-1
+        }
+      }
     }
   },
   {
@@ -8323,7 +8824,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":10,
+        "status":"par"
+      }
     }
   },
   {
@@ -8336,7 +8840,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":10,
+        "status":"par"
+      }
     }
   },
   {
@@ -8419,7 +8926,12 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-
+      "debuff":{
+        "chance":100,
+        "boosts":{
+          "atk":-1
+        }
+      }
     }
   },
   {
@@ -8445,7 +8957,10 @@
     "target":"normal",
     "movetype":"Bug",
     "secondary":{
-      "status":"psn"
+      "status":{
+        "chance":20,
+        "status":"psn"
+      }
     }
   },
   {
@@ -8614,7 +9129,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":10,
+        "status":"par"
+      }
     }
   },
   {
@@ -8866,7 +9384,10 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "status":"par"
+      "status":{
+        "chance":100,
+        "status":"par"
+      }
     }
   },
   {
@@ -8905,7 +9426,14 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-
+      "self-buff":{
+        "chance":100,
+        "self":{
+          "boosts":{
+            "evasion":1
+          }
+        }
+      }
     }
   }
 ]

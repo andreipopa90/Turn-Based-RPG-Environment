@@ -16,7 +16,7 @@ namespace UI.Battle
 
         public void AddEnemySelect(List<Unit> enemyList)
         {
-            var battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
+            var battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem.BattleSystem>();
             for(var i = 0; i < enemyList.Count; i++)
             {
                 var button = Instantiate(EnemySelectButton,
@@ -38,7 +38,7 @@ namespace UI.Battle
         {
             var playerMoves = GameObject.Find("GameState").GetComponent<GameStateStorage>().SelectedMoves;
             const int spacing = 200;
-            var battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem>();
+            var battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem.BattleSystem>();
             for (var i = 0; i < playerMoves.Count; i++)
             {
                 var button = Instantiate(AbilitySelectButton,

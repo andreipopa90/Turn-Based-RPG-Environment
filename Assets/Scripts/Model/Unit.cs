@@ -113,6 +113,20 @@ namespace Model
             return damageTaken;
         }
 
+        public void TakeDamage(int value)
+        {
+            currentHealth -= value;
+            if (Affixes.Contains("Sturdy") && currentHealth <= 0)
+            {
+                currentHealth = 1;
+                Affixes.Remove("Sturdy");
+            }
+            if (IsDead())
+            {
+                Destroy(gameObject);
+            }
+        }
+
         public void Heal(int healAmount)
         {
             currentHealth = Math.Min(currentHealth + healAmount, maxHealth);
