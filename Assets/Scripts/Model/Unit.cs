@@ -86,7 +86,7 @@ namespace Model
             return effectiveness;
         }
 
-        public int TakeDamage(Move move, Unit enemySource)
+        public int TakeDamage(Move move, Unit enemySource, double multiplier = 1.0)
         {
             var effectiveness = DetermineMoveEffectiveness(move.MoveType);
 
@@ -97,7 +97,7 @@ namespace Model
 
             var damageTaken = (int) (((Math.Round(2.0 * enemySource.level / 5.0, 2) + 2) * 
                                          Math.Round(sourceAttackUsed / defenseUsed * move.BasePower / 50.0, 2) + 2) * 
-                                     randomValue * effectiveness * stab);
+                                     randomValue * effectiveness * stab * multiplier);
 
             currentHealth -= damageTaken;
             if (Affixes.Contains("Sturdy") && currentHealth <= 0)
@@ -187,6 +187,15 @@ namespace Model
             return currentHealth <= 0;
         }
 
+
+        public void Cure()
+        {
+            if (Ailments.Contains("par"))
+            {
+                spe *= 4 / 3;
+            }
+            Ailments.Clear();
+        }
     
     }
 }

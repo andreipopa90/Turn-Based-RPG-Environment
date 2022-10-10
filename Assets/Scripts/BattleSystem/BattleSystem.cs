@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -258,7 +259,7 @@ namespace BattleSystem
             }
         }
 
-        private static void HandleStatus(Move move, Unit targetUnit, bool buff = true)
+        private void HandleStatus(Move move, Unit targetUnit, bool buff = true)
         {
             var boosts = ((JObject)move.Secondary["boosts"]).ToObject<Dictionary<string, int>>();
             foreach (var key in boosts.Keys)
@@ -273,7 +274,7 @@ namespace BattleSystem
             }
         }
 
-        private static void HandleAction(Action action, Unit target)
+        private void HandleAction(Action action, Unit target)
         {
             switch (action.Move.Category)
             {
@@ -291,7 +292,7 @@ namespace BattleSystem
                 {
                     HandleSelfBuff(action);
                     HandleDebuff(action);
-                    var damageTaken = target.TakeDamage(action.Move, action.SourceUnit);
+                    var damageTaken = HandleDamageTaken(action, target);
                     HandleDrain(action, damageTaken);
                     HandleStatusAilment(action);
                     break;
@@ -299,7 +300,23 @@ namespace BattleSystem
             }
         }
 
-        private static void HandleDebuff(Action action)
+        private int HandleDamageTaken(Action action, Unit target)
+        {
+            if (!target.Ailments.Contains("HealthLink")) return target.TakeDamage(action.Move, action.SourceUnit);
+            
+            var characters = _sceneCharacters.
+                Where(sc => sc.Ailments.Contains("HealthLink")).ToList();
+            var damageTaken = 0;
+            foreach (var character in characters)
+            {
+                damageTaken = character.TakeDamage(action.Move, action.SourceUnit, 
+                    multiplier: Math.Round(1.0 / characters.Count, 2));
+            }
+
+            return damageTaken;
+        }
+
+        private void HandleDebuff(Action action)
         {
             if (!action.Move.Secondary.ContainsKey("debuff")) return;
             var debuff = ((JObject) action.Move.Secondary["debuff"]).ToObject<Dictionary<string, dynamic>>();
@@ -320,7 +337,7 @@ namespace BattleSystem
             }
         }
 
-        private static void HandleSelfBuff(Action action)
+        private void HandleSelfBuff(Action action)
         {
             if (!action.Move.Secondary.ContainsKey("self-buff")) return;
             var selfBuff = ((JObject) action.Move.Secondary["self-buff"]).ToObject<SelfBuff>();
@@ -339,31 +356,49 @@ namespace BattleSystem
             }
         }
 
-        private static void HandleStatusAilment(Action action)
+        private void HandleStatusAilment(Action action)
         {
-            var random = new System.Random().Next(0, 100);
             if (!action.Move.Secondary.ContainsKey("status")) return;
         
+            var random = new System.Random().Next(0, 100);
             var statusEffect = ((JObject) action.Move.Secondary["status"]).ToObject<Dictionary<string, string>>();
-            if (int.Parse(statusEffect["chance"]) <= random)
+            if (random <= int.Parse(statusEffect["chance"]) && !action.TargetUnit.Ailments.Contains("ReverseAilment"))
                 action.TargetUnit.Ailments.Add(statusEffect["status"]);
-        }
-
-        private static void HandleDrain(Action action, int damageTaken)
-        {
-            if (!action.Move.Secondary.ContainsKey("drain")) return;
-            if (action.Move.Secondary["drain"] == 1)
-            {
-                action.SourceUnit.Heal(damageTaken / 2);
-            }
             else
             {
-                action.SourceUnit.Heal(damageTaken * 3 / 4);
+                action.SourceUnit.Ailments.Add(statusEffect["status"]);
             }
-        
+            if (statusEffect["status"].Equals("par"))
+                action.TargetUnit.spe *= 3 / 4;
         }
 
-        private static Unit GetTarget(Action action)
+        private void HandleDrain(Action action, int damageTaken)
+        {
+            if (!action.Move.Secondary.ContainsKey("drain")) return;
+            var healValue = action.Move.Secondary["drain"] == 1 ? damageTaken / 2 : damageTaken * 3 / 4;
+            action.SourceUnit.Heal(healValue);
+
+            if (!action.SourceUnit.Affixes.Contains("Medic")) return;
+            foreach (var character in 
+                     _sceneCharacters.Where(character => !character.unitName.Equals("Player") && 
+                                                         !character.unitName.Equals(action.SourceUnit.unitName)))
+            {
+                character.Heal(healValue);
+            }
+
+            if (!action.SourceUnit.Affixes.Contains("Lifesteal")) return;
+            action.SourceUnit.Heal(damageTaken / 2);
+            if (!action.SourceUnit.Affixes.Contains("Medic")) return;
+            foreach (var character in 
+                     _sceneCharacters.Where(character => !character.unitName.Equals("Player") && 
+                                                         !character.unitName.Equals(action.SourceUnit.unitName)))
+            {
+                character.Heal(damageTaken / 2);
+            }
+
+        }
+
+        private Unit GetTarget(Action action)
         {
             var target = action.TargetUnit;
             if (action.TargetUnit || !action.SourceUnit.unitName.Equals("Player")) return target;
@@ -394,7 +429,24 @@ namespace BattleSystem
             }
             else
             {
+                HandleDamageOverTime();
                 BeginBattle();
+            }
+        }
+
+        private void HandleDamageOverTime()
+        {
+            foreach (var character in _sceneCharacters)
+            {
+                if (character.Ailments.Contains("brn"))
+                {
+                    character.TakeDamage(character.currentHealth / 16);
+                }
+
+                if (character.Ailments.Contains("psn"))
+                {
+                    character.TakeDamage(character.currentHealth / 8);
+                }
             }
         }
     }
