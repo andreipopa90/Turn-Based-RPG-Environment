@@ -73,13 +73,16 @@ namespace Model
                         effectiveness *= 1;
                         break;
                     case 1:
-                        effectiveness *= 2;
+                        effectiveness = !Ailments.Contains("ReverseWeakness") ? 
+                            effectiveness * 2 : effectiveness / 2;
                         break;
                     case 2:
-                        effectiveness /= 2;
+                        effectiveness = !Ailments.Contains("ReverseWeakness") ? 
+                            effectiveness / 2 : effectiveness * 2;
                         break;
                     default:
-                        effectiveness *= 0;
+                        effectiveness = !Ailments.Contains("ReverseWeakness") ? 
+                            effectiveness * 0 : effectiveness * 2;
                         break;
                 }
             }

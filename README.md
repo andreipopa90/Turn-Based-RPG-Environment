@@ -26,6 +26,6 @@ Unity Version 2021.2.17f1
 <li>Sturdy - Done</li>
 <li>Lifesteal - Done</li>
 <li>CounterAttack</li>
-<li>ReverseWeakness</li>
+<li>ReverseWeakness - Done</li>
 <li>ReverseAilment - Done</li>
 </ul>
