@@ -49,7 +49,7 @@ namespace UI.MoveSelectionUI
             else if (gameState.StarterPokemon.Equals(_nameMatcher[trigger.name]))
             {
                 _moves = gameState.AllMoves;
-                var startMoves = gameState.StartMoves.Find(sm => sm.Name.Equals(gameState.StarterPokemon)).LearnSet;
+                var startMoves = gameState.StartMoves.Find(sm => sm.Name.Equals(gameState.StarterPokemon.ToLower())).LearnSet;
                 var moves = _moves.Where(m => startMoves.Contains(m.KeyName) && m.BasePower <= 50 &&
                                               (m.MoveType.Equals("Fire") || m.MoveType.Equals("Grass") ||
                                                m.MoveType.Equals("Water") || m.MoveType.Equals("Normal"))).ToList();

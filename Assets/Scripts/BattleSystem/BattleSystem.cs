@@ -66,7 +66,7 @@ namespace BattleSystem
         }
 
         private GameObject InstantiateCharacter(string characterName, Vector3 position, GameObject prefab, 
-            bool isPlayer = false)
+            bool isPlayer = false, List<Move> moves = null)
         {
             var character = Instantiate(prefab, position, Quaternion.identity);
             character.name = characterName;
@@ -77,6 +77,7 @@ namespace BattleSystem
             characterUnit.level = _gameState.CurrentLevel + 39;
             characterUnit.types = _gameState.StarterStats.Types;
             characterUnit.SetStats(_gameState.StarterStats);
+            if (moves is not null) characterUnit.moves = moves;
             // Add to logs.
             _levelLog.PlayerDefense = characterUnit.def > characterUnit.spd ? "Physical" : "Special";
             _levelLog.PlayerAttack = characterUnit.atk > characterUnit.spa ? "Physical" : "Special";
@@ -112,10 +113,16 @@ namespace BattleSystem
                 var randomNumber = new System.Random().Next(0, _gameState.EnemyBaseStats.Count);
                 var enemyBase = _gameState.EnemyBaseStats[randomNumber];
                 AddEnemyBaseStatsToLogs(enemyBase);
+                
                 randomNumber = new System.Random().Next(0, _gameState.Natures.Count);
                 var enemyNature = _gameState.Natures[randomNumber];
+                var startMoves = _gameState.StartMoves.
+                    Find(sm => sm.Name.Equals(enemyBase.Name.ToLower())).LearnSet;
+                var moves = _gameState.AllMoves.Where(m => startMoves.Contains(m.KeyName)).ToList().
+                    OrderBy(x => new System.Random().Next()).Take(6).ToList();
                 var enemyInstance = InstantiateCharacter(enemyBase.Name + " " + (i + 1), 
-                    new Vector3(-7 + 7 * i, 0, 10), enemy);
+                    new Vector3(-7 + 7 * i, 0, 10), enemy, moves:moves);
+                
                 enemyInstance = SetUpCharacterStats(enemyInstance, enemyBase, enemyNature);
                 enemies.Add(enemyInstance.GetComponent<Unit>());
             }
@@ -168,7 +175,7 @@ namespace BattleSystem
             {
                 var currentEnemy = _sceneCharacters[_currentTurn];
                 Action action;
-                action.Move = _gameState.AllMoves[new System.Random().Next(0, 6)];
+                action.Move = currentEnemy.moves[new System.Random().Next(0, currentEnemy.moves.Count)];
                 action.SourceUnit = currentEnemy;
                 action.TargetUnit = GameObject.Find("Player").GetComponent<Unit>();
                 _actionQueue.Add(action);
