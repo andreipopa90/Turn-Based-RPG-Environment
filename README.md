@@ -21,8 +21,8 @@ Unity Version 2021.2.17f1
 <li>HealthLink - Done</li>
 <li>Domain</li>
 <li>Medic - Done</li>
-<li>Avenger</li>
-<li>Evolve</li>
+<li>Avenger - Done</li>
+<li>Evolve - Done</li>
 <li>Sturdy - Done</li>
 <li>Lifesteal - Done</li>
 <li>CounterAttack</li>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LogFiles;
 using Model;
+using Model.Observer;
 using Newtonsoft.Json.Linq;
 using UI.Battle;
 using UnityEngine;
@@ -41,6 +42,7 @@ namespace BattleSystem
         private Move _selectedMove;
         private GameStateStorage _gameState;
         private Log _levelLog;
+        private EventManager _manager;
 
         // Start is called before the first frame update
         private void Start()
@@ -51,6 +53,7 @@ namespace BattleSystem
             _levelLog = Log.GetInstance();
             _levelLog.CurrentLevel = _gameState.CurrentLevel;
             _sceneCharacters = new List<Unit>();
+            _manager = new EventManager();
             SetUpCharacters();
             SetUpHUD();
             GatherCharactersInScene();
@@ -76,6 +79,7 @@ namespace BattleSystem
 
             characterUnit.level = _gameState.CurrentLevel + 39;
             characterUnit.types = _gameState.StarterStats.Types;
+            characterUnit.Manager = _manager;
             characterUnit.SetStats(_gameState.StarterStats);
             // Add to logs.
             _levelLog.PlayerDefense = characterUnit.def > characterUnit.spd ? "Physical" : "Special";
@@ -93,6 +97,7 @@ namespace BattleSystem
         private GameObject SetUpCharacterStats(GameObject character, BaseStat characterBase, Nature characterNature)
         {
             var characterUnit = character.GetComponent<Unit>();
+            characterUnit.Manager = _manager;
             characterUnit.level = _gameState.CurrentLevel;
             characterUnit.types = characterBase.Types;
             characterUnit.unitNature = characterNature;
@@ -107,6 +112,8 @@ namespace BattleSystem
             var playerInstance = 
                 InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
 
+            _manager.AddListener(playerInstance.GetComponent<Unit>());
+            
             for (var i = 0; i < 3; i++)
             {
                 var randomNumber = new System.Random().Next(0, _gameState.EnemyBaseStats.Count);
@@ -118,6 +125,7 @@ namespace BattleSystem
                     new Vector3(-7 + 7 * i, 0, 10), enemy);
                 enemyInstance = SetUpCharacterStats(enemyInstance, enemyBase, enemyNature);
                 enemies.Add(enemyInstance.GetComponent<Unit>());
+                _manager.AddListener(enemyInstance.GetComponent<Unit>());
             }
             enemyStatus.SetUpEnemyStatusPanels(enemies);
             playerStatus.SetUpPlayerStatusPanels(playerInstance.GetComponent<Unit>());
@@ -302,7 +310,10 @@ namespace BattleSystem
 
         private int HandleDamageTaken(Action action, Unit target)
         {
-            if (!target.Ailments.Contains("HealthLink")) return target.TakeDamage(action.Move, action.SourceUnit);
+            if (!target.Ailments.Contains("HealthLink"))
+            {
+                return target.TakeDamage(action.Move, action.SourceUnit);
+            }
             
             var characters = _sceneCharacters.
                 Where(sc => sc.Ailments.Contains("HealthLink")).ToList();
@@ -420,11 +431,13 @@ namespace BattleSystem
             {
                 _currentState = BattleState.Win;
                 _gameState.CurrentLevel += 1;
+                _manager.Reset();
                 SceneManager.LoadScene("TransitionScene");
             }
             else if (!GameObject.FindGameObjectWithTag("Player"))
             {
                 _currentState = BattleState.Lost;
+                _manager.Reset();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else

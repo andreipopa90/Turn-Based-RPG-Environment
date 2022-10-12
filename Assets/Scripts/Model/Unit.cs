@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Model.Observer;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +28,7 @@ namespace Model
         public Nature unitNature;
         public List<string> Affixes { get; set; }
         public List<string> Ailments { get; set; }
+        public EventManager Manager { get; set; }
 
         private void Start()
         {
@@ -108,12 +110,27 @@ namespace Model
                 currentHealth = 1;
                 Affixes.Remove("Sturdy");
             }
-            if (IsDead())
+
+            if (!IsDead())
             {
-                Destroy(gameObject);
+                Evolve();
+                return damageTaken;
             }
 
+            Manager.RemoveListener(this);
+            Manager.NotifyOnDeath();
+            Destroy(gameObject);
+
             return damageTaken;
+        }
+
+        private void Evolve()
+        {
+            if (currentHealth > maxHealth / 2) return;
+            var newUnit = _gameState.EnemyBaseStats.Find(bs => bs.Name.Equals("Zygarde-Complete"));
+            var currentHealthPercentage = currentHealth / (maxHealth * 1.0);
+            SetStats(newUnit, true);
+            currentHealth = (int) (currentHealth * currentHealthPercentage);
         }
 
         public void TakeDamage(int value)
@@ -151,10 +168,14 @@ namespace Model
             return statValue;
         }
 
-        public void SetStats(BaseStat stats)
+        public void SetStats(BaseStat stats, bool evolution = false)
         {
-            GenerateIVs();
-            GenerateEVs();
+            if (!evolution)
+            {
+                GenerateIVs();
+                GenerateEVs();
+            }
+            
 
             currentHealth = CalculateHp(stats.Hp);
             maxHealth = currentHealth;
