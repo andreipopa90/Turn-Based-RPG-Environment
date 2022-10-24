@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -40,16 +41,16 @@ namespace UI.TransitionUI
             buttonInstance.GetComponent<RectTransform>().anchoredPosition = position;
             buttonInstance.GetComponent<RectTransform>().localScale = size;
 
-            buttonInstance.GetComponentInChildren<Text>().text = buttonName;
+            buttonInstance.GetComponentInChildren<TextMeshProUGUI>().text = buttonName;
             return buttonInstance;
         }
 
         private void AddMoveButtons()
         {
-            for(var i = 0; i < 6; i++)
+            for(var i = 0; i < 4; i++)
             {
-                var x = i < 3 ? -200 : 200;
-                var y = i < 3 ? 100 - i * 100 : 100 - (i - 3) * 100;
+                const int x = 0;
+                var y = 150 - 100 * i;
                 var buttonInstance = InstantiateButton(new Vector2(x, y), 
                     new Vector3(1.5f, 1.5f, 0f), GameState.SelectedMoves[i].Name, MovesPanel);
                 buttonInstance.onClick.AddListener(OnClickOwnMove);
@@ -84,12 +85,12 @@ namespace UI.TransitionUI
         void OnClickOwnMove()
         {
             var buttonPressed = EventSystem.current.currentSelectedGameObject;
-            if (_pressedOwn && !buttonPressed.GetComponentInChildren<Text>().text.Equals(_ownMove)) return;
+            if (_pressedOwn && !buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text.Equals(_ownMove)) return;
             if (buttonPressed.GetComponent<Image>().color.Equals(_white))
             {
                 _pressedOwn = true;
                 buttonPressed.GetComponent<Image>().color = _red;
-                _ownMove = buttonPressed.GetComponentInChildren<Text>().text;
+                _ownMove = buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text;
             }
             else
             {
@@ -102,12 +103,12 @@ namespace UI.TransitionUI
         void OnClickNewMove()
         {
             var buttonPressed = EventSystem.current.currentSelectedGameObject;
-            if (_pressedNew && !buttonPressed.GetComponentInChildren<Text>().text.Equals(_newMove)) return;
+            if (_pressedNew && !buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text.Equals(_newMove)) return;
             if (buttonPressed.GetComponent<Image>().color.Equals(_white))
             {
                 _pressedNew = true;
                 buttonPressed.GetComponent<Image>().color = _green;
-                _newMove = buttonPressed.GetComponentInChildren<Text>().text;
+                _newMove = buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text;
             }
             else
             {

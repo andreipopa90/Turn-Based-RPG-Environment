@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ namespace UI.Battle
         public Button EnemySelectButton;
         public Button AbilitySelectButton;
         public Button AttackButton;
+        public Button HealButton;
+        public Button CureButton;
         public GameObject EnemyPanel;
         public GameObject AbilityPanel;
 
@@ -37,7 +40,7 @@ namespace UI.Battle
         public void AddAbilitySelect()
         {
             var playerMoves = GameObject.Find("GameState").GetComponent<GameStateStorage>().SelectedMoves;
-            const int spacing = 200;
+            const int spacing = 180;
             var battleSystem = GameObject.FindGameObjectWithTag("BattleSystem").GetComponent<BattleSystem.BattleSystem>();
             for (var i = 0; i < playerMoves.Count; i++)
             {
@@ -48,12 +51,11 @@ namespace UI.Battle
                 button.transform.SetParent(AbilityPanel.transform, false);
                 var buttonTransform = button.GetComponent<RectTransform>();
                 var buttonPosition = buttonTransform.anchoredPosition;
-                buttonPosition.x = i < 3 ? -450 : 450;
-                buttonPosition.y = i < 3 ? 200 - spacing * i : 200 - spacing * (i - 3);
+                buttonPosition.y = 270 - spacing * i;
                 buttonTransform.anchoredPosition = buttonPosition;
 
                 button.onClick.AddListener(battleSystem.OnAbilityButtonPress);
-                button.GetComponentInChildren<Text>().text = playerMoves[i].Name;
+                button.GetComponentInChildren<TextMeshProUGUI>().text = playerMoves[i].Name;
             }
         }
     }

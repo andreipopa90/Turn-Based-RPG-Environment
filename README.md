@@ -6,7 +6,7 @@ Unity Version 2021.2.17f1
 <ul>
 <li>Change to 6 moves and 3 enemies - Done</li>
 <li>Fix screen size issues - Done</li>
-<li>Implement affixes - Currently Doing</li>
+<li>Implement affixes - Done</li>
 <li>Implement ailments - Done</li>
 <li>Update moves json - Done</li>
 <li>Add points spread at level end - Done</li>
@@ -19,13 +19,13 @@ Unity Version 2021.2.17f1
 <h1>AFFIXES</h1>
 <ul>
 <li>HealthLink - Done</li>
-<li>Domain</li>
+<li>Domain - Done</li>
 <li>Medic - Done</li>
 <li>Avenger - Done</li>
 <li>Evolve - Done</li>
 <li>Sturdy - Done</li>
 <li>Lifesteal - Done</li>
-<li>CounterAttack</li>
+<li>CounterAttack - Done</li>
 <li>ReverseWeakness - Done</li>
 <li>ReverseAilment - Done</li>
 </ul>

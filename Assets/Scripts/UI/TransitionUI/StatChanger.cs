@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection;
 using Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ namespace UI.TransitionUI
         private GameStateStorage GameStateStorage { get; set; }
         private int CurrentStatsSum { get; set; }
         private int NewStatSum { get; set; }
+
+        public StatsDisplay display;
         private void Start()
         {
             GameStateStorage = GameObject.Find("GameState").GetComponent<GameStateStorage>();
@@ -29,8 +32,17 @@ namespace UI.TransitionUI
             var statValue = (int)property.GetValue(GameStateStorage.StarterStats);
             property.SetValue(GameStateStorage.StarterStats, statValue + 1);
             NewStatSum += 1;
-            print(stat.name + " increased by 1!");
+
+            UpdateDisplayStatValue(stat, property);
         }
+
+        private void UpdateDisplayStatValue(Object stat, PropertyInfo property)
+        {
+            ((Text) display.GetType().GetFields().ToList()
+                    .Find(p => p.Name.ToLower().Equals(stat.name.ToLower())).GetValue(display))
+                .text = property.GetValue(GameStateStorage.StarterStats).ToString();
+        }
+
 
         public void OnMinusClick(Text stat)
         {
@@ -42,7 +54,8 @@ namespace UI.TransitionUI
                 property.SetValue(GameStateStorage.StarterStats, statValue - 1);
                 NewStatSum -= 1;
             }
-            print(stat.name + " decreased by 1!");
+            UpdateDisplayStatValue(stat, property);
         }
+        
     }
 }

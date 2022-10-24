@@ -37,6 +37,7 @@ namespace BattleSystem
 
         private int _currentTurn;
         private List<Unit> _sceneCharacters;
+        private List<Unit> _enemies;
         private List<Action> _actionQueue;
         private BattleState _currentState;
         private Move _selectedMove;
@@ -54,6 +55,7 @@ namespace BattleSystem
             _levelLog.CurrentLevel = _gameState.CurrentLevel;
             _sceneCharacters = new List<Unit>();
             _manager = new EventManager();
+            _enemies = new List<Unit>();
             SetUpCharacters();
             SetUpHUD();
             GatherCharactersInScene();
@@ -69,30 +71,44 @@ namespace BattleSystem
         }
 
         private GameObject InstantiateCharacter(string characterName, Vector3 position, GameObject prefab, 
-            bool isPlayer = false, List<Move> moves = null)
+            bool isPlayer = false, string keyName = "")
         {
             var character = Instantiate(prefab, position, Quaternion.identity);
             character.name = characterName;
             character.GetComponent<Unit>().unitName = characterName;
             var characterUnit = character.GetComponent<Unit>();
-            if (!isPlayer) return character;
+            characterUnit.Moves = new List<Move>();
+            characterUnit.Affixes = new List<string>();
+            characterUnit.Ailments = new List<string>();
+            if (!isPlayer)
+            {
+                var learnSet = 
+                    _gameState.StartMoves.Find(sm => sm.Name.Equals(keyName)) ?? 
+                    _gameState.StartMoves.Find(sm => keyName.Contains(sm.Name));
+                character.GetComponent<Unit>().AddMoves(_gameState.AllMoves, learnSet.LearnSet);
+                return character;
+            }
 
             characterUnit.level = _gameState.CurrentLevel + 39;
             characterUnit.types = _gameState.StarterStats.Types;
             characterUnit.Manager = _manager;
             characterUnit.SetStats(_gameState.StarterStats);
-            if (moves is not null) characterUnit.moves = moves;
             // Add to logs.
+            AddPlayerStatsToLogs(characterUnit);
+
+            return character;
+        }
+
+        private void AddPlayerStatsToLogs(Unit characterUnit)
+        {
             _levelLog.PlayerDefense = characterUnit.def > characterUnit.spd ? "Physical" : "Special";
             _levelLog.PlayerAttack = characterUnit.atk > characterUnit.spa ? "Physical" : "Special";
             _levelLog.PlayerStats["HP"] = characterUnit.maxHealth;
-            _levelLog.PlayerStats["ATK"] =  characterUnit.atk;
-            _levelLog.PlayerStats["DEF"] =  characterUnit.def;
-            _levelLog.PlayerStats["SPA"] =  characterUnit.spa;
-            _levelLog.PlayerStats["SPD"] =  characterUnit.spd;
-            _levelLog.PlayerStats["SPE"] =  characterUnit.spe;
-
-            return character;
+            _levelLog.PlayerStats["ATK"] = characterUnit.atk;
+            _levelLog.PlayerStats["DEF"] = characterUnit.def;
+            _levelLog.PlayerStats["SPA"] = characterUnit.spa;
+            _levelLog.PlayerStats["SPD"] = characterUnit.spd;
+            _levelLog.PlayerStats["SPE"] = characterUnit.spe;
         }
 
         private GameObject SetUpCharacterStats(GameObject character, BaseStat characterBase, Nature characterNature)
@@ -107,9 +123,7 @@ namespace BattleSystem
         }
 
         private void SetUpCharacters()
-        { 
-            List<Unit> enemies = new();
-
+        {
             var playerInstance = 
                 InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
 
@@ -123,19 +137,15 @@ namespace BattleSystem
                 
                 randomNumber = new System.Random().Next(0, _gameState.Natures.Count);
                 var enemyNature = _gameState.Natures[randomNumber];
-                var startMoves = _gameState.StartMoves.
-                    Find(sm => sm.Name.Equals(enemyBase.Name.ToLower())).LearnSet;
-                var moves = _gameState.AllMoves.Where(m => startMoves.Contains(m.KeyName)).ToList().
-                    OrderBy(x => new System.Random().Next()).Take(6).ToList();
                 var enemyInstance = InstantiateCharacter(enemyBase.Name + " " + (i + 1), 
-                    new Vector3(-7 + 7 * i, 0, 10), enemy, moves:moves);
-                
+                    new Vector3(-7 + 7 * i, 0, 10), enemy, keyName: enemyBase.KeyName);
                 enemyInstance = SetUpCharacterStats(enemyInstance, enemyBase, enemyNature);
-                enemies.Add(enemyInstance.GetComponent<Unit>());
+                _enemies.Add(enemyInstance.GetComponent<Unit>());
                 _manager.AddListener(enemyInstance.GetComponent<Unit>());
             }
-            enemyStatus.SetUpEnemyStatusPanels(enemies);
+            enemyStatus.SetUpEnemyStatusPanels(_enemies);
             playerStatus.SetUpPlayerStatusPanels(playerInstance.GetComponent<Unit>());
+            
         }
 
         private void AddEnemyBaseStatsToLogs(BaseStat enemyBase)
@@ -175,15 +185,18 @@ namespace BattleSystem
         private void PlayerTurn()
         {
             mainHUD.AttackButton.gameObject.SetActive(true);
+            mainHUD.HealButton.gameObject.SetActive(true);
+            mainHUD.CureButton.gameObject.SetActive(true);
         }
 
         private void EnemyTurn()
         {
+            
             while (true)
             {
                 var currentEnemy = _sceneCharacters[_currentTurn];
                 Action action;
-                action.Move = currentEnemy.moves[new System.Random().Next(0, currentEnemy.moves.Count)];
+                action.Move = currentEnemy.Moves[new System.Random().Next(0, currentEnemy.Moves.Count)];
                 action.SourceUnit = currentEnemy;
                 action.TargetUnit = GameObject.Find("Player").GetComponent<Unit>();
                 _actionQueue.Add(action);
@@ -213,6 +226,28 @@ namespace BattleSystem
             mainHUD.AbilityPanel.SetActive(!mainHUD.AbilityPanel.activeSelf);
         }
 
+        public void OnHealButtonPress()
+        {
+            if (GameObject.FindGameObjectWithTag("Player") == null || 
+                (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
+                return;
+            var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
+            playerUnit.Heal(playerUnit.maxHealth / 4);
+            _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
+            EnemyTurn();
+        }
+
+        public void OnCureButton()
+        {
+            if (GameObject.FindGameObjectWithTag("Player") == null || 
+                (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
+                return;
+            var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
+            playerUnit.Cure();
+            _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
+            EnemyTurn();
+        }
+
         public void OnAbilityButtonPress()
         {
             var moveName = EventSystem.current.currentSelectedGameObject.name;
@@ -240,6 +275,8 @@ namespace BattleSystem
         private IEnumerator ResolveAttacks()
         {
             mainHUD.AttackButton.gameObject.SetActive(false);
+            mainHUD.HealButton.gameObject.SetActive(false);
+            mainHUD.CureButton.gameObject.SetActive(false);
             _currentState = BattleState.ActionResolve;
             _actionQueue = _actionQueue.OrderByDescending(x => x.SourceUnit.spe).ToList();
         
@@ -276,6 +313,7 @@ namespace BattleSystem
 
         private void HandleStatus(Move move, Unit targetUnit, bool buff = true)
         {
+            if (!targetUnit) return;
             var boosts = ((JObject)move.Secondary["boosts"]).ToObject<Dictionary<string, int>>();
             foreach (var key in boosts.Keys)
             {
@@ -317,9 +355,14 @@ namespace BattleSystem
 
         private int HandleDamageTaken(Action action, Unit target)
         {
+            var domainEffect = HandleDomain(action, target);
+            var burnEffect = 
+                action.SourceUnit.Ailments.Contains("brn") && action.Move.Category.Equals("Physical")
+                ? 0.5
+                : 1.0;
             if (!target.Ailments.Contains("HealthLink"))
             {
-                return target.TakeDamage(action.Move, action.SourceUnit);
+                return target.TakeDamage(action.Move, action.SourceUnit, multiplier: domainEffect * burnEffect);
             }
             
             var characters = _sceneCharacters.
@@ -328,10 +371,23 @@ namespace BattleSystem
             foreach (var character in characters)
             {
                 damageTaken = character.TakeDamage(action.Move, action.SourceUnit, 
-                    multiplier: Math.Round(1.0 / characters.Count, 2));
+                    multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect);
             }
 
             return damageTaken;
+        }
+
+        private double HandleDomain(Action action, Unit target)
+        {
+            var domainSource = _enemies.Find(e => e.Affixes.Contains("Domain"));
+            if (!target.unitName.Equals("Player")) return 1.0;
+            if (domainSource is null) return 1.0;
+            if (action.SourceUnit.unitName.Equals("Player") &&
+                target.DetermineMoveEffectiveness(action.Move.MoveType) > 1)
+            {
+                return 1.0 / target.DetermineMoveEffectiveness(action.Move.MoveType);
+            }
+            return domainSource.types.Contains(action.Move.MoveType) ? 1.5 : 1.0;
         }
 
         private void HandleDebuff(Action action)
@@ -387,7 +443,7 @@ namespace BattleSystem
                 action.SourceUnit.Ailments.Add(statusEffect["status"]);
             }
             if (statusEffect["status"].Equals("par"))
-                action.TargetUnit.spe *= 3 / 4;
+                action.TargetUnit.spe /= 2;
         }
 
         private void HandleDrain(Action action, int damageTaken)

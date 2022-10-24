@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Model.Observer;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Model
 {
@@ -22,7 +21,7 @@ namespace Model
         public int spd;
         public int spe;
         public int level;
-        public List<Move> moves;
+        public List<Move> Moves { get; set; }
         private Dictionary<string, int> _iv;
         private Dictionary<string, int> _ev;
         public Nature unitNature;
@@ -30,14 +29,22 @@ namespace Model
         public List<string> Ailments { get; set; }
         public EventManager Manager { get; set; }
 
-        private void Start()
+        private void Awake()
         {
-            moves = new List<Move>();
+            Moves = new List<Move>();
             currentHealth = maxHealth;
             Affixes = new List<string>();
             Ailments = new List<string>();
             _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             GenerateIVs();
+            GenerateEVs();
+        }
+
+        public void AddMoves(List<Move> newMoves, List<string> learnSet)
+        {
+            newMoves = newMoves.Where(m => learnSet.Contains(m.KeyName)).ToList();
+            var randomSeed = new System.Random();
+            Moves = newMoves.OrderBy(a => randomSeed.Next()).Take(4).ToList();
         }
 
         private void GenerateIVs()
@@ -62,7 +69,7 @@ namespace Model
             _iv["spe"] = randomNumber;
         }
 
-        private double DetermineMoveEffectiveness(string moveType)
+        public double DetermineMoveEffectiveness(string moveType)
         {
             var effectiveness = 1.0;
             var typeChart = _gameState.TypeChart;
@@ -95,6 +102,8 @@ namespace Model
         {
             var effectiveness = DetermineMoveEffectiveness(move.MoveType);
 
+            if (effectiveness > 1 && Affixes.Contains("Domain")) effectiveness = 1;
+            
             var defenseUsed = (double) (move.Category.Equals("Special") ? spd : def);
             var sourceAttackUsed = (double) (move.Category.Equals("Special") ? enemySource.spa : enemySource.atk);
             var randomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
@@ -104,7 +113,12 @@ namespace Model
                                          Math.Round(sourceAttackUsed / defenseUsed * move.BasePower / 50.0, 2) + 2) * 
                                      randomValue * effectiveness * stab * multiplier);
 
-            currentHealth -= damageTaken;
+            var successChance = new System.Random().Next(0, 100);
+            if (successChance <= move.Accuracy)
+            {
+                currentHealth -= damageTaken;
+            } else if (Affixes.Contains("CounterAttack")) enemySource.TakeDamage(damageTaken / 4);
+
             if (Affixes.Contains("Sturdy") && currentHealth <= 0)
             {
                 currentHealth = 1;
@@ -143,7 +157,13 @@ namespace Model
             }
             if (IsDead())
             {
+                Manager.RemoveListener(this);
+                Manager.NotifyOnDeath();
                 Destroy(gameObject);
+            }
+            else
+            {
+                Evolve();
             }
         }
 
@@ -160,7 +180,6 @@ namespace Model
 
         private int CalculateStats(int baseStat, string stat)
         {
-            if (level == 1) return baseStat;
             double natureModifier = 1;
             if (stat.Equals(unitNature.Plus)) natureModifier = 1.1;
             else if (stat.Equals(unitNature.Minus)) natureModifier = 0.9;
@@ -170,13 +189,6 @@ namespace Model
 
         public void SetStats(BaseStat stats, bool evolution = false)
         {
-            if (!evolution)
-            {
-                GenerateIVs();
-                GenerateEVs();
-            }
-            
-
             currentHealth = CalculateHp(stats.Hp);
             maxHealth = currentHealth;
 
@@ -220,6 +232,25 @@ namespace Model
             }
             Ailments.Clear();
         }
-    
+
+        public override string ToString()
+        {
+            var result = string.Empty;
+            result += "Name: " + unitName + "\n";
+            result += "Level: " + level + "\n";
+            if (Affixes.Count > 0)
+            {
+                result += "Affixes: ";
+                result = Affixes.Aggregate(result, (current, affix) => current + affix + " ");
+                result += "\n";
+            }
+
+            if (Ailments.Count > 0)
+            {
+                result += "Ailments: ";
+                result = Ailments.Aggregate(result, (current, ailment) => current + ailment + " ");
+            }
+            return result;
+        }
     }
 }

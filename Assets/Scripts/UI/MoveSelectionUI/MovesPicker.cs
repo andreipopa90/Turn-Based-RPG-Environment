@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -36,15 +38,7 @@ namespace UI.MoveSelectionUI
         {
             if (string.IsNullOrEmpty(gameState.StarterPokemon))
             {
-                foreach (var t in ButtonsList)
-                { 
-                    Destroy(t.gameObject);
-                }
-
-                ButtonsList.Clear();
-                gameState.SelectedMoves.Clear();
-                selectedMovesIndicator.text = "Selected Moves: " + gameState.SelectedMoves.Count + "/6";
-
+                ClearMoveSelectionList();
             }
             else if (gameState.StarterPokemon.Equals(_nameMatcher[trigger.name]))
             {
@@ -53,17 +47,29 @@ namespace UI.MoveSelectionUI
                 var moves = _moves.Where(m => startMoves.Contains(m.KeyName) && m.BasePower <= 50 &&
                                               (m.MoveType.Equals("Fire") || m.MoveType.Equals("Grass") ||
                                                m.MoveType.Equals("Water") || m.MoveType.Equals("Normal"))).ToList();
-                foreach (var move in moves.Select(m => m.Name))
+                foreach (var move in moves)
                 {
                     var button = Instantiate(moveButtonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                     button.transform.SetParent(movesPanel.transform, false);
                     button.GetComponent<RectTransform>().localScale = new Vector3(2.5f, 1f, 0f);
-                    button.GetComponentInChildren<Text>().text = move;
-                    button.name = move;
+                    button.GetComponentInChildren<TextMeshProUGUI>().text = move.Name;
+                    button.name = move.Name;
                     button.onClick.AddListener(OnButtonClick);
                     ButtonsList.Add(button);
                 }
             }
+        }
+
+        private void ClearMoveSelectionList()
+        {
+            foreach (var t in ButtonsList)
+            {
+                Destroy(t.gameObject);
+            }
+
+            ButtonsList.Clear();
+            gameState.SelectedMoves.Clear();
+            selectedMovesIndicator.text = "Selected Moves: " + gameState.SelectedMoves.Count + "/4";
         }
 
         private void OnButtonClick()
@@ -75,28 +81,28 @@ namespace UI.MoveSelectionUI
             Color32 green = new(0, 255, 0, 255);
             if (buttonColor.Equals(white))
             {
-                if (gameState.SelectedMoves.Count >= 6)
+                if (gameState.SelectedMoves.Count >= 4)
                 {
-                    print("Cannot select more than 6 moves");
+                    print("Cannot select more than 4 moves");
                 }
                 else
                 {
                     buttonPressed.GetComponent<Image>().color = green;
                     gameState.SelectedMoves.Add(move);
-                    selectedMovesIndicator.text = "Selected Moves: " + gameState.SelectedMoves.Count + "/6";
+                    selectedMovesIndicator.text = "Selected Moves: " + gameState.SelectedMoves.Count + "/4";
                 }
             } else if (buttonColor.Equals(green))
             {
                 buttonPressed.GetComponent<Image>().color = white;
                 gameState.SelectedMoves.Remove(move);
-                selectedMovesIndicator.text = "Selected Moves: " + gameState.SelectedMoves.Count + "/6";
+                selectedMovesIndicator.text = "Selected Moves: " + gameState.SelectedMoves.Count + "/4";
             }
         
         }
 
         public void OnPressLockIn()
         {
-            if (gameState.SelectedMoves.Count == 6 && !string.IsNullOrEmpty(gameState.StarterPokemon))
+            if (gameState.SelectedMoves.Count == 4 && !string.IsNullOrEmpty(gameState.StarterPokemon))
             {
                 SceneManager.LoadScene("BattleScene");
             }

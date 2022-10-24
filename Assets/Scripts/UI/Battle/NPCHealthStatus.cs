@@ -40,8 +40,8 @@ namespace UI.Battle
             playerStatus.transform.SetParent(StatusPanel.transform, false);
             var statusPanelTransform = playerStatus.GetComponent<RectTransform>();
             var statusPanelPosition = statusPanelTransform.anchoredPosition;
-            statusPanelPosition.x = -200;
-            statusPanelPosition.y = -385;
+            statusPanelPosition.x = 0;
+            statusPanelPosition.y = -550;
             statusPanelTransform.anchoredPosition = statusPanelPosition;
             _panels.Add(player, playerStatus);
             UpdateHealthBar(player);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Model
 {
@@ -14,6 +15,15 @@ namespace Model
 		public string Target { get; set; }
 		public string MoveType { get; set; }
 		public Dictionary<string, dynamic> Secondary { get; set; }
-	
+
+		public override string ToString()
+		{
+			var result = new StringBuilder();
+			result.Append(Name).Append("\n");
+			result.Append("Power: ").Append(BasePower).Append("\n");
+			result.Append("Category: ").Append(Category).Append("\n");
+			result.Append("Type: ").Append(MoveType).Append("\n");
+			return result.ToString();
+		}
 	}
 }
