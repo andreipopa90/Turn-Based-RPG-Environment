@@ -51,7 +51,7 @@ namespace UI.MoveSelectionUI
                 {
                     var button = Instantiate(moveButtonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                     button.transform.SetParent(movesPanel.transform, false);
-                    button.GetComponent<RectTransform>().localScale = new Vector3(2.5f, 1f, 0f);
+                    button.GetComponent<RectTransform>().localScale = new Vector3(2f, 1f, 0f);
                     button.GetComponentInChildren<TextMeshProUGUI>().text = move.Name;
                     button.name = move.Name;
                     button.onClick.AddListener(OnButtonClick);
