@@ -24,7 +24,7 @@ namespace UI.Battle
             {
                 var button = Instantiate(EnemySelectButton,
                     new Vector3(0, 0, 0), Quaternion.identity);
-                button.name = enemyList[i].unitName;
+                button.name = enemyList[i].UnitName;
 
                 button.transform.SetParent(EnemyPanel.transform, false);
                 var buttonTransform = button.GetComponent<RectTransform>();
@@ -33,7 +33,7 @@ namespace UI.Battle
                 buttonTransform.anchoredPosition = buttonPosition;
 
                 button.onClick.AddListener(battleSystem.OnEnemySelect);
-                button.GetComponentInChildren<Text>().text = enemyList[i].unitName;
+                button.GetComponentInChildren<Text>().text = enemyList[i].UnitName;
             }
         }
 

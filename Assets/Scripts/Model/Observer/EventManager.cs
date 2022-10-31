@@ -30,11 +30,11 @@ namespace Model.Observer
         public void NotifyOnDeath()
         {
             foreach (var listener in Listeners.
-                         Where(l => l.Ailments.Contains("Avenger") && !l.unitName.Equals("Player")))
+                         Where(l => l.Ailments.Contains("Avenger") && !l.UnitName.Equals("Player")))
             {
-                listener.currentHealth += listener.maxHealth * 3 / 2;
-                listener.maxHealth *= 3 / 2;
-                listener.spe *= 3 / 2;
+                listener.CurrentHealth += listener.MaxHealth * 3 / 2;
+                listener.MaxHealth *= 3 / 2;
+                listener.Spe *= 3 / 2;
             }
         }
     }

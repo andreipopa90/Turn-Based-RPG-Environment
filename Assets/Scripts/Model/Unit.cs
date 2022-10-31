@@ -3,24 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using Model.Observer;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Model
 {
     public class Unit : MonoBehaviour
     {
+        private readonly Dictionary<string, string> _typeColor = new()
+        {
+            {"Normal", "#A8A77AFF"},
+            {"Fire", "#EE8130FF"},
+            {"Water", "#6390F0FF"},
+            {"Electric", "#F7D02CFF"},
+            {"Grass", "#7AC74CFF"},
+            {"Ice", "#96D9D6FF"},
+            {"Fighting", "#C22E28FF"},
+            {"Poison", "#A33EA1FF"},
+            {"Ground", "#E2BF65FF"},
+            {"Flying", "#A98FF3FF"},
+            {"Psychic", "#F95587FF"},
+            {"Bug", "#A6B91AFF"},
+            {"Rock", "#B6A136FF"},
+            {"Ghost", "#735797FF"},
+            {"Dragon", "#6F35FCFF"},
+            {"Dark", "#705746FF"},
+            {"Steel", "#B7B7CEFF"},
+            {"Fairy", "#D685ADFF"}
+        };
+
         private GameStateStorage _gameState;
         private const double UpperBound = 1.00;
         private const double LowerBound = 0.85;
-        public List<string> types;
-        public string unitName;
-        public int maxHealth;
-        public int currentHealth;
-        public int atk;
-        public int def;
-        public int spa;
-        public int spd;
-        public int spe;
-        public int level;
+        public List<string> Types { get; set; }
+        public string UnitName {get;set;}
+        public int MaxHealth {get;set;}
+        public int CurrentHealth {get;set;}
+        public int Atk {get;set;}
+        public int Def {get;set;}
+        public int Spa {get;set;}
+        public int Spd {get;set;}
+        public int Spe {get;set;}
+        public int Level {get;set;}
+        
+        public GameObject typeIndicatorOne;
+        public GameObject typeIndicatorTwo;
         public List<Move> Moves { get; set; }
         private Dictionary<string, int> _iv;
         private Dictionary<string, int> _ev;
@@ -32,7 +58,7 @@ namespace Model
         private void Awake()
         {
             Moves = new List<Move>();
-            currentHealth = maxHealth;
+            CurrentHealth = MaxHealth;
             Affixes = new List<string>();
             Ailments = new List<string>();
             _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
@@ -73,7 +99,7 @@ namespace Model
         {
             var effectiveness = 1.0;
             var typeChart = _gameState.TypeChart;
-            foreach (var damageTaken in types.Select(type => 
+            foreach (var damageTaken in Types.Select(type => 
                          typeChart.Find(x => x.Name.Equals(type)).DamageTaken))
             {
                 switch(damageTaken[moveType])
@@ -104,24 +130,24 @@ namespace Model
 
             if (effectiveness > 1 && Affixes.Contains("Domain")) effectiveness = 1;
             
-            var defenseUsed = (double) (move.Category.Equals("Special") ? spd : def);
-            var sourceAttackUsed = (double) (move.Category.Equals("Special") ? enemySource.spa : enemySource.atk);
+            var defenseUsed = (double) (move.Category.Equals("Special") ? Spd : Def);
+            var sourceAttackUsed = (double) (move.Category.Equals("Special") ? enemySource.Spa : enemySource.Atk);
             var randomValue = new System.Random().NextDouble() * (UpperBound - LowerBound) + LowerBound;
-            var stab = enemySource.types.Contains(move.MoveType) ? 1.5 : 1.0;
+            var stab = enemySource.Types.Contains(move.MoveType) ? 1.5 : 1.0;
 
-            var damageTaken = (int) (((Math.Round(2.0 * enemySource.level / 5.0, 2) + 2) * 
+            var damageTaken = (int) (((Math.Round(2.0 * enemySource.Level / 5.0, 2) + 2) * 
                                          Math.Round(sourceAttackUsed / defenseUsed * move.BasePower / 50.0, 2) + 2) * 
                                      randomValue * effectiveness * stab * multiplier);
 
             var successChance = new System.Random().Next(0, 100);
             if (successChance <= move.Accuracy)
             {
-                currentHealth -= damageTaken;
+                CurrentHealth -= damageTaken;
             } else if (Affixes.Contains("CounterAttack")) enemySource.TakeDamage(damageTaken / 4);
 
-            if (Affixes.Contains("Sturdy") && currentHealth <= 0)
+            if (Affixes.Contains("Sturdy") && CurrentHealth <= 0)
             {
-                currentHealth = 1;
+                CurrentHealth = 1;
                 Affixes.Remove("Sturdy");
             }
 
@@ -140,19 +166,19 @@ namespace Model
 
         private void Evolve()
         {
-            if (currentHealth > maxHealth / 2) return;
+            if (CurrentHealth > MaxHealth / 2) return;
             var newUnit = _gameState.EnemyBaseStats.Find(bs => bs.Name.Equals("Zygarde-Complete"));
-            var currentHealthPercentage = currentHealth / (maxHealth * 1.0);
+            var currentHealthPercentage = CurrentHealth / (MaxHealth * 1.0);
             SetStats(newUnit, true);
-            currentHealth = (int) (currentHealth * currentHealthPercentage);
+            CurrentHealth = (int) (CurrentHealth * currentHealthPercentage);
         }
 
         public void TakeDamage(int value)
         {
-            currentHealth -= value;
-            if (Affixes.Contains("Sturdy") && currentHealth <= 0)
+            CurrentHealth -= value;
+            if (Affixes.Contains("Sturdy") && CurrentHealth <= 0)
             {
-                currentHealth = 1;
+                CurrentHealth = 1;
                 Affixes.Remove("Sturdy");
             }
             if (IsDead())
@@ -169,12 +195,12 @@ namespace Model
 
         public void Heal(int healAmount)
         {
-            currentHealth = Math.Min(currentHealth + healAmount, maxHealth);
+            CurrentHealth = Math.Min(CurrentHealth + healAmount, MaxHealth);
         }
 
         private int CalculateHp(int baseHp)
         {
-            var hp = (int) Math.Floor((2 * baseHp + _iv["hp"] + Math.Floor(_ev["hp"] / 4.0)) * level / 100f) + level + 10;
+            var hp = (int) Math.Floor((2 * baseHp + _iv["hp"] + Math.Floor(_ev["hp"] / 4.0)) * Level / 100f) + Level + 10;
             return hp;
         }
 
@@ -183,20 +209,20 @@ namespace Model
             double natureModifier = 1;
             if (stat.Equals(unitNature.Plus)) natureModifier = 1.1;
             else if (stat.Equals(unitNature.Minus)) natureModifier = 0.9;
-            var statValue = (int) Math.Floor((Math.Floor((2 * baseStat + _iv[stat] + Math.Floor(_ev[stat] / 4.0)) * level / 100d) + 5) * natureModifier);
+            var statValue = (int) Math.Floor((Math.Floor((2 * baseStat + _iv[stat] + Math.Floor(_ev[stat] / 4.0)) * Level / 100d) + 5) * natureModifier);
             return statValue;
         }
 
         public void SetStats(BaseStat stats, bool evolution = false)
         {
-            currentHealth = CalculateHp(stats.Hp);
-            maxHealth = currentHealth;
+            CurrentHealth = CalculateHp(stats.Hp);
+            MaxHealth = CurrentHealth;
 
-            atk = CalculateStats(stats.Atk, "atk");
-            def = CalculateStats(stats.Def, "def");
-            spa = CalculateStats(stats.Spa, "spa");
-            spd = CalculateStats(stats.Spd, "spd");
-            spe = CalculateStats(stats.Spe, "spe");
+            Atk = CalculateStats(stats.Atk, "atk");
+            Def = CalculateStats(stats.Def, "def");
+            Spa = CalculateStats(stats.Spa, "spa");
+            Spd = CalculateStats(stats.Spd, "spd");
+            Spe = CalculateStats(stats.Spe, "spe");
         }
 
         private void GenerateEVs()
@@ -220,7 +246,7 @@ namespace Model
 
         private bool IsDead()
         {
-            return currentHealth <= 0;
+            return CurrentHealth <= 0;
         }
 
 
@@ -228,7 +254,7 @@ namespace Model
         {
             if (Ailments.Contains("par"))
             {
-                spe *= 4 / 3;
+                Spe *= 4 / 3;
             }
             Ailments.Clear();
         }
@@ -236,21 +262,24 @@ namespace Model
         public override string ToString()
         {
             var result = string.Empty;
-            result += "Name: " + unitName + "\n";
-            result += "Level: " + level + "\n";
-            if (Affixes.Count > 0)
-            {
-                result += "Affixes: ";
-                result = Affixes.Aggregate(result, (current, affix) => current + affix + " ");
-                result += "\n";
-            }
-
-            if (Ailments.Count > 0)
-            {
-                result += "Ailments: ";
-                result = Ailments.Aggregate(result, (current, ailment) => current + ailment + " ");
-            }
+            result += UnitName.Remove(UnitName.Length - 2) + "\n";
+            result += "Level: " + Level + "\n";
+            result += Types[0];
+            result = Types.Count == 2 ? result + " " + Types[1] : result;
+            result += "\n";
+            
             return result;
+        }
+
+        public void SetTypes(List<string> characterBaseTypes)
+        {
+            Types = characterBaseTypes;
+            if (ColorUtility.TryParseHtmlString(_typeColor[Types[0]], out var color))
+                typeIndicatorOne.GetComponent<MeshRenderer>().material.color = color;
+            typeIndicatorTwo.GetComponent<MeshRenderer>().material.color = 
+                Types.Count == 2 ? 
+                    ColorUtility.TryParseHtmlString(_typeColor[Types[1]], out color) ? color : Color.white : 
+                    ColorUtility.TryParseHtmlString(_typeColor[Types[0]], out color) ? color : Color.white;
         }
     }
 }
