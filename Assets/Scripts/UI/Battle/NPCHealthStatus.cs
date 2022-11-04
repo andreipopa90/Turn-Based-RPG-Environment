@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Model;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Battle
@@ -9,16 +12,23 @@ namespace UI.Battle
     public class NPCHealthStatus : MonoBehaviour
     {
 
-        public GameObject enemyStatusPanel;
+        [FormerlySerializedAs("enemyStatusPanel")] public GameObject characterStatusPanel;
         public GameObject statusPanel;
         private Dictionary<Unit, GameObject> _panels;
+        [SerializeField]
+        private AilmentIndicator ailmentIndicator;
+
+        public Dictionary<Unit, GameObject> GetPanels()
+        {
+            return _panels;
+        }
 
         public void SetUpEnemyStatusPanels(List<Unit> enemies)
         {
             _panels = new Dictionary<Unit, GameObject>();
             for (var i = 0; i < 3; i++)
             {
-                var enemyStatus = Instantiate(enemyStatusPanel, 
+                var enemyStatus = Instantiate(characterStatusPanel, 
                     new Vector3(0, 0, 0), Quaternion.identity);
                 enemyStatus.transform.SetParent(statusPanel.transform, false);
                 var statusPanelTransform = enemyStatus.GetComponent<RectTransform>();
@@ -36,7 +46,7 @@ namespace UI.Battle
 
         public void SetUpPlayerStatusPanels(Unit player)
         {
-            var playerStatus = Instantiate(enemyStatusPanel, 
+            var playerStatus = Instantiate(characterStatusPanel, 
                 new Vector3(0, 0, 0), Quaternion.identity);
             playerStatus.transform.SetParent(statusPanel.transform, false);
             var statusPanelTransform = playerStatus.GetComponent<RectTransform>();

@@ -16,6 +16,8 @@ namespace UI.TransitionUI
         public Button AbilityButtonPrefab;
         public GameObject MovesPanel;
         public GameObject NewMovesPanel;
+        public Button[] ownMovesButtons;
+        public Button[] newMovesButtons;
         private readonly Color32 _white = new(255, 255, 255, 255);
         private readonly Color32 _green = new(0, 255, 0, 255);
         private readonly Color32 _red = new(255, 0, 0, 255);
@@ -32,28 +34,14 @@ namespace UI.TransitionUI
             AddNewMoveButtons();
         }
 
-        private Button InstantiateButton(Vector2 position, Vector3 size, string buttonName, GameObject parent)
-        {
-            var buttonInstance = Instantiate(AbilityButtonPrefab, 
-                new Vector3(0, 0, 0), Quaternion.identity);
-            buttonInstance.transform.SetParent(parent.transform, false);
-            buttonInstance.name = buttonName;
-            buttonInstance.GetComponent<RectTransform>().anchoredPosition = position;
-            buttonInstance.GetComponent<RectTransform>().localScale = size;
-
-            buttonInstance.GetComponentInChildren<TextMeshProUGUI>().text = buttonName;
-            return buttonInstance;
-        }
-
         private void AddMoveButtons()
         {
-            for(var i = 0; i < 4; i++)
+            for(var i = 0; i < ownMovesButtons.Length; i++)
             {
-                const int x = 0;
-                var y = 150 - 100 * i;
-                var buttonInstance = InstantiateButton(new Vector2(x, y), 
-                    new Vector3(1.5f, 1.5f, 0f), GameState.SelectedMoves[i].Name, MovesPanel);
-                buttonInstance.onClick.AddListener(OnClickOwnMove);
+                ownMovesButtons[i].onClick.AddListener(OnClickOwnMove);
+                ownMovesButtons[i].name = GameState.SelectedMoves[i].Name;
+                ownMovesButtons[i].transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text =
+                    GameState.SelectedMoves[i].Name;
             }
         }
 
@@ -67,60 +55,65 @@ namespace UI.TransitionUI
             newMoves.RemoveAll(e => GameState.SelectedMoves.Contains(e));
 
             var randomIndex = new Random().Next(0, buffs.Count);
-            var buttonInstance = InstantiateButton(new Vector2(-250, 0), 
-                new Vector3(1.5f, 2.5f, 0f), buffs[randomIndex].Name, NewMovesPanel);
-            buttonInstance.onClick.AddListener(OnClickNewMove);
+            newMovesButtons[0].name = buffs[randomIndex].Name;
+            newMovesButtons[0].transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text =
+                buffs[randomIndex].Name;
+            newMovesButtons[0].onClick.AddListener(OnClickNewMove);
             
             randomIndex = new Random().Next(0, debuffs.Count);
-            buttonInstance = InstantiateButton(new Vector2(0, 0), 
-                new Vector3(1.5f, 2.5f, 0f), debuffs[randomIndex].Name, NewMovesPanel);
-            buttonInstance.onClick.AddListener(OnClickNewMove);
+            newMovesButtons[1].name = debuffs[randomIndex].Name;
+            newMovesButtons[1].transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text =
+                debuffs[randomIndex].Name;
+            newMovesButtons[1].onClick.AddListener(OnClickNewMove);
             
             randomIndex = new Random().Next(0, newMoves.Count);
-            buttonInstance = InstantiateButton(new Vector2(250, 0), 
-                new Vector3(1.5f, 2.5f, 0f), newMoves[randomIndex].Name, NewMovesPanel);
-            buttonInstance.onClick.AddListener(OnClickNewMove);
+            newMovesButtons[2].name = newMoves[randomIndex].Name;
+            newMovesButtons[2].transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text =
+                newMoves[randomIndex].Name;
+            newMovesButtons[2].onClick.AddListener(OnClickNewMove);
         }
 
-        void OnClickOwnMove()
+        private void OnClickOwnMove()
         {
             var buttonPressed = EventSystem.current.currentSelectedGameObject;
-            if (_pressedOwn && !buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text.Equals(_ownMove)) return;
+            if (_pressedOwn && !buttonPressed.gameObject.transform.Find("Move Name")
+                    .GetComponent<TextMeshProUGUI>().text.Equals(_ownMove)) return;
             if (buttonPressed.GetComponent<Image>().color.Equals(_white))
             {
                 _pressedOwn = true;
                 buttonPressed.GetComponent<Image>().color = _red;
-                _ownMove = buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text;
+                _ownMove = buttonPressed.gameObject.transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text;
             }
             else
             {
                 _pressedOwn = false;
                 buttonPressed.GetComponent<Image>().color = _white;
-                _ownMove = "";
+                _ownMove = string.Empty;
             }
         }
 
-        void OnClickNewMove()
+        private void OnClickNewMove()
         {
             var buttonPressed = EventSystem.current.currentSelectedGameObject;
-            if (_pressedNew && !buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text.Equals(_newMove)) return;
+            if (_pressedNew && !buttonPressed.gameObject.transform.Find("Move Name")
+                    .GetComponent<TextMeshProUGUI>().text.Equals(_newMove)) return;
             if (buttonPressed.GetComponent<Image>().color.Equals(_white))
             {
                 _pressedNew = true;
                 buttonPressed.GetComponent<Image>().color = _green;
-                _newMove = buttonPressed.GetComponentInChildren<TextMeshProUGUI>().text;
+                _newMove = buttonPressed.gameObject.transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text;
             }
             else
             {
                 _pressedNew = false;
                 buttonPressed.GetComponent<Image>().color = _white;
-                _newMove = "";
+                _newMove = string.Empty;
             }
         }
 
         public void OnClickStart()
         {
-            if (_pressedNew ^ _pressedOwn) return;
+            if (_pressedNew && !_pressedOwn || !_pressedNew && _pressedOwn) return;
             
             if (!string.IsNullOrEmpty(_ownMove) && !string.IsNullOrEmpty(_newMove))
             {

@@ -3,6 +3,7 @@ using Model;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace UI
@@ -26,17 +27,22 @@ namespace UI
                 tooltipText.preferredHeight + paddingSize);
             var transform1 = transform;
             var position = transform1.localPosition;
-            var y = position.y == 0 ? position.y - tooltipText.preferredHeight : position.y;
-            transform.localPosition = new Vector3(position.x, y, position.z);
+            float y;
+            float x;
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                x = position.x;
+                y = 0;
+            }
+            else
+            {
+                x = position.x;
+                y = position.y == 0 ? position.y - tooltipText.preferredHeight : position.y;
+            }
+
+            transform.localPosition = new Vector3(x, y, position.z);
             backgroundTransform.sizeDelta = backgroundSize;
         }
-
-        // private void Update()
-        // {
-        //     RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponent<RectTransform>(),
-        //         Input.mousePosition, null, out var localPoint);
-        //     transform.localPosition = localPoint;
-        // }
 
         public void HideTooltip()
         {

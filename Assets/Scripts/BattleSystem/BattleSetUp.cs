@@ -35,11 +35,10 @@ namespace BattleSystem
             return character;
         }
 
-        public void SetUpCharacters(GameObject player, GameObject enemy, NPCHealthStatus enemyStatus, 
-            NPCHealthStatus playerStatus, List<Unit> enemies)
+        public void SetUpCharacters(GameObject player, GameObject enemy, NPCHealthStatus charactersStatus, List<Unit> enemies)
         {
             var playerInstance = 
-                InstantiateCharacter("Player", new Vector3(0, 0, 0), player, true);
+                InstantiateCharacter("Player", new Vector3(0, 0, -12.5f), player, true);
 
             Manager.AddListener(playerInstance.GetComponent<Unit>());
             
@@ -52,13 +51,13 @@ namespace BattleSystem
                 randomNumber = new System.Random().Next(0, GameState.Natures.Count);
                 var enemyNature = GameState.Natures[randomNumber];
                 var enemyInstance = InstantiateCharacter(enemyBase.Name + " " + (i + 1), 
-                    new Vector3(-7 + 7 * i, 0, 10), enemy, keyName: enemyBase.KeyName);
+                    new Vector3(-12.5f + 12.5f * i, 0, 12.5f), enemy, keyName: enemyBase.KeyName);
                 enemyInstance = SetUpCharacterStats(enemyInstance, enemyBase, enemyNature);
                 enemies.Add(enemyInstance.GetComponent<Unit>());
                 Manager.AddListener(enemyInstance.GetComponent<Unit>());
             }
-            enemyStatus.SetUpEnemyStatusPanels(enemies);
-            playerStatus.SetUpPlayerStatusPanels(playerInstance.GetComponent<Unit>());
+            charactersStatus.SetUpEnemyStatusPanels(enemies);
+            charactersStatus.SetUpPlayerStatusPanels(playerInstance.GetComponent<Unit>());
             
         }
         
@@ -81,7 +80,7 @@ namespace BattleSystem
                 return character;
             }
 
-            characterUnit.Level = GameState.CurrentLevel + 39;
+            characterUnit.Level = GameState.CurrentLevel + 10;
             characterUnit.SetTypes(GameState.StarterStats.Types);
             characterUnit.Manager = Manager;
             characterUnit.SetStats(GameState.StarterStats);

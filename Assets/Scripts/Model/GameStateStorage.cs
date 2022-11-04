@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using JsonParser;
 using UnityEngine;
+using System.Linq;
 
 namespace Model
 {

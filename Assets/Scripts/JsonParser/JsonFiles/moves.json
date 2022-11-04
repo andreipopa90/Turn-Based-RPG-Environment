@@ -1341,11 +1341,7 @@
     "target":"self",
     "movetype":"Poison",
     "secondary":{
-      "boosts":{
-        "atk":1,
-        "def":1,
-        "accuracy":1
-      }
+
     }
   },
   {
@@ -1890,9 +1886,7 @@
     "target":"self",
     "movetype":"Normal",
     "secondary":{
-      "boosts":{
-        "evasion":1
-      }
+
     }
   },
   {
@@ -2864,9 +2858,7 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-      "boosts":{
-        "accuracy":-1
-      }
+
     }
   },
   {
@@ -3235,12 +3227,7 @@
     "target":"normal",
     "movetype":"Psychic",
     "secondary":{
-      "self-buff":{
-        "chance":100,
-        "self":{
 
-        }
-      }
     }
   },
   {
@@ -4333,10 +4320,7 @@
     "target":"self",
     "movetype":"Dark",
     "secondary":{
-      "boosts":{
-        "atk":1,
-        "accuracy":1
-      }
+
     }
   },
   {
@@ -4811,9 +4795,7 @@
     "target":"normal",
     "movetype":"Psychic",
     "secondary":{
-      "boosts":{
-        "accuracy":-1
-      }
+
     }
   },
   {
@@ -4933,12 +4915,7 @@
     "target":"normal",
     "movetype":"Grass",
     "secondary":{
-      "debuff":{
-        "chance":50,
-        "boosts":{
-          "accuracy":-1
-        }
-      }
+
     }
   },
   {
@@ -5634,9 +5611,7 @@
     "target":"self",
     "movetype":"Normal",
     "secondary":{
-      "boosts":{
-        "evasion":2
-      }
+
     }
   },
   {
@@ -5662,12 +5637,7 @@
     "target":"normal",
     "movetype":"Steel",
     "secondary":{
-      "debuff":{
-        "chance":30,
-        "boosts":{
-          "accuracy":-1
-        }
-      }
+
     }
   },
   {
@@ -5742,12 +5712,7 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-      "debuff":{
-        "chance":30,
-        "boosts":{
-          "accuracy":-1
-        }
-      }
+
     }
   },
   {
@@ -5778,12 +5743,7 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-      "debuff":{
-        "chance":100,
-        "boosts":{
-          "accuracy":-1
-        }
-      }
+
     }
   },
   {
@@ -5796,12 +5756,7 @@
     "target":"allAdjacentFoes",
     "movetype":"Water",
     "secondary":{
-      "debuff":{
-        "chance":30,
-        "boosts":{
-          "accuracy":-1
-        }
-      }
+
     }
   },
   {
@@ -5912,12 +5867,7 @@
     "target":"normal",
     "movetype":"Dark",
     "secondary":{
-      "debuff":{
-        "chance":40,
-        "boosts":{
-          "accuracy":-1
-        }
-      }
+
     }
   },
   {
@@ -6033,12 +5983,7 @@
     "target":"normal",
     "movetype":"Water",
     "secondary":{
-      "debuff":{
-        "chance":50,
-        "boosts":{
-          "accuracy":-1
-        }
-      }
+
     }
   },
   {
@@ -7104,9 +7049,7 @@
     "target":"normal",
     "movetype":"Ground",
     "secondary":{
-      "boosts":{
-        "accuracy":-1
-      }
+
     }
   },
   {
@@ -7850,9 +7793,7 @@
     "target":"normal",
     "movetype":"Normal",
     "secondary":{
-      "boosts":{
-        "accuracy":-1
-      }
+
     }
   },
   {
@@ -8488,9 +8429,7 @@
     "target":"allAdjacentFoes",
     "movetype":"Normal",
     "secondary":{
-      "boosts":{
-        "evasion":-2
-      }
+
     }
   },
   {
@@ -9426,14 +9365,7 @@
     "target":"normal",
     "movetype":"Electric",
     "secondary":{
-      "self-buff":{
-        "chance":100,
-        "self":{
-          "boosts":{
-            "evasion":1
-          }
-        }
-      }
+
     }
   }
 ]
