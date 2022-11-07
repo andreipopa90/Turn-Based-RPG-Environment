@@ -146,6 +146,8 @@ namespace BattleSystem
             var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
             playerUnit.Heal(playerUnit.MaxHealth / 4);
             _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
+            mainHUD.AbilityPanel.SetActive(false);
+            mainHUD.EnemyPanel.SetActive(false);
             EnemyTurn();
         }
 
@@ -157,6 +159,8 @@ namespace BattleSystem
             var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
             playerUnit.Cure();
             _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
+            mainHUD.AbilityPanel.SetActive(false);
+            mainHUD.EnemyPanel.SetActive(false);
             EnemyTurn();
         }
 
@@ -218,8 +222,10 @@ namespace BattleSystem
 
         private void HandleStatus(Move move, Unit targetUnit, bool buff = true)
         {
+            
             if (!targetUnit) return;
             var boosts = ((JObject)move.Secondary["boosts"]).ToObject<Dictionary<string, int>>();
+            print(move.Name + " self-buff: " + buff);
             foreach (var key in boosts.Keys)
             {
                 if (key.Equals("accuracy") || key.Equals("evasion")) continue;
@@ -227,7 +233,7 @@ namespace BattleSystem
                 var stat = (int) targetUnit.GetType()
                     .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
                     .GetValue(targetUnit);
-                var newStatValue = buff ? stat * (value + 2) / 2 : stat * 2 / (-1 * value + 2);
+                var newStatValue = value > 0 ? stat * (value + 2) / 2 : stat * 2 / (-1 * value + 2);
                 targetUnit.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
                     .SetValue(targetUnit, newStatValue);
             }
@@ -411,14 +417,16 @@ namespace BattleSystem
             {
                 _currentState = BattleState.Win;
                 _gameState.CurrentLevel += 1;
+                _gameState.LostCurrentLevel = false;
                 _manager.Reset();
                 SceneManager.LoadScene("TransitionScene");
             }
             else if (!GameObject.FindGameObjectWithTag("Player"))
             {
                 _currentState = BattleState.Lost;
+                _gameState.LostCurrentLevel = true;
                 _manager.Reset();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene("TransitionScene");
             }
             else
             {

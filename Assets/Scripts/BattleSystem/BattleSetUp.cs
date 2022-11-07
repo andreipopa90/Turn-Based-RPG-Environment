@@ -41,18 +41,18 @@ namespace BattleSystem
                 InstantiateCharacter("Player", new Vector3(0, 0, -12.5f), player, true);
 
             Manager.AddListener(playerInstance.GetComponent<Unit>());
-            
+
             for (var i = 0; i < 3; i++)
             {
-                var randomNumber = new System.Random().Next(0, GameState.EnemyBaseStats.Count);
-                var enemyBase = GameState.EnemyBaseStats[randomNumber];
-                AddEnemyBaseStatsToLogs(enemyBase);
+                // var randomNumber = new System.Random().Next(0, GameState.EnemyBaseStats.Count);
+                // var enemyBase = GameState.EnemyBaseStats[randomNumber];
+                AddEnemyBaseStatsToLogs(GameState.EnemiesBase[i]);
                 
-                randomNumber = new System.Random().Next(0, GameState.Natures.Count);
-                var enemyNature = GameState.Natures[randomNumber];
-                var enemyInstance = InstantiateCharacter(enemyBase.Name + " " + (i + 1), 
-                    new Vector3(-12.5f + 12.5f * i, 0, 12.5f), enemy, keyName: enemyBase.KeyName);
-                enemyInstance = SetUpCharacterStats(enemyInstance, enemyBase, enemyNature);
+                // randomNumber = new System.Random().Next(0, GameState.Natures.Count);
+                // var enemyNature = GameState.Natures[randomNumber];
+                var enemyInstance = InstantiateCharacter(GameState.EnemiesBase[i].Name + " " + (i + 1), 
+                    new Vector3(-12.5f + 12.5f * i, 0, 12.5f), enemy, keyName: GameState.EnemiesBase[i].KeyName);
+                enemyInstance = SetUpCharacterStats(enemyInstance, GameState.EnemiesBase[i], GameState.EnemiesNature[i]);
                 enemies.Add(enemyInstance.GetComponent<Unit>());
                 Manager.AddListener(enemyInstance.GetComponent<Unit>());
             }

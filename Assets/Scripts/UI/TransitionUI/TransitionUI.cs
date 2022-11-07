@@ -121,6 +121,9 @@ namespace UI.TransitionUI
                 GameState.SelectedMoves.Add(GameState.AllMoves.Find(x => x.Name.Equals(_newMove)));
             }
 
+            if (!GameState.LostCurrentLevel)
+                GameState.ChooseEnemies();
+            
             SceneManager.LoadScene("BattleScene");
         }
 

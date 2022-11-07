@@ -17,8 +17,9 @@ namespace Model
         public List<StartMoves> StartMoves { get; set; }
         
         public BaseStat StarterStats { get; set; }
-        public List<Unit> Enemies { get; set; }
         public List<BaseStat> EnemiesBase { get; set; }
+        public List<Nature> EnemiesNature { get; set; }
+        public bool LostCurrentLevel { get; set; }
 
         // Start is called before the first frame update
         private void Start()
@@ -33,12 +34,15 @@ namespace Model
             StarterPokemon = string.Empty;
             StartMoves = reader.ReadStartMovesJson();
             StarterStats = new BaseStat();
+            LostCurrentLevel = false;
             // print("I started again!");
-            // ChooseEnemies();
+            ChooseEnemies();
         }
 
-        private void ChooseEnemies()
+        public void ChooseEnemies()
         {
+            EnemiesBase = new List<BaseStat>();
+            EnemiesNature = new List<Nature>();
             for (var i = 0; i < 3; i++)
             {
                 var randomNumber = new System.Random().Next(0, EnemyBaseStats.Count);
@@ -46,6 +50,7 @@ namespace Model
                 EnemiesBase.Add(enemyBase);
                 randomNumber = new System.Random().Next(0, Natures.Count);
                 var enemyNature = Natures[randomNumber];
+                EnemiesNature.Add(enemyNature);
                 // var enemyUnit = new Unit();
             }
         }
