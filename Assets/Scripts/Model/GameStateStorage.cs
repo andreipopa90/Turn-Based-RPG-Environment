@@ -1,7 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using JsonParser;
 using UnityEngine;
 using System.Linq;
+using GenerativeGrammar.Grammar;
+using LogFiles;
+using UnityEditor;
 
 namespace Model
 {
@@ -21,6 +27,8 @@ namespace Model
         public List<Nature> EnemiesNature { get; set; }
         public bool LostCurrentLevel { get; set; }
 
+        public Generator Generator;
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -35,8 +43,19 @@ namespace Model
             StartMoves = reader.ReadStartMovesJson();
             StarterStats = new BaseStat();
             LostCurrentLevel = false;
-            // print("I started again!");
             ChooseEnemies();
+            GenerateEnemies();
+        }
+
+        private void GenerateEnemies()
+        {
+            var levelLog = Log.GetInstance();
+            levelLog.PlayerTypes.Add("Bug");
+            // levelLog.PlayerTypes.Add("Dark");
+            // levelLog.PlayerTypes.Add("Dragon");
+            levelLog.PlayerDefense = "Special";
+            levelLog.PlayerAttack = "Special";
+            Generator.StartGeneration(levelLog);
         }
 
         public void ChooseEnemies()
