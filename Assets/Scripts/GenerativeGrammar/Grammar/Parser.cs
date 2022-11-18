@@ -17,7 +17,7 @@ namespace GenerativeGrammar.Grammar
 	{
 		private Dictionary<Node, List<string>> Augments { get; }
 		private Tree GenerativeTree { get; }
-		public Log LevelLog { get; }
+		private Log LevelLog { get; }
 
 		public Parser(Log levelLog)
 		{
@@ -162,6 +162,7 @@ namespace GenerativeGrammar.Grammar
 			var index = GenerativeTree.Nodes.FindIndex(e => e.Name.Equals(nodeName));
 			var node = GenerativeTree.Nodes[index];
 			node.Source = s.Trim();
+			node.IsSourceNode = true;
 			GenerativeTree.Nodes[index] = node;
 		}
 

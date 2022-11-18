@@ -1,19 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using GenerativeGrammar.Handlers;
 using GenerativeGrammar.Model;
 using JsonParser;
 using LogFiles;
-using UnityEngine;
 using Random = System.Random;
 using Tree = GenerativeGrammar.Model.Tree;
 
 namespace GenerativeGrammar.Grammar
 {
-    public class Generator : MonoBehaviour
+    public class Generator
     {
         private readonly string _filePath =
             Path.Combine(@"Assets", "Scripts", "GenerativeGrammar", "Grammar", "Grammar.txt");
@@ -49,16 +47,15 @@ namespace GenerativeGrammar.Grammar
      */
         private void GenerateFromNode(Node node)
         {
-            
-            if (node.IsTerminalNode && string.IsNullOrEmpty(node.Source))
+            if (node.IsTerminalNode && !node.IsSourceNode)
             {
                 HandleTerminalNode(node);
             }
-            else if (node.ActualNeighbours.Count == 0 && string.IsNullOrEmpty(node.Source))
+            else if (node.ActualNeighbours.Count == 0 && !node.IsSourceNode)
             {
                 DetermineActualNeighbours(node);
             }
-            else if (!string.IsNullOrEmpty(node.Source))
+            else if (node.IsSourceNode)
             {
                 HandleSourceNode(node);
             }
@@ -81,8 +78,6 @@ namespace GenerativeGrammar.Grammar
                 }
 
                 return result;
-                // return node.Conditions.
-                //     Aggregate(true, (current, condition) => current && Handler.HandleCondition(condition));
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -95,7 +90,11 @@ namespace GenerativeGrammar.Grammar
             var trial = 1;
             do
             {
-                RemoveOnTrial(node, trial);
+                // RemoveOnTrial(node, trial);
+                if (trial > 1)
+                {
+                    Npcs[^1].ValuesOfNodes[node.Name].Remove(^1);
+                }
                 dynamic value = null!;
 
                 if (node.ActualNeighbours.Count == 1)
@@ -110,38 +109,14 @@ namespace GenerativeGrammar.Grammar
                     value = ((string) value).StartsWith("\"") ? ((string) value).Replace("\"", "") : value;
                 }
             
-                AddNodeToNpc(node, value);
+                // AddNodeToNpc(node, value);
+                if (!Npcs[^1].ValuesOfNodes.ContainsKey(node.Name)) 
+                    Npcs[^1].ValuesOfNodes.Add(node.Name, new List<dynamic>());
+                Npcs[^1].ValuesOfNodes[node.Name].Clear();
+                Npcs[^1].ValuesOfNodes[node.Name].Add(value);
                 trial++;
             } while (!CheckNodeCondition(node));
         
-        }
-
-        private void AddNodeToNpc(Node node, dynamic value)
-        {
-            if (!Npcs[^1].ValuesOfNodes.ContainsKey(node.Name))
-                Npcs[^1].ValuesOfNodes.Add(node.Name, new List<dynamic>());
-            else if (node.IsTerminalNode)
-            {
-                Npcs[^1].ValuesOfNodes[node.Name] = new List<dynamic>();
-            }
-            Npcs[^1].ValuesOfNodes[node.Name].Add(value.ToString());
-        }
-    
-        private void AddNodeToNpc(Node node, Node nextNode, string terminalValue)
-        {
-            if (!Npcs[^1].ValuesOfNodes.ContainsKey(node.Name))
-                Npcs[^1].ValuesOfNodes.Add(node.Name, new List<dynamic>());
-            if (nextNode is null)
-            {
-                Npcs[^1].ValuesOfNodes[node.Name].Add(terminalValue);
-                return;
-            }
-
-
-            if (!Npcs[^1].ValuesOfNodes.ContainsKey(nextNode.Name))
-            {
-                Npcs[^1].ValuesOfNodes[node.Name].Add(nextNode.Name);
-            }
         }
 
         private dynamic HandleNodeAttributes(dynamic value)
@@ -159,10 +134,10 @@ namespace GenerativeGrammar.Grammar
         }
 
         /**
-     * <summary>
-     * Assumption: Condition can be added only for the nodes whose next nodes are leafs
-     * </summary>
-     */
+        * <summary>
+        * Assumption: Condition can be added only for the nodes whose next nodes are leafs
+        * </summary>
+        */
         private void HandleNodeWithNeighbours(Node node)
         {
             var trial = 1;
@@ -195,8 +170,11 @@ namespace GenerativeGrammar.Grammar
                     }
 
                     var nextNode = GenerativeTree.Nodes.Find(e => e.Name.Equals(sides[0].Trim()));
-                    AddNodeToNpc(node, nextNode, sides[0]);
 
+                    if (!Npcs[^1].ValuesOfNodes.ContainsKey(node.Name)) 
+                        Npcs[^1].ValuesOfNodes.Add(node.Name, new List<dynamic>());
+                    Npcs[^1].ValuesOfNodes[node.Name].Add(sides[0].Trim());
+                    
                     GenerateFromNode(nextNode!);
                 }
 
@@ -215,7 +193,7 @@ namespace GenerativeGrammar.Grammar
             var result = new Dictionary<object, int>();
             for (var i = 0; i < values.Count; i++)
             {
-                result.Add(values[i], 1);
+                result.Add(values[i], node.ActualNeighbours.Count > 0 ? 1 : 0);
             }
 
             if (node.ActualNeighbours.Count > 0)
@@ -246,11 +224,17 @@ namespace GenerativeGrammar.Grammar
             var trial = 1;
             do
             {
-                RemoveOnTrial(node, trial);
-                var pickedNode = Picker.GetObjectFromWeightedList(result);
-                pickedNodeName = pickedNode.GetType().GetProperty("Name")?.GetValue(pickedNode)!.ToString() ??
+                if (trial > 1)
+                {
+                    Npcs[^1].ValuesOfNodes[node.Name].RemoveAt(Npcs[^1].ValuesOfNodes[node.Name].Count - 1);
+                }
+                var pickedObject = Picker.GetObjectFromWeightedList(result);
+                pickedNodeName = pickedObject.GetType().GetProperty("Name")?.GetValue(pickedObject)!.ToString() ??
                                  throw new InvalidOperationException();
-                AddNodeToNpc(node, pickedNodeName);
+                // AddNodeToNpc(node, pickedNodeName);
+                if (!Npcs[^1].ValuesOfNodes.ContainsKey(node.Name))
+                    Npcs[^1].ValuesOfNodes.Add(node.Name, new List<dynamic>());
+                Npcs[^1].ValuesOfNodes[node.Name].Add(pickedObject);
                 trial++;
             } while (!CheckNodeCondition(node));
 
@@ -279,27 +263,15 @@ namespace GenerativeGrammar.Grammar
             var trial = 1;
             do
             {
-                var neighbours = neighbourNodes.Where(e => e != null).Select(e => e!.Name).ToList();
                 if (trial > 1)
                 {
-                    Npcs[^1].ValuesOfNodes[node.Name].RemoveAll(e => neighbours.Contains(e));
-                    foreach (var neighbourNode in neighbourNodes.Where(neighbourNode => neighbourNode != null))
-                    {
-                        Npcs[^1].ValuesOfNodes[node.Name].Remove(neighbourNode!.Name);
-                        Npcs[^1].ValuesOfNodes.Remove(neighbourNode.Name);
-                    }
+                    Npcs[^1].ValuesOfNodes[node.Name].RemoveAt(Npcs[^1].ValuesOfNodes[node.Name].Count - 1);
                 }
                 var objectPicked = Picker.GetObjectFromWeightedList(result);
                 result.Remove(objectPicked);
-                foreach (var neighbourNode in neighbourNodes.Where(neighbourNode => neighbourNode != null))
-                {
-                
-                    var objectPropertyValue = objectPicked.GetType().GetProperties().ToList()
-                        .Find(p => p.Name.ToLower().Contains(neighbourNode!.Name.ToLower()))!
-                        .GetValue(objectPicked);
-                    AddNodeToNpc(node, neighbourNode!.Name);
-                    AddNodeToNpc(neighbourNode, objectPropertyValue ?? throw new InvalidOperationException());
-                }
+                if (!Npcs[^1].ValuesOfNodes.ContainsKey(node.Name))
+                    Npcs[^1].ValuesOfNodes.Add(node.Name, new List<dynamic>());
+                Npcs[^1].ValuesOfNodes[node.Name].Add(objectPicked);
 
                 trial++;
             } while (!CheckNodeCondition(node));
@@ -380,20 +352,29 @@ namespace GenerativeGrammar.Grammar
             string[] sides;
             string[] neighbours;
             var trial = 1;
+            var amountAdded = 0;
             do
             {
-                RemoveOnTrial(node, trial); 
+                if (trial > 1)
+                {
+                    Npcs[^1].ValuesOfNodes[node.Name]
+                        .RemoveRange(Npcs[^1].ValuesOfNodes[node.Name].Count - amountAdded, amountAdded);
+                }
+                // RemoveOnTrial(node, trial); 
                 var nextNode = Picker.GetWeightedTerminalNode(node);
 
                 sides = nextNode.Split(" : ", 2);
 
                 neighbours = sides[0].Trim().Split(" ~ ");
-
+                amountAdded = neighbours.Length;
 
                 foreach (var neighbour in neighbours)
                 {
                     var next = GenerativeTree.Nodes.Find(e => e.Name.Equals(neighbour));
-                    AddNodeToNpc(node, next, neighbour);
+                    if (!Npcs[^1].ValuesOfNodes.ContainsKey(node.Name))
+                        Npcs[^1].ValuesOfNodes.Add(node.Name, new List<dynamic>());
+                    if (next?.Name != null) Npcs[^1].ValuesOfNodes[node.Name].Add(next.Name);
+                    // AddNodeToNpc(node, next, neighbour);
                 }
 
                 trial++;
@@ -417,14 +398,6 @@ namespace GenerativeGrammar.Grammar
         
         }
 
-        private void RemoveOnTrial(Node node, int trial)
-        {
-            if (trial > 1)
-            {
-                Npcs[^1].ValuesOfNodes[node.Name].Remove(^1);
-            }
-        }
-
         private void SetAttributesFromNode(IReadOnlyList<string> sides)
         {
             var attributes = sides[1].Split(", ");
@@ -443,8 +416,8 @@ namespace GenerativeGrammar.Grammar
         }
 
         /**
-     * Parse Range for EVs
-     */
+        * Parse Range for EVs
+        */
         private int GetValueFromRange(Node node)
         {
             var range = node.PossibleNeighbours[0].Trim().Split("..");

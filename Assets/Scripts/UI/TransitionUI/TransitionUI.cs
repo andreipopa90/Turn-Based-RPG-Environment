@@ -122,8 +122,15 @@ namespace UI.TransitionUI
             }
 
             if (!GameState.LostCurrentLevel)
+            {
+                if (GameState.Dynamic)
+                {
+                    GameState.GenerateEnemies();
+                }
+
                 GameState.ChooseEnemies();
-            
+            }
+
             SceneManager.LoadScene("BattleScene");
         }
 

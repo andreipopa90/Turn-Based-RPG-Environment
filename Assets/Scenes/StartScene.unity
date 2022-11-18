@@ -1366,7 +1366,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1424339142}
   - component: {fileID: 1424339143}
-  - component: {fileID: 1424339144}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -1399,19 +1398,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7894235a996f84f13a3042a83a3af26a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Generator: {fileID: 1424339144}
---- !u!114 &1424339144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424339140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf49988ab3114ba88938cef2ae812496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1568419489
@@ -2036,7 +2022,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 168962262}
   m_HandleRect: {fileID: 168962261}
   m_Direction: 3
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

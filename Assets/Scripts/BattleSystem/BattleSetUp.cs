@@ -24,14 +24,20 @@ namespace BattleSystem
             battleHUD.AddEnemySelect(enemies);
         }
         
-        private GameObject SetUpCharacterStats(GameObject character, BaseStat characterBase, Nature characterNature)
+        private GameObject SetUpCharacterStats(GameObject character, BaseStat characterBase, 
+            Nature characterNature, List<string> affixes, List<Move> enemyMoves, List<Type> enemyTypes, 
+            Dictionary<string, int> enemyEvs)
         {
             var characterUnit = character.GetComponent<Unit>();
             characterUnit.Manager = Manager;
             characterUnit.Level = GameState.CurrentLevel;
-            characterUnit.SetTypes(characterBase.Types);
+            characterUnit.SetTypes(enemyTypes.Select(t => t.Name).ToList());
             characterUnit.unitNature = characterNature;
+            characterUnit.Moves = enemyMoves;
+            characterUnit.Ev = enemyEvs;
+            characterUnit.Affixes = affixes;
             characterUnit.SetStats(characterBase);
+            
             return character;
         }
 
@@ -44,15 +50,13 @@ namespace BattleSystem
 
             for (var i = 0; i < 3; i++)
             {
-                // var randomNumber = new System.Random().Next(0, GameState.EnemyBaseStats.Count);
-                // var enemyBase = GameState.EnemyBaseStats[randomNumber];
                 AddEnemyBaseStatsToLogs(GameState.EnemiesBase[i]);
                 
-                // randomNumber = new System.Random().Next(0, GameState.Natures.Count);
-                // var enemyNature = GameState.Natures[randomNumber];
                 var enemyInstance = InstantiateCharacter(GameState.EnemiesBase[i].Name + " " + (i + 1), 
-                    new Vector3(-12.5f + 12.5f * i, 0, 12.5f), enemy, keyName: GameState.EnemiesBase[i].KeyName);
-                enemyInstance = SetUpCharacterStats(enemyInstance, GameState.EnemiesBase[i], GameState.EnemiesNature[i]);
+                    new Vector3(-12.5f + 12.5f * i, 0, 12.5f), enemy);
+                enemyInstance = SetUpCharacterStats(enemyInstance, GameState.EnemiesBase[i], GameState.EnemiesNature[i],
+                    GameState.EnemiesAffixes[i], GameState.EnemiesMoves[i], 
+                    GameState.EnemiesTypes[i], GameState.EnemiesEvs[i]);
                 enemies.Add(enemyInstance.GetComponent<Unit>());
                 Manager.AddListener(enemyInstance.GetComponent<Unit>());
             }
@@ -62,7 +66,7 @@ namespace BattleSystem
         }
         
         private GameObject InstantiateCharacter(string characterName, Vector3 position, GameObject prefab, 
-            bool isPlayer = false, string keyName = "")
+            bool isPlayer = false)
         {
             var character = Instantiate(prefab, position, Quaternion.identity);
             character.name = characterName;
@@ -73,16 +77,26 @@ namespace BattleSystem
             characterUnit.Ailments = new List<string>();
             if (!isPlayer)
             {
-                var learnSet = 
-                    GameState.StartMoves.Find(sm => sm.Name.Equals(keyName)) ?? 
-                    GameState.StartMoves.Find(sm => keyName.Contains(sm.Name));
-                character.GetComponent<Unit>().AddMoves(GameState.AllMoves, learnSet.LearnSet);
+                // var learnSet = 
+                //     GameState.StartMoves.Find(sm => sm.Name.Equals(keyName)) ?? 
+                //     GameState.StartMoves.Find(sm => keyName.Contains(sm.Name));
+                // character.GetComponent<Unit>().AddMoves(GameState.AllMoves, learnSet.LearnSet);
                 return character;
             }
 
             characterUnit.Level = GameState.CurrentLevel + 10;
             characterUnit.SetTypes(GameState.StarterStats.Types);
             characterUnit.Manager = Manager;
+            
+            characterUnit.Ev = new Dictionary<string, int>
+            {
+                {"hp", 0},
+                {"atk", 0},
+                {"def", 0},
+                {"spa", 0},
+                {"spd", 0},
+                {"spe", 0}
+            };
             characterUnit.SetStats(GameState.StarterStats);
             // Add to logs.
             AddPlayerStatsToLogs(characterUnit);

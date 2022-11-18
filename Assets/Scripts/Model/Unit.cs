@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Model.Observer;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Model
 {
@@ -48,8 +47,10 @@ namespace Model
         public GameObject typeIndicatorOne;
         public GameObject typeIndicatorTwo;
         public List<Move> Moves { get; set; }
+        
         private Dictionary<string, int> _iv;
-        private Dictionary<string, int> _ev;
+        public Dictionary<string, int> Ev { get; set; }
+        
         public Nature unitNature;
         public List<string> Affixes { get; set; }
         public List<string> Ailments { get; set; }
@@ -63,14 +64,6 @@ namespace Model
             Ailments = new List<string>();
             _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             GenerateIVs();
-            GenerateEVs();
-        }
-
-        public void AddMoves(List<Move> newMoves, List<string> learnSet)
-        {
-            newMoves = newMoves.Where(m => learnSet.Contains(m.KeyName)).ToList();
-            var randomSeed = new System.Random();
-            Moves = newMoves.OrderBy(a => randomSeed.Next()).Take(4).ToList();
         }
 
         private void GenerateIVs()
@@ -181,7 +174,7 @@ namespace Model
                 CurrentHealth = 1;
                 Affixes.Remove("Sturdy");
             }
-            if (IsDead())
+            if (CurrentHealth <= 0)
             {
                 Manager.RemoveListener(this);
                 Manager.NotifyOnDeath();
@@ -200,7 +193,7 @@ namespace Model
 
         private int CalculateHp(int baseHp)
         {
-            var hp = (int) Math.Floor((2 * baseHp + _iv["hp"] + Math.Floor(_ev["hp"] / 4.0)) * Level / 100f) + Level + 10;
+            var hp = (int) Math.Floor((2 * baseHp + _iv["hp"] + Math.Floor(Ev["hp"] / 4.0)) * Level / 100f) + Level + 10;
             return hp;
         }
 
@@ -209,7 +202,7 @@ namespace Model
             double natureModifier = 1;
             if (stat.Equals(unitNature.Plus)) natureModifier = 1.1;
             else if (stat.Equals(unitNature.Minus)) natureModifier = 0.9;
-            var statValue = (int) Math.Floor((Math.Floor((2 * baseStat + _iv[stat] + Math.Floor(_ev[stat] / 4.0)) * Level / 100d) + 5) * natureModifier);
+            var statValue = (int) Math.Floor((Math.Floor((2 * baseStat + _iv[stat] + Math.Floor(Ev[stat] / 4.0)) * Level / 100d) + 5) * natureModifier);
             return statValue;
         }
 
@@ -225,30 +218,10 @@ namespace Model
             Spe = CalculateStats(stats.Spe, "spe");
         }
 
-        private void GenerateEVs()
-        {
-            _ev = new Dictionary<string, int>
-            {
-                {"hp", 0},
-                {"atk", 0},
-                {"def", 0},
-                {"spa", 0},
-                {"spd", 0},
-                {"spe", 0}
-            };
-        }
-
-        public void AddAffixes(List<string> newAffixes)
-        {
-            Affixes = newAffixes;
-        }
-        
-
         private bool IsDead()
         {
             return CurrentHealth <= 0;
         }
-
 
         public void Cure()
         {
@@ -262,7 +235,7 @@ namespace Model
         public override string ToString()
         {
             var result = string.Empty;
-            result += UnitName.Remove(UnitName.Length - 2) + "\n";
+            result += UnitName + "\n";
             result += "Level: " + Level + "\n";
             result += Types[0];
             result = Types.Count == 2 ? result + " " + Types[1] : result;

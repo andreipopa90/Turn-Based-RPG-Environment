@@ -4,10 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using GenerativeGrammar.Exceptions;
-using GenerativeGrammar.Model;
 using JsonParser;
+using GenerativeGrammar.Model;
 using LogFiles;
-using UnityEditor;
 using Tree = GenerativeGrammar.Model.Tree;
 
 namespace GenerativeGrammar.Handlers
@@ -116,15 +115,22 @@ namespace GenerativeGrammar.Handlers
                 if (_operands.ContainsKey(part)) sb.Append(_operands[part]);
                 else sb.Append(HandleVariable(part));
             }
-
-            ExpressionEvaluator.Evaluate(sb.ToString(), out int equationResult);
-            // return CSharpScript.EvaluateAsync<int>(sb.ToString()).Result;
+            
+            var table = new DataTable();
+            table.Columns.Add("", typeof(int));
+            table.Columns[0].Expression = sb.ToString();
+            var r = table.NewRow();
+            table.Rows.Add(r);
+            var equationResult = (int)r[0];
             return equationResult;
+            
+            // return CSharpScript.EvaluateAsync<int>(sb.ToString()).Result;
         }
 
         private string ExtractFunction(string equation)
         {
-            var function = _functions.Where(f => equation.IndexOf(f, StringComparison.Ordinal) > -1).ToList()[0];
+            var function = _functions.Where(f => 
+                equation.IndexOf(f, StringComparison.Ordinal) > -1).ToList()[0];
             var startIndex = equation.IndexOf(function, StringComparison.Ordinal);
             var brackets = 1;
             var index = startIndex + function.Length + 1;
@@ -211,33 +217,20 @@ namespace GenerativeGrammar.Handlers
             
             while (index < stringEqualityIndexes.Count)
             {
-                string equalityResult;
-                if (tokens[stringEqualityIndexes[index]].Equals("=="))
-                {
-                    equalityResult = tokens[stringEqualityIndexes[index] - 1].Equals(tokens[stringEqualityIndexes[index] + 1]).ToString();
-                }
-                else
-                {
-                    equalityResult = (!tokens[stringEqualityIndexes[index] - 1].Equals(tokens[stringEqualityIndexes[index] + 1])).ToString();
-                }
+                var equalityResult = tokens[stringEqualityIndexes[index]].Equals("==") ? 
+                    tokens[stringEqualityIndexes[index] - 1]
+                        .Equals(tokens[stringEqualityIndexes[index] + 1]).ToString() : 
+                    (!tokens[stringEqualityIndexes[index] - 1]
+                        .Equals(tokens[stringEqualityIndexes[index] + 1])).ToString();
 
                 
-                var toReplace = tokens[stringEqualityIndexes[index] - 1] + " " + tokens[stringEqualityIndexes[index]] + " " + tokens[stringEqualityIndexes[index] + 1];
+                var toReplace = 
+                    tokens[stringEqualityIndexes[index] - 1] + " " + 
+                    tokens[stringEqualityIndexes[index]] + " " + 
+                    tokens[stringEqualityIndexes[index] + 1];
                 equation = equation.Replace(toReplace, equalityResult);
                 index += 1;
             }
-
-            // foreach (var index in stringEqualityIndexes)
-            // {
-            //     tokens[index - 1] = "\"" + tokens[index - 1] + "\"";
-            //     tokens[index + 1] = "\"" + tokens[index + 1] + "\")";
-            //     if (tokens[index].Equals("!="))
-            //     {
-            //         tokens[index - 1] = "!" + tokens[index - 1];
-            //     }
-            //     tokens[index] = ".Equals(";
-            //
-            // }
             return equation;
         }
     
@@ -281,13 +274,24 @@ namespace GenerativeGrammar.Handlers
 
                     startIndex = index - 1;
                 }
-                var list = (List<dynamic>) HandleVariable(tokens[index + 1], returnCompleteList: true)!;
+                var list = (List<dynamic>) HandleVariable(tokens[index + 1], returnCompleteList: true);
                 var endIndex = index + 1;
 
                 var startBrackets = HandleConditionBrackets(tokens[startIndex])[0];
                 var endBrackets = HandleConditionBrackets(tokens[endIndex])[1];
-            
-                var result = negativeFlag ? (!list.Contains(variable)).ToString() : list.Contains(variable).ToString();
+
+                string result;
+                
+                if (variable.GetType() == list.GetType().GetGenericArguments()[0]) 
+                {
+                    result = negativeFlag ?
+                    (!list.Contains(variable)).ToString() : 
+                    list.Contains(variable).ToString();
+                }
+                else
+                {
+                    result = LookForValueInObjectsList(variable, list, negativeFlag);
+                }
                 result = startBrackets + result + endBrackets;
             
                 var tokensList = tokens.ToList();
@@ -298,6 +302,15 @@ namespace GenerativeGrammar.Handlers
             }
 
             return string.Join(" ", tokens);
+        }
+
+        private static string LookForValueInObjectsList(string variable, List<object> list, bool negativeFlag)
+        {
+            return (from listObject in list from property in listObject.GetType().GetProperties() 
+                where property.GetValue(listObject)!.ToString()!.Equals(variable) 
+                select listObject).Any() ? 
+                (true ^ negativeFlag).ToString() : 
+                (false ^ negativeFlag).ToString();
         }
 
         public object HandleVariable(string token, bool returnCompleteList = false)
@@ -317,7 +330,8 @@ namespace GenerativeGrammar.Handlers
             else if (GenerativeTree.Parameters.Contains(tokenStart))
             {
                 var sides = token.Split(".");
-                dynamic field = LevelLog.GetType().GetProperty(sides[1])?.GetValue(LevelLog) ?? throw new InvalidOperationException();
+                dynamic field = LevelLog.GetType().GetProperty(sides[1])?.GetValue(LevelLog) 
+                                ?? throw new InvalidOperationException();
                 result = sides.Length == 3 ? field[sides[2]] : field;
             }
             else if (GenerativeTree.GlobalVariables.ContainsKey(token))
@@ -334,6 +348,17 @@ namespace GenerativeGrammar.Handlers
                 var visited = new List<string>();
                 Npcs[^1].GetNodesTerminalValues(token, ref resultReturned, ref visited);
                 result = resultReturned;
+            }
+            else if (Npcs[^1].ValuesOfNodes.ContainsKey(tokenStart))
+            {
+                var tokenSides = token.Split(".");
+                var propertyName = tokenSides[1].ToLower();
+                List<object> nodesValues = Npcs[^1].ValuesOfNodes[tokenStart];
+                var resultedValue = nodesValues
+                    .Select(n => n.GetType().GetProperties().ToList()
+                    .Find(p => p.Name.ToLower().Contains(propertyName))!
+                    .GetValue(n)).ToList()[^1];
+                result = resultedValue;
             }
             else return null!;
 
@@ -354,7 +379,7 @@ namespace GenerativeGrammar.Handlers
 
         private bool CheckForFunction(string line)
         {
-            return _functions.Any(e => line.Contains(e));
+            return _functions.Any(line.Contains);
         }
     
         private string CheckAndHandleFunction(string token)
@@ -373,7 +398,9 @@ namespace GenerativeGrammar.Handlers
             var results = new List<dynamic>();
             foreach (var v in variables) 
             {
-                dynamic variable = _operands.Keys.Any(o => token.Contains(o)) ? EvaluateEquation(v) : HandleVariable(v, returnCompleteList: true)!;
+                dynamic variable = _operands.Keys.Any(token.Contains) ? 
+                    EvaluateEquation(v) : 
+                    HandleVariable(v, returnCompleteList: true)!;
                 if (variable == null) return token;
                 if (variable.GetType().IsGenericType &&
                     variable.GetType().GetGenericTypeDefinition().IsAssignableFrom(typeof(List<>)))
@@ -400,7 +427,8 @@ namespace GenerativeGrammar.Handlers
         private string HandleCustomFunction(string function, List<dynamic> variables)
         {
             if (!function.Equals("TYPE.DamageTaken")) return "-1";
-            var type = new JSONReader().ReadTypeChartJson().Find(e => e.Name.Equals(Npcs[^1].ValuesOfNodes["TYPE"][^1]))!;
+            var type = new JSONReader().ReadTypeChartJson()
+                .Find(e => e.Name.Equals(Npcs[^1].ValuesOfNodes["TYPE"][^1].Name))!;
             var damageTaken = variables.Select(playerType => type.DamageTaken[playerType]).ToList();
 
             var damageTakenString = string.Join("", damageTaken);
@@ -413,7 +441,7 @@ namespace GenerativeGrammar.Handlers
             return damageTakenString[..1];
         }
 
-        private string[] HandleConditionBrackets(string token)
+        private static string[] HandleConditionBrackets(string token)
         {
             var startBracket = new StringBuilder();
             var endBracket = new StringBuilder();

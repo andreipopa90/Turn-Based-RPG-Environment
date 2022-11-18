@@ -11,6 +11,7 @@ namespace GenerativeGrammar.Model
         public List<string> Conditions { get; set; }
         public string Source { get; set; }
         public bool IsTerminalNode { get; set; }
+        public bool IsSourceNode { get; set; }
 
         public Node()
         {
@@ -20,6 +21,7 @@ namespace GenerativeGrammar.Model
             Conditions = new List<string>();
             Source = string.Empty;
             IsTerminalNode = false;
+            IsSourceNode = false;
         }
 
         public override string ToString()

@@ -1,30 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using LogFiles;
 using Model;
 using Model.Observer;
-using Newtonsoft.Json.Linq;
-using UI;
 using UI.Battle;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Action = Model.Action;
 
 namespace BattleSystem
 {
     public class BattleSystem : MonoBehaviour
     {
-
-        private struct Action
-        {
-            public Move Move;
-            public Unit SourceUnit;
-            public Unit TargetUnit;
-        }
-
         private enum BattleState
         {
             Start, Battle, ActionResolve, Win, Lost
@@ -33,10 +22,14 @@ namespace BattleSystem
         [FormerlySerializedAs("Player")] public GameObject player;
         [FormerlySerializedAs("Enemy")] public GameObject enemy;
         [FormerlySerializedAs("MainHUD")] public BattleHUD mainHUD;
-        [SerializeField]
+        [SerializeField] 
         private NPCHealthStatus charactersStatus;
-        [SerializeField]
+        [SerializeField] 
         private BattleSetUp battleSetUp;
+        [SerializeField]
+        private BattleLog battleLog;
+        [SerializeField]
+        private BattleHandler battleHandler;
 
         private int _currentTurn;
         private List<Unit> _sceneCharacters;
@@ -45,8 +38,8 @@ namespace BattleSystem
         private BattleState _currentState;
         private Move _selectedMove;
         private GameStateStorage _gameState;
-        private Log _levelLog;
         private EventManager _manager;
+        
         
         // Start is called before the first frame update
         private void Start()
@@ -54,21 +47,23 @@ namespace BattleSystem
             _actionQueue = new List<Action>();
             _currentState = BattleState.Start;
             _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
-            _levelLog = Log.GetInstance();
-            _levelLog.CurrentLevel = _gameState.CurrentLevel;
+            _gameState.LevelLog.CurrentLevel = _gameState.CurrentLevel;
             _sceneCharacters = new List<Unit>();
             _manager = new EventManager();
             _enemies = new List<Unit>();
             battleSetUp.GameState = _gameState;
             battleSetUp.Manager = _manager;
-            battleSetUp.LevelLog = _levelLog;
+            battleSetUp.LevelLog = _gameState.LevelLog;
             battleSetUp.SetUpCharacters(player, enemy, charactersStatus, _enemies);
             battleSetUp.SetUpHUD(mainHUD);
             GatherCharactersInScene();
+            battleHandler.GameState = _gameState;
+            battleHandler.SceneCharacters = _sceneCharacters;
+            battleHandler.Enemies = _enemies;
+            battleHandler.CharactersStatus = charactersStatus;
+            battleHandler.BattleLog = battleLog;
             BeginBattle();
         }
-        
-        
 
         private void GatherCharactersInScene()
         {
@@ -198,216 +193,10 @@ namespace BattleSystem
         
             foreach (var action in _actionQueue)
             {
-                HandleAction(action);
-                yield return new WaitForSeconds(0.75f);
+                yield return battleHandler.HandleAction(action);
             }
             _actionQueue.Clear();
             CheckCurrentBattleState();
-        }
-    
-        private void HandleAction(Action action)
-        {
-            if (action.SourceUnit.UnitName.Equals("Player"))
-            {
-                _levelLog.PlayerMovesUsed.Add(action.Move.Name);
-            }
-
-            var target = GetTarget(action);
-
-            if (!action.SourceUnit || !target) return;
-            HandleAction(action, target);
-
-            charactersStatus.UpdateHealthBar(target);
-        }
-
-        private void HandleStatus(Move move, Unit targetUnit, bool buff = true)
-        {
-            
-            if (!targetUnit) return;
-            var boosts = ((JObject)move.Secondary["boosts"]).ToObject<Dictionary<string, int>>();
-            print(move.Name + " self-buff: " + buff);
-            foreach (var key in boosts.Keys)
-            {
-                if (key.Equals("accuracy") || key.Equals("evasion")) continue;
-                var value = boosts[key];
-                var stat = (int) targetUnit.GetType()
-                    .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .GetValue(targetUnit);
-                var newStatValue = value > 0 ? stat * (value + 2) / 2 : stat * 2 / (-1 * value + 2);
-                targetUnit.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .SetValue(targetUnit, newStatValue);
-            }
-        }
-
-        private void HandleAction(Action action, Unit target)
-        {
-            switch (action.Move.Category)
-            {
-                case "Status" when action.Move.Target.Equals("self") && action.Move.Secondary.ContainsKey("boosts"):
-                {
-                    HandleStatus(action.Move, action.SourceUnit);
-                    break;
-                }
-                case "Status" when !action.Move.Target.Equals("self") && action.Move.Secondary.ContainsKey("boosts"):
-                {
-                    HandleStatus(action.Move, action.TargetUnit, false);
-                    break;
-                }
-                default:
-                {
-                    HandleSelfBuff(action);
-                    HandleDebuff(action, target);
-                    var damageTaken = HandleDamageTaken(action, target);
-                    HandleDrain(action, damageTaken);
-                    HandleStatusAilment(action, target);
-                    break;
-                }
-            }
-        }
-
-        private int HandleDamageTaken(Action action, Unit target)
-        {
-            var domainEffect = HandleDomain(action, target);
-            var burnEffect = 
-                action.SourceUnit.Ailments.Contains("brn") && action.Move.Category.Equals("Physical")
-                ? 0.5
-                : 1.0;
-            if (!target.Ailments.Contains("HealthLink"))
-            {
-                return target.TakeDamage(action.Move, action.SourceUnit, multiplier: domainEffect * burnEffect);
-            }
-            
-            var characters = _sceneCharacters.
-                Where(sc => sc.Ailments.Contains("HealthLink")).ToList();
-            var damageTaken = 0;
-            foreach (var character in characters)
-            {
-                damageTaken = character.TakeDamage(action.Move, action.SourceUnit, 
-                    multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect);
-            }
-
-            return damageTaken;
-        }
-
-        private double HandleDomain(Action action, Unit target)
-        {
-            var domainSource = _enemies.Find(e => e.Affixes.Contains("Domain"));
-            if (!target.UnitName.Equals("Player")) return 1.0;
-            if (domainSource is null) return 1.0;
-            if (action.SourceUnit.UnitName.Equals("Player") &&
-                target.DetermineMoveEffectiveness(action.Move.MoveType) > 1)
-            {
-                return 1.0 / target.DetermineMoveEffectiveness(action.Move.MoveType);
-            }
-            return domainSource.Types.Contains(action.Move.MoveType) ? 1.5 : 1.0;
-        }
-
-        private static void HandleDebuff(Action action, Unit target)
-        {
-            if (!action.Move.Secondary.ContainsKey("debuff")) return;
-            var debuff = ((JObject) action.Move.Secondary["debuff"]).ToObject<Dictionary<string, dynamic>>();
-            var randomNumber = new System.Random().Next(1, 100);
-            if (debuff["chance"] < randomNumber) return;
-
-            var boosts = ((JObject) debuff["boosts"]).ToObject<Dictionary<string, int>>();
-
-            foreach (var key in boosts.Keys)
-            {
-                var value = boosts[key];
-                if (key.Equals("accuracy") || key.Equals("evasion")) continue;
-                var stat = (int) target.GetType()
-                    .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .GetValue(target);
-                var newStatValue = stat * 2 / (-1 * value + 2);
-                target.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .SetValue(action.TargetUnit, newStatValue);
-            }
-        }
-
-        private static void HandleSelfBuff(Action action)
-        {
-            if (!action.Move.Secondary.ContainsKey("self-buff")) return;
-            var selfBuff = ((JObject) action.Move.Secondary["self-buff"]).ToObject<SelfBuff>();
-            var randomNumber = new System.Random().Next(1, 100);
-            if (selfBuff.Chance < randomNumber) return;
-        
-            foreach (var key in selfBuff.Self["boosts"].Keys)
-            {
-                var value = selfBuff.Self["boosts"][key];
-                if (key.Equals("accuracy") || key.Equals("evasion")) continue;
-                var stat = (int) action.SourceUnit.GetType()
-                    .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .GetValue(action.SourceUnit);
-                var newStatValue = stat * (value + 2) / 2;
-                action.SourceUnit.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .SetValue(action.SourceUnit, newStatValue);
-            }
-        }
-
-        private void HandleStatusAilment(Action action, Unit target)
-        {
-            if (!action.Move.Secondary.ContainsKey("status")) return;
-            
-            var random = new System.Random().Next(0, 100);
-            var statusEffect = ((JObject) action.Move.Secondary["status"]).ToObject<Dictionary<string, string>>();
-            if (random <= int.Parse(statusEffect["chance"]) && !target.Ailments.Contains("ReverseAilment"))
-            {
-                target.Ailments.Add(statusEffect["status"]);
-                if (statusEffect["status"].Equals("par"))
-                    target.Spe /= 2;
-                charactersStatus.GetPanels()[target].
-                    GetComponent<AilmentIndicator>().ShowAilment(statusEffect["status"]);
-            }
-            else if (random <= int.Parse(statusEffect["chance"]))
-            {
-                action.SourceUnit.Ailments.Add(statusEffect["status"]);
-                if (statusEffect["status"].Equals("par"))
-                    action.SourceUnit.Spe /= 2;
-                charactersStatus.GetPanels()[action.SourceUnit].
-                    GetComponent<AilmentIndicator>().ShowAilment(statusEffect["status"]);
-            }
-            
-        }
-
-        private void HandleDrain(Action action, int damageTaken)
-        {
-            if (!action.Move.Secondary.ContainsKey("drain")) return;
-            var healValue = action.Move.Secondary["drain"] == 1 ? damageTaken / 2 : damageTaken * 3 / 4;
-            action.SourceUnit.Heal(healValue);
-
-            if (!action.SourceUnit.Affixes.Contains("Medic")) return;
-            foreach (var character in 
-                     _sceneCharacters.Where(character => !character.UnitName.Equals("Player") && 
-                                                         !character.UnitName.Equals(action.SourceUnit.UnitName)))
-            {
-                character.Heal(healValue);
-            }
-
-            if (!action.SourceUnit.Affixes.Contains("Lifesteal")) return;
-            action.SourceUnit.Heal(damageTaken / 2);
-            if (!action.SourceUnit.Affixes.Contains("Medic")) return;
-            foreach (var character in 
-                     _sceneCharacters.Where(character => !character.UnitName.Equals("Player") && 
-                                                         !character.UnitName.Equals(action.SourceUnit.UnitName)))
-            {
-                character.Heal(damageTaken / 2);
-            }
-
-        }
-
-        private static Unit GetTarget(Action action)
-        {
-            var target = action.TargetUnit;
-            if (action.TargetUnit || !action.SourceUnit.UnitName.Equals("Player")) return target;
-        
-            var enemiesArray = GameObject.FindGameObjectsWithTag("Enemy");
-            var randomEnemy = new System.Random().Next(0, enemiesArray.Length);
-            if (enemiesArray.Length > 0)
-            {
-                target = enemiesArray[randomEnemy].GetComponent<Unit>();
-            }
-
-            return target;
         }
 
         private void CheckCurrentBattleState()
@@ -430,24 +219,9 @@ namespace BattleSystem
             }
             else
             {
-                HandleDamageOverTime();
+                StartCoroutine(battleHandler.HandleDamageOverTime());
+                battleLog.Hide();
                 BeginBattle();
-            }
-        }
-
-        private void HandleDamageOverTime()
-        {
-            foreach (var character in _sceneCharacters.Where(character => character))
-            {
-                if (character.Ailments.Contains("brn"))
-                {
-                    character.TakeDamage(character.CurrentHealth / 16);
-                }
-
-                if (character.Ailments.Contains("psn"))
-                {
-                    character.TakeDamage(character.CurrentHealth / 8);
-                }
             }
         }
     }
