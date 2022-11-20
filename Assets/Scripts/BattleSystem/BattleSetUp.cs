@@ -114,6 +114,7 @@ namespace BattleSystem
             LevelLog.PlayerStats["SPA"] = characterUnit.Spa;
             LevelLog.PlayerStats["SPD"] = characterUnit.Spd;
             LevelLog.PlayerStats["SPE"] = characterUnit.Spe;
+            LevelLog.PlayerTypes = characterUnit.Types;
         }
         
         private void AddEnemyBaseStatsToLogs(BaseStat enemyBase)

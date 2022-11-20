@@ -7,11 +7,12 @@ using GenerativeGrammar.Exceptions;
 using JsonParser;
 using GenerativeGrammar.Model;
 using LogFiles;
+using UnityEngine;
 using Tree = GenerativeGrammar.Model.Tree;
 
 namespace GenerativeGrammar.Handlers
 {
-    public class ExpressionHandler
+    public class ExpressionHandler : MonoBehaviour
     {
         public List<Npc> Npcs { get; set; }
         public Tree GenerativeTree { get; set; }
@@ -437,7 +438,7 @@ namespace GenerativeGrammar.Handlers
                 damageTakenString.Equals("11") ||
                 damageTakenString.Equals("1"))
                 return "1";
-        
+            print(damageTakenString);
             return damageTakenString[..1];
         }
 

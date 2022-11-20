@@ -48,10 +48,19 @@ namespace Model
             StarterStats = new BaseStat();
             LostCurrentLevel = false;
             _generator = new Generator();
-            if (Dynamic)
+            if (Dynamic && CurrentLevel > 1)
+            {
+                foreach (var VARIABLE in LevelLog.PlayerTypes)
+                {
+                    print(VARIABLE);
+                }
                 GenerateEnemies();
-            else
+            }
+            else if (!Dynamic || (Dynamic && CurrentLevel == 1))
+            {
+                
                 ChooseEnemies();
+            }
         }
 
         public void GenerateEnemies()
