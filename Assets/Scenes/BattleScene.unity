@@ -2024,6 +2024,7 @@ MonoBehaviour:
   characterStatusPanel: {fileID: 4371060377307895702, guid: af2aed99230087b4fb586997d92f7b26, type: 3}
   statusPanel: {fileID: 1781992553}
   ailmentIndicator: {fileID: 4952730591946523147, guid: af2aed99230087b4fb586997d92f7b26, type: 3}
+  affixIndicator: {fileID: 895033984551580952, guid: af2aed99230087b4fb586997d92f7b26, type: 3}
 --- !u!114 &1506087960
 MonoBehaviour:
   m_ObjectHideFlags: 0

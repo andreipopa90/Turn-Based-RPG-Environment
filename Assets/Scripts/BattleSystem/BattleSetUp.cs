@@ -77,10 +77,6 @@ namespace BattleSystem
             characterUnit.Ailments = new List<string>();
             if (!isPlayer)
             {
-                // var learnSet = 
-                //     GameState.StartMoves.Find(sm => sm.Name.Equals(keyName)) ?? 
-                //     GameState.StartMoves.Find(sm => keyName.Contains(sm.Name));
-                // character.GetComponent<Unit>().AddMoves(GameState.AllMoves, learnSet.LearnSet);
                 return character;
             }
 

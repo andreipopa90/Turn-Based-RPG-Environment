@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Model;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Battle
@@ -12,11 +9,9 @@ namespace UI.Battle
     public class NPCHealthStatus : MonoBehaviour
     {
 
-        [FormerlySerializedAs("enemyStatusPanel")] public GameObject characterStatusPanel;
-        public GameObject statusPanel;
+        [SerializeField] private GameObject characterStatusPanel;
+        [SerializeField] private GameObject statusPanel;
         private Dictionary<Unit, GameObject> _panels;
-        [SerializeField]
-        private AilmentIndicator ailmentIndicator;
 
         public Dictionary<Unit, GameObject> GetPanels()
         {
@@ -40,8 +35,13 @@ namespace UI.Battle
 
                 UpdateHealthBar(enemies[i]);
                 UpdateDescriptionText(enemies[i]);
-            
+                AddAffixes(enemies[i]);
             }
+        }
+
+        private void AddAffixes(Unit enemy)
+        {
+            _panels[enemy].GetComponent<AffixIndicator>().AddAffixes(enemy.Affixes);
         }
 
         public void SetUpPlayerStatusPanels(Unit player)

@@ -25,6 +25,9 @@ namespace JsonParser
 			StreamReader reader = new(Path.Combine(_pathRoot, "basestats.json"));
 			var json = reader.ReadToEnd();
 			var baseStats = JsonConvert.DeserializeObject<List<BaseStat>>(json);
+			baseStats.Sort((a, b) => 
+					(a.Atk + a.Def + a.Hp + a.Spa + a.Spd + a.Spe)
+					.CompareTo(b.Atk + b.Def + b.Hp + b.Spa + b.Spd + b.Spe));
 			reader.Close();
 
 			return baseStats;

@@ -160,7 +160,7 @@ namespace Model
         private void Evolve()
         {
             if (CurrentHealth > MaxHealth / 2) return;
-            var newUnit = _gameState.EnemyBaseStats.Find(bs => bs.Name.Equals("Zygarde-Complete"));
+            var newUnit = _gameState.BaseStats.Find(bs => bs.Name.Equals("Zygarde-Complete"));
             var currentHealthPercentage = CurrentHealth / (MaxHealth * 1.0);
             SetStats(newUnit, true);
             CurrentHealth = (int) (CurrentHealth * currentHealthPercentage);

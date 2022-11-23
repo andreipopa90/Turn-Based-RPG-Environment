@@ -55,7 +55,7 @@ namespace UI.MoveSelectionUI
                 Selected = !Selected;
                 GameState.StarterPokemon = _nameMatcher[name];
                 UpdateText(GameState.StarterPokemon);
-                var starter = GameState.EnemyBaseStats.Find(b => b.Name.Equals(GameState.StarterPokemon));
+                var starter = GameState.BaseStats.Find(b => b.Name.Equals(GameState.StarterPokemon));
                 GameState.StarterStats = starter;
 
             }

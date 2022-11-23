@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Model;
 
 namespace GenerativeGrammar.Model
 {
@@ -28,6 +31,38 @@ namespace GenerativeGrammar.Model
                     GetNodesTerminalValues(nextNode.ToString(), ref result, ref visited);
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            var result = new StringBuilder();
+            result.Append("Types: ");
+            foreach (var type in ValuesOfNodes["TYPE"])
+            {
+                result.Append(type.Name);
+                result.Append(" ");
+            }
+
+            result.AppendLine();
+            result.Append("Base: ").Append(ValuesOfNodes["BASE"][0].Name).AppendLine();
+            result.Append("Nature: ").Append(ValuesOfNodes["NATURE"][0].Name).AppendLine();
+            result.Append("Moves: ");
+            foreach (var move in ValuesOfNodes["MOVE"])
+            {
+                result.Append(move);
+                result.Append(" ");
+            }
+
+            result.AppendLine();
+            result.Append("Affixes: ");
+            foreach (var affix in ValuesOfNodes["AFFIX"])
+            {
+                result.Append(affix.ToString());
+                result.Append(" ");
+            }
+
+            result.AppendLine();
+            return result.ToString();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Model
         public List<Move> AllMoves { get; set; }
         public List<Move> SelectedMoves { get; set; }
         public int CurrentLevel { get; set; }
-        public List<BaseStat> EnemyBaseStats { get; set; }
+        public List<BaseStat> BaseStats { get; set; }
         public List<Type> TypeChart { get; set; }
         public List<Nature> Natures { get; set; }
         public string StarterPokemon { get; set; }
@@ -39,7 +39,7 @@ namespace Model
             SelectedMoves = new List<Move>();
             CurrentLevel = 1;
             JSONReader reader = new();
-            EnemyBaseStats = reader.ReadBaseStatsJson();
+            BaseStats = reader.ReadBaseStatsJson();
             TypeChart = reader.ReadTypeChartJson();
             AllMoves = reader.ReadMovesJson();
             Natures = reader.ReadNaturesJson();
@@ -48,18 +48,22 @@ namespace Model
             StarterStats = new BaseStat();
             LostCurrentLevel = false;
             _generator = new Generator();
-            if (Dynamic && CurrentLevel > 1)
+            CreateLevel();
+        }
+
+        public void CreateLevel()
+        {
+            switch (Dynamic)
             {
-                foreach (var VARIABLE in LevelLog.PlayerTypes)
+                case true when CurrentLevel > 1:
                 {
-                    print(VARIABLE);
+                    GenerateEnemies();
+                    break;
                 }
-                GenerateEnemies();
-            }
-            else if (!Dynamic || (Dynamic && CurrentLevel == 1))
-            {
-                
-                ChooseEnemies();
+                case false:
+                case true when CurrentLevel == 1:
+                    ChooseEnemies();
+                    break;
             }
         }
 
@@ -74,14 +78,17 @@ namespace Model
             EnemiesBase = new List<BaseStat>();
             EnemiesNature = new List<Nature>();
             EnemiesMoves = new List<List<Move>>();
+            EnemiesAffixes = new List<List<string>>();
+            EnemiesEvs = new List<Dictionary<string, int>>();
+            EnemiesTypes = new List<List<Type>>();
             for (var i = 0; i < _generator.Npcs.Count; i++)
-            {
+            { 
                 var npc = _generator.Npcs[i].ValuesOfNodes;
+                print(_generator.Npcs[i].ToString());
                 EnemiesBase.Add(npc["BASE"][0]);
                 EnemiesNature.Add(npc["NATURE"][0]);
-                EnemiesAffixes.Add(npc.ContainsKey("AFFIX") ? 
-                    npc["AFFIX"].Cast<string>().ToList() : 
-                    npc["AFFIXES"].Cast<string>().ToList());
+                var affixes = npc["AFFIX"].Cast<string>().ToList();
+                EnemiesAffixes.Add(affixes);
                 EnemiesMoves.Add(npc["MOVE"].Cast<Move>().ToList());
                 var evs = new Dictionary<string, int>()
                 {
@@ -107,8 +114,9 @@ namespace Model
             EnemiesAffixes = new List<List<string>>();
             for (var i = 0; i < 3; i++)
             {
-                var randomNumber = new System.Random().Next(0, EnemyBaseStats.Count);
-                var enemyBase = EnemyBaseStats[randomNumber];
+                var randomNumber = new System.Random().
+                    Next(BaseStats.Count * i / 10, BaseStats.Count * (i + 1) / 10);
+                var enemyBase = BaseStats[randomNumber];
                 EnemiesBase.Add(enemyBase);
                 randomNumber = new System.Random().Next(0, Natures.Count);
                 var enemyNature = Natures[randomNumber];
