@@ -125,6 +125,10 @@ namespace UI.TransitionUI
             {
                 GameState.CreateLevel();
             }
+            else if (GameState.LostCurrentLevel && GameState.Dynamic)
+            {
+                GameState.ReduceDifficulty();
+            }
 
             SceneManager.LoadScene("BattleScene");
         }

@@ -55,10 +55,14 @@ namespace GenerativeGrammar.Model
 
             result.AppendLine();
             result.Append("Affixes: ");
-            foreach (var affix in ValuesOfNodes["AFFIX"])
+            if (ValuesOfNodes.ContainsKey("AFFIX"))
             {
-                result.Append(affix.ToString());
-                result.Append(" ");
+                foreach (var affix in ValuesOfNodes["AFFIX"])
+                {
+                    result.Append(affix.ToString());
+                    result.Append(" ");
+                }
+                
             }
 
             result.AppendLine();

@@ -16,18 +16,18 @@ namespace BattleSystem
 
         private readonly Dictionary<string, string> _ailments = new()
         {
-            {"par", "paralysis"},
-            {"brn", "burn"},
-            {"psn", "poison"}
+            {"par", "Paralysis"},
+            {"brn", "Burn"},
+            {"psn", "Poison"}
         };
 
         private readonly Dictionary<string, string> _stats = new()
         {
-            {"spe", "speed"},
-            {"atk", "attack"},
-            {"def", "defence"},
-            {"spa", "special attack"},
-            {"spd", "special defence"}
+            {"spe", "Speed"},
+            {"atk", "Attack"},
+            {"def", "Defense"},
+            {"spa", "Special Attack"},
+            {"spd", "Special Defense"}
         };
         public GameStateStorage GameState { get; set; }
         public List<Unit> SceneCharacters { get; set; }
@@ -46,8 +46,6 @@ namespace BattleSystem
 
             if (!action.SourceUnit || !target) yield break;
             yield return HandleAction(action, target);
-
-            // CharactersStatus.UpdateHealthBar(target);
         }
         
         private IEnumerator HandleAction(Action action, Unit target)
@@ -72,6 +70,7 @@ namespace BattleSystem
                 {
                     var damageTaken = 0;
                     yield return HandleDamageTaken(action, target, x => damageTaken = x);
+                    if (!target) yield break;
                     yield return HandleSelfBuff(action);
                     yield return HandleDebuff(action, target);
                     yield return HandleDrain(action, damageTaken);
@@ -80,22 +79,29 @@ namespace BattleSystem
                 }
             }
         }
-        
+
+        private void SetNewStat(int value, Unit character, string stat)
+        {
+            var statValue = (int) character.GetType()
+                .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(stat))
+                .GetValue(character);
+            var originalStat = (int) character.OriginalStats.GetType().GetProperties().ToList()
+                .Find(p => p.Name.ToLower().Equals(stat)).GetValue(character.OriginalStats);
+            var newStatValue = value > 0 ? statValue * (value + 2) / 2 : statValue * 2 / (-1 * value + 2);
+            if (value < 0 && newStatValue >= originalStat / 4 || value > 0 && newStatValue <= 4 * originalStat) 
+                character.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(stat))
+                    .SetValue(character, newStatValue);
+        }
+
         private IEnumerator HandleStatus(Move move, Unit targetUnit)
         {
-            
             if (!targetUnit) yield break;
             var boosts = ((JObject)move.Secondary["boosts"]).ToObject<Dictionary<string, int>>();
             foreach (var key in boosts.Keys)
             {
                 if (key.Equals("accuracy") || key.Equals("evasion")) continue;
                 var value = boosts[key];
-                var stat = (int) targetUnit.GetType()
-                    .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .GetValue(targetUnit);
-                var newStatValue = value > 0 ? stat * (value + 2) / 2 : stat * 2 / (-1 * value + 2);
-                targetUnit.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .SetValue(targetUnit, newStatValue);
+                SetNewStat(value: value, character: targetUnit, stat: key);
                 yield return WaitForDelay(1f, 
                     targetUnit.name + "'s " + _stats[key] + (value > 0 ? " was increased!" : " was decreased!"));
             }
@@ -128,7 +134,6 @@ namespace BattleSystem
                     multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect);
                 CharactersStatus.UpdateHealthBar(character);
             }
-
             damageTaken(damageDealt);
         }
         
@@ -158,12 +163,7 @@ namespace BattleSystem
             {
                 var value = boosts[key];
                 if (key.Equals("accuracy") || key.Equals("evasion")) continue;
-                var stat = (int) target.GetType()
-                    .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .GetValue(target);
-                var newStatValue = stat * 2 / (-1 * value + 2);
-                target.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .SetValue(action.TargetUnit, newStatValue);
+                SetNewStat(value, target, key);
                 yield return WaitForDelay(1f,
                     _stats[key] + " has decreased for " + target.name);
             }
@@ -180,12 +180,7 @@ namespace BattleSystem
             {
                 var value = selfBuff.Self["boosts"][key];
                 if (key.Equals("accuracy") || key.Equals("evasion")) continue;
-                var stat = (int) action.SourceUnit.GetType()
-                    .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .GetValue(action.SourceUnit);
-                var newStatValue = stat * (value + 2) / 2;
-                action.SourceUnit.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(key))
-                    .SetValue(action.SourceUnit, newStatValue);
+                SetNewStat(value, action.SourceUnit, key);
                 yield return WaitForDelay(1f, 
                     _stats[key] + " has increased for " + action.SourceUnit.name);
             }

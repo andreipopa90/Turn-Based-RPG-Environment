@@ -37,6 +37,7 @@ namespace BattleSystem
             characterUnit.Ev = enemyEvs;
             characterUnit.Affixes = affixes;
             characterUnit.SetStats(characterBase);
+            characterUnit.OriginalStats = characterBase;
             
             return character;
         }
@@ -80,7 +81,7 @@ namespace BattleSystem
                 return character;
             }
 
-            characterUnit.Level = GameState.CurrentLevel + 10;
+            characterUnit.Level = GameState.CurrentLevel + 6;
             characterUnit.SetTypes(GameState.StarterStats.Types);
             characterUnit.Manager = Manager;
             

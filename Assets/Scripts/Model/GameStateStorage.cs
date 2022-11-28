@@ -3,6 +3,7 @@ using System.Linq;
 using JsonParser;
 using UnityEngine;
 using GenerativeGrammar.Grammar;
+using GenerativeGrammar.Model;
 using LogFiles;
 
 namespace Model
@@ -50,6 +51,30 @@ namespace Model
             _generator = new Generator();
             CreateLevel();
         }
+        
+        public void ReduceDifficulty()
+        {
+            foreach (var npc in _generator.Npcs)
+            {
+                ReduceStat(npc, "HPEV", "Hp");
+                ReduceStat(npc, "ATKEV", "Atk");
+                ReduceStat(npc, "DEFEV", "Def");
+                ReduceStat(npc, "SPAEV", "Spa");
+                ReduceStat(npc, "SPDEV", "Spd");
+                ReduceStat(npc, "SPEEV", "Spe");
+            }
+        }
+
+        private static void ReduceStat(Npc npc, string ev, string stat)
+        {
+            var nodes = npc.ValuesOfNodes;
+            if (nodes[ev][0] > 0) nodes[ev][0] -= 1;
+            else if (nodes["BASE"][0].GetType().GetProperty(stat).GetValue(nodes["BASE"][0]) > 1)
+            {
+                var value = nodes["BASE"][0].GetType().GetProperty(stat).GetValue(nodes["BASE"][0]);
+                nodes["BASE"][0].GetType().GetProperty(stat).SetValue(nodes["BASE"][0], value - 1);
+            }
+        }
 
         public void CreateLevel()
         {
@@ -67,7 +92,7 @@ namespace Model
             }
         }
 
-        public void GenerateEnemies()
+        private void GenerateEnemies()
         {
             _generator.StartGeneration(LevelLog);
             NpcsToUnits();
@@ -81,13 +106,17 @@ namespace Model
             EnemiesAffixes = new List<List<string>>();
             EnemiesEvs = new List<Dictionary<string, int>>();
             EnemiesTypes = new List<List<Type>>();
-            for (var i = 0; i < _generator.Npcs.Count; i++)
-            { 
-                var npc = _generator.Npcs[i].ValuesOfNodes;
-                print(_generator.Npcs[i].ToString());
+            foreach (var npc in _generator.Npcs.Select(npcStructure => npcStructure.ValuesOfNodes))
+            {
                 EnemiesBase.Add(npc["BASE"][0]);
                 EnemiesNature.Add(npc["NATURE"][0]);
-                var affixes = npc["AFFIX"].Cast<string>().ToList();
+                var affixes = new List<string>();
+                if (npc.ContainsKey("AFFIX"))
+                {
+                    
+                    affixes = npc["AFFIX"].Cast<string>().ToList();
+                }
+
                 EnemiesAffixes.Add(affixes);
                 EnemiesMoves.Add(npc["MOVE"].Cast<Move>().ToList());
                 var evs = new Dictionary<string, int>()
@@ -104,7 +133,7 @@ namespace Model
             }
         }
 
-        public void ChooseEnemies()
+        private void ChooseEnemies()
         {
             EnemiesBase = new List<BaseStat>();
             EnemiesNature = new List<Nature>();

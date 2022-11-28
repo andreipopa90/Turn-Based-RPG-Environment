@@ -55,6 +55,7 @@ namespace Model
         public List<string> Affixes { get; set; }
         public List<string> Ailments { get; set; }
         public EventManager Manager { get; set; }
+        public BaseStat OriginalStats { get; set; }
 
         private void Awake()
         {
