@@ -30,7 +30,7 @@ namespace Model
             {"Fairy", "#D685ADFF"}
         };
 
-        private GameStateStorage _gameState;
+        public GameStateStorage _gameState;
         private const double UpperBound = 1.00;
         private const double LowerBound = 0.85;
         public List<string> Types { get; set; }
@@ -48,7 +48,7 @@ namespace Model
         public GameObject typeIndicatorTwo;
         public List<Move> Moves { get; set; }
         
-        private Dictionary<string, int> _iv;
+        public Dictionary<string, int> _iv;
         public Dictionary<string, int> Ev { get; set; }
         
         public Nature unitNature;
@@ -63,11 +63,11 @@ namespace Model
             CurrentHealth = MaxHealth;
             Affixes = new List<string>();
             Ailments = new List<string>();
-            _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
+            //_gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             GenerateIVs();
         }
 
-        private void GenerateIVs()
+        public void GenerateIVs()
         {
             _iv = new Dictionary<string, int>();
             var randomNumber = new System.Random().Next(0, 32);
@@ -151,9 +151,9 @@ namespace Model
                 return damageTaken;
             }
 
-            Manager.RemoveListener(this);
-            Manager.NotifyOnDeath();
-            Destroy(gameObject);
+            // Manager.RemoveListener(this);
+            // Manager.NotifyOnDeath();
+            // Destroy(gameObject);
 
             return damageTaken;
         }
