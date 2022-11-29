@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JsonParser;
@@ -31,7 +32,7 @@ namespace Testing
             _player.Affixes = new List<string>();
             _enemy1.Affixes = new List<string>();
             _enemy2.Affixes = new List<string>();
-            _enemy2.Affixes = new List<string>();
+            _enemy3.Affixes = new List<string>();
             var nature = new Nature
             {
                 Plus = string.Empty,
@@ -64,11 +65,11 @@ namespace Testing
             _enemy1.Ev = ev;
             _enemy2.Ev = ev;
             _enemy3.Ev = ev;
-            _player.Level = 10;
+            _player.Level = 11;
             _enemy1.Level = 5;
             _enemy2.Level = 5;
             _enemy3.Level = 5;
-            var playerBase = _baseStats.Find(b => b.KeyName.Equals("arceus")).Clone();
+            var playerBase = _baseStats.Find(b => b.KeyName.Equals("arceusgrass")).Clone();
             var enemyBase = _baseStats.Find(b => b.KeyName.Equals("arceusfire")).Clone();
             _player.OriginalStats = (BaseStat) playerBase;
             _enemy1.OriginalStats = (BaseStat) enemyBase;
@@ -86,27 +87,32 @@ namespace Testing
 
         private void ReduceEnemyStats(int step)
         {
+            // var newStats = _baseStats.Find(b => b.KeyName.Equals("arceuswater")).Clone();
+            // _player.OriginalStats = (BaseStat) newStats;
             _player.SetStats(_player.OriginalStats);
-            _enemy1.OriginalStats.Hp -= step;
-            _enemy1.OriginalStats.Atk -= step;
-            _enemy1.OriginalStats.Def -= step;
-            _enemy1.OriginalStats.Spa -= step;
-            _enemy1.OriginalStats.Spd -= step;
-            _enemy1.OriginalStats.Spe -= step;
+            
+            _enemy1.OriginalStats.Hp = Math.Max(1, _enemy1.OriginalStats.Hp - step) ;
+            _enemy1.OriginalStats.Atk = Math.Max(1, _enemy1.OriginalStats.Atk - step);
+            _enemy1.OriginalStats.Def = Math.Max(1, _enemy1.OriginalStats.Def - step);
+            _enemy1.OriginalStats.Spa = Math.Max(1, _enemy1.OriginalStats.Spa - step);
+            _enemy1.OriginalStats.Spd = Math.Max(1, _enemy1.OriginalStats.Spd - step);
+            _enemy1.OriginalStats.Spe = Math.Max(1, _enemy1.OriginalStats.Spe - step);
             _enemy1.SetStats(_enemy1.OriginalStats);
-            _enemy2.OriginalStats.Hp -= step;
-            _enemy2.OriginalStats.Atk -= step;
-            _enemy2.OriginalStats.Def -= step;
-            _enemy2.OriginalStats.Spa -= step;
-            _enemy2.OriginalStats.Spd -= step;
-            _enemy2.OriginalStats.Spe -= step;
+            
+            _enemy2.OriginalStats.Hp = Math.Max(1, _enemy2.OriginalStats.Hp - step) ;
+            _enemy2.OriginalStats.Atk = Math.Max(1, _enemy2.OriginalStats.Atk - step);
+            _enemy2.OriginalStats.Def = Math.Max(1, _enemy2.OriginalStats.Def - step);
+            _enemy2.OriginalStats.Spa = Math.Max(1, _enemy2.OriginalStats.Spa - step);
+            _enemy2.OriginalStats.Spd = Math.Max(1, _enemy2.OriginalStats.Spd - step);
+            _enemy2.OriginalStats.Spe = Math.Max(1, _enemy2.OriginalStats.Spe - step);
             _enemy2.SetStats(_enemy2.OriginalStats);
-            _enemy3.OriginalStats.Hp -= step;
-            _enemy3.OriginalStats.Atk -= step;
-            _enemy3.OriginalStats.Def -= step;
-            _enemy3.OriginalStats.Spa -= step;
-            _enemy3.OriginalStats.Spd -= step;
-            _enemy3.OriginalStats.Spe -= step;
+            
+            _enemy3.OriginalStats.Hp = Math.Max(1, _enemy3.OriginalStats.Hp - step) ;
+            _enemy3.OriginalStats.Atk = Math.Max(1, _enemy3.OriginalStats.Atk - step);
+            _enemy3.OriginalStats.Def = Math.Max(1, _enemy3.OriginalStats.Def - step);
+            _enemy3.OriginalStats.Spa = Math.Max(1, _enemy3.OriginalStats.Spa - step);
+            _enemy3.OriginalStats.Spd = Math.Max(1, _enemy3.OriginalStats.Spd - step);
+            _enemy3.OriginalStats.Spe = Math.Max(1, _enemy3.OriginalStats.Spe - step);
             _enemy3.SetStats(_enemy3.OriginalStats);
         }
 
@@ -119,7 +125,7 @@ namespace Testing
                 _enemy1, _enemy2, _enemy3
             };
             var average = 0f;
-            for (var index = 1; index <= 50; index++)
+            for (var index = 1; index <= 100; index++)
             {
                 StartState();
                 var lost = 0;
@@ -133,15 +139,21 @@ namespace Testing
                            && _player.CurrentHealth > 0 )
                     {
                         var target = enemies.Find(e => e.CurrentHealth > 0);
-                        _player.TakeDamage(_arceusMove, target);
-                        _enemy1.TakeDamage(_arceusMove, _player);
+                        if (_enemy1.CurrentHealth > 0)
+                            _player.TakeDamage(_arceusMove, _enemy1);
+                        if (_enemy2.CurrentHealth > 0)
+                            _player.TakeDamage(_arceusMove, _enemy2);
+                        if (_enemy3.CurrentHealth > 0)
+                            _player.TakeDamage(_arceusMove, _enemy3);
+                        target.TakeDamage(_arceusMove, _player);
                     }
-
+            
                     if (_player.CurrentHealth < 0)
                     {
+                        print(step);
                         lost += 1;
-                        step *= 2;
-                        ReduceEnemyStats(lost);
+                        step *= 10;
+                        ReduceEnemyStats(step);
                     }
                     else
                     {
@@ -151,7 +163,7 @@ namespace Testing
                 average += lost;
             }
             
-            print("Average of lost games is " + average / 50);
+            print("Average of lost games is " + average / 100);
         }
     }
 }
