@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JsonParser;
@@ -31,6 +32,7 @@ namespace Model
         private Generator _generator;
         public Log LevelLog { get; set; }
         public bool Dynamic { get; set; }
+        public int Step { get; set; }
 
         // Start is called before the first frame update
         private void Start()
@@ -56,28 +58,31 @@ namespace Model
         {
             foreach (var npc in _generator.Npcs)
             {
-                ReduceStat(npc, "HPEV", "Hp");
-                ReduceStat(npc, "ATKEV", "Atk");
-                ReduceStat(npc, "DEFEV", "Def");
-                ReduceStat(npc, "SPAEV", "Spa");
-                ReduceStat(npc, "SPDEV", "Spd");
-                ReduceStat(npc, "SPEEV", "Spe");
+                ReduceStat(npc, "HPEV", "Hp", Step);
+                ReduceStat(npc, "ATKEV", "Atk", Step);
+                ReduceStat(npc, "DEFEV", "Def", Step);
+                ReduceStat(npc, "SPAEV", "Spa", Step);
+                ReduceStat(npc, "SPDEV", "Spd", Step);
+                ReduceStat(npc, "SPEEV", "Spe", Step);
             }
+
+            Step *= 10;
         }
 
-        private static void ReduceStat(Npc npc, string ev, string stat)
+        private static void ReduceStat(Npc npc, string ev, string stat, int step)
         {
             var nodes = npc.ValuesOfNodes;
-            if (nodes[ev][0] > 0) nodes[ev][0] -= 1;
+            if (nodes[ev][0] > 0) nodes[ev][0] = Math.Max(nodes[ev][0] - step, 0);
             else if (nodes["BASE"][0].GetType().GetProperty(stat).GetValue(nodes["BASE"][0]) > 1)
             {
                 var value = nodes["BASE"][0].GetType().GetProperty(stat).GetValue(nodes["BASE"][0]);
-                nodes["BASE"][0].GetType().GetProperty(stat).SetValue(nodes["BASE"][0], value - 1);
+                nodes["BASE"][0].GetType().GetProperty(stat).SetValue(nodes["BASE"][0], Math.Max(value - step, 1));
             }
         }
 
         public void CreateLevel()
         {
+            Step = 1;
             switch (Dynamic)
             {
                 case true when CurrentLevel > 1:
