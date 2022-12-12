@@ -16,7 +16,7 @@ namespace UI.TransitionUI
 
         private GameStateStorage _gameState;
 
-        private void Start()
+        private void Awake()
         {
             _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             HP.text = _gameState.StarterStats.Hp.ToString();

@@ -63,7 +63,7 @@ namespace Model
             CurrentHealth = MaxHealth;
             Affixes = new List<string>();
             Ailments = new List<string>();
-            //_gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
+            _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             GenerateIVs();
         }
 
@@ -151,9 +151,9 @@ namespace Model
                 return damageTaken;
             }
 
-            // Manager.RemoveListener(this);
-            // Manager.NotifyOnDeath();
-            // Destroy(gameObject);
+            Manager.RemoveListener(this);
+            Manager.NotifyOnDeath();
+            Destroy(gameObject);
 
             return damageTaken;
         }

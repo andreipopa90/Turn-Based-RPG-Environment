@@ -16,6 +16,10 @@ namespace UI.TransitionUI
         public Button AbilityButtonPrefab;
         public GameObject MovesPanel;
         public GameObject NewMovesPanel;
+        public GameObject PanelOne;
+        public GameObject PanelTwoOne;
+        public GameObject PanelTwoTwo;
+        public GameObject PanelThree;
         public Button[] ownMovesButtons;
         public Button[] newMovesButtons;
         private readonly Color32 _white = new(255, 255, 255, 255);
@@ -25,11 +29,19 @@ namespace UI.TransitionUI
         private bool _pressedNew;
         private string _ownMove = string.Empty;
         private string _newMove = string.Empty;
+        private bool _pressedOwnType;
+        private bool _pressedNewType;
+        private string _ownType = string.Empty;
+        private string _newType = string.Empty;
+        public Button[] OwnTypes;
+        public Button[] NewTypesOne;
+        public Button[] NewTypesTwo;
         
 
         private void Start()
         {
             GameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
+            PanelOne.SetActive(true);
             AddMoveButtons();
             AddNewMoveButtons();
         }
@@ -113,6 +125,21 @@ namespace UI.TransitionUI
 
         public void OnClickStart()
         {
+            switch (GameState.LostCurrentLevel)
+            {
+                case false:
+                    GameState.CreateLevel();
+                    break;
+                case true when GameState.Dynamic:
+                    GameState.ReduceDifficulty();
+                    break;
+            }
+
+            SceneManager.LoadScene("BattleScene");
+        }
+
+        public void OnClickNextPanelOne()
+        {
             if (_pressedNew && !_pressedOwn || !_pressedNew && _pressedOwn) return;
             
             if (!string.IsNullOrEmpty(_ownMove) && !string.IsNullOrEmpty(_newMove))
@@ -120,17 +147,59 @@ namespace UI.TransitionUI
                 GameState.SelectedMoves.Remove(GameState.SelectedMoves.Find(x => x.Name.Equals(_ownMove)));
                 GameState.SelectedMoves.Add(GameState.AllMoves.Find(x => x.Name.Equals(_newMove)));
             }
-
-            if (!GameState.LostCurrentLevel)
+            
+            PanelOne.SetActive(false);
+            if (GameState.StarterStats.Types.Count == 2)
             {
-                GameState.CreateLevel();
+                PanelTwoOne.SetActive(true);
+                SetOwnTypeButtons();
             }
-            else if (GameState.LostCurrentLevel && GameState.Dynamic)
+            else
             {
-                GameState.ReduceDifficulty();
+                PanelTwoTwo.SetActive(true);
             }
+        }
 
-            SceneManager.LoadScene("BattleScene");
+        private void SetOwnTypeButtons()
+        {
+            var types = GameState.StarterStats.Types;
+            for (var i = 0; i < OwnTypes.Length; i++)
+            {
+                OwnTypes[i].name = types[i];
+                OwnTypes[i].GetComponentInChildren<TextMeshProUGUI>().text = types[i];
+            }
+        }
+
+        private void SetNewTypeButtons()
+        {
+            var newTypes = GameState.TypeChart.Where(t => !GameState.StarterStats.Types.Contains(t.Name)).ToList();
+        }
+
+        public void OnClickNextPanelTwo()
+        {
+            PanelTwoOne.SetActive(false);
+            PanelTwoTwo.SetActive(false);
+            PanelThree.SetActive(true);
+        }
+
+        public void OnClickOwnType()
+        {
+            var buttonPressed = EventSystem.current.currentSelectedGameObject;
+
+            if (_pressedNewType && !buttonPressed.gameObject.transform.Find("Move Name")
+                    .GetComponent<TextMeshProUGUI>().text.Equals(_newMove)) return;
+            if (buttonPressed.GetComponent<Image>().color.Equals(_white))
+            {
+                _pressedOwnType = true;
+                buttonPressed.GetComponent<Image>().color = _green;
+                _ownType = buttonPressed.gameObject.transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text;
+            }
+            else
+            {
+                _pressedOwnType = false;
+                buttonPressed.GetComponent<Image>().color = _white;
+                _ownType = string.Empty;
+            }
         }
 
     }

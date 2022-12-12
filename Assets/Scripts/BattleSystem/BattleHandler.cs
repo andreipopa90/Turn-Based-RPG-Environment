@@ -85,8 +85,9 @@ namespace BattleSystem
             var statValue = (int) character.GetType()
                 .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(stat))
                 .GetValue(character);
+            print(stat);
             var originalStat = (int) character.OriginalStats.GetType().GetProperties().ToList()
-                .Find(p => p.Name.ToLower().Equals(stat)).GetValue(character.OriginalStats);
+                .Find(p => p.Name.ToLower().Equals(stat.ToLower())).GetValue(character.OriginalStats);
             var newStatValue = value > 0 ? statValue * (value + 2) / 2 : statValue * 2 / (-1 * value + 2);
             if (value < 0 && newStatValue >= originalStat / 4 || value > 0 && newStatValue <= 4 * originalStat) 
                 character.GetType().GetProperties().ToList().Find(p => p.Name.ToLower().Equals(stat))
