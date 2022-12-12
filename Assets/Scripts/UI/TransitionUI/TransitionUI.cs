@@ -153,10 +153,12 @@ namespace UI.TransitionUI
             {
                 PanelTwoOne.SetActive(true);
                 SetOwnTypeButtons();
+                SetNewTypeButtons();
             }
             else
             {
                 PanelTwoTwo.SetActive(true);
+                SetNewTypeButtons();
             }
         }
 
@@ -166,33 +168,86 @@ namespace UI.TransitionUI
             for (var i = 0; i < OwnTypes.Length; i++)
             {
                 OwnTypes[i].name = types[i];
+                OwnTypes[i].onClick.AddListener(OnClickOwnType);
                 OwnTypes[i].GetComponentInChildren<TextMeshProUGUI>().text = types[i];
             }
         }
 
         private void SetNewTypeButtons()
         {
-            var newTypes = GameState.TypeChart.Where(t => !GameState.StarterStats.Types.Contains(t.Name)).ToList();
+            var newTypes = GameState.TypeChart.Where(t => 
+                !GameState.StarterStats.Types.Contains(t.Name)).ToList();
+            var rng = new Random();
+            newTypes = newTypes.OrderBy(t => rng.Next() * 1000).ToList();
+            for (var i = 0; i < NewTypesOne.Length; i++)
+            {
+                NewTypesOne[i].name = newTypes[i].Name;
+                NewTypesOne[i].onClick.AddListener(OnClickNewType);
+                NewTypesOne[i].GetComponentInChildren<TextMeshProUGUI>().text = newTypes[i].Name;
+            }
+            for (var i = 0; i < NewTypesTwo.Length; i++)
+            {
+                NewTypesTwo[i].name = newTypes[i].Name;
+                NewTypesTwo[i].onClick.AddListener(OnClickNewType);
+                NewTypesTwo[i].GetComponentInChildren<TextMeshProUGUI>().text = newTypes[i].Name;
+            }
         }
 
         public void OnClickNextPanelTwo()
         {
+            if (PanelTwoTwo.activeSelf && _pressedNewType)
+            {
+                GameState.StarterStats.Types.Add(_newType);
+            }
+            else if (PanelTwoOne.activeSelf)
+            {
+                switch (_pressedNewType)
+                {
+                    case true when !_pressedOwnType:
+                    case false when _pressedOwnType:
+                        return;
+                    case true when _pressedOwnType:
+                        GameState.StarterStats.Types.Remove(_ownType);
+                        GameState.StarterStats.Types.Add(_newType);
+                        break;
+                }
+            }
             PanelTwoOne.SetActive(false);
             PanelTwoTwo.SetActive(false);
             PanelThree.SetActive(true);
         }
 
-        public void OnClickOwnType()
+        private void OnClickNewType()
         {
             var buttonPressed = EventSystem.current.currentSelectedGameObject;
 
-            if (_pressedNewType && !buttonPressed.gameObject.transform.Find("Move Name")
-                    .GetComponent<TextMeshProUGUI>().text.Equals(_newMove)) return;
+            if (_pressedNewType && !buttonPressed.gameObject.name.Equals(_newType)) return;
+            
+            if (buttonPressed.GetComponent<Image>().color.Equals(_white))
+            {
+                _pressedNewType = true;
+                buttonPressed.GetComponent<Image>().color = _green;
+                _newType = buttonPressed.gameObject.name;
+            }
+            else
+            {
+                _pressedNewType = false;
+                buttonPressed.GetComponent<Image>().color = _white;
+                _newType = string.Empty;
+            }
+        }
+
+        private void OnClickOwnType()
+        {
+            var buttonPressed = EventSystem.current.currentSelectedGameObject;
+
+            if (_pressedOwnType && !buttonPressed.gameObject.name.Equals(_ownType)) return;
+            
             if (buttonPressed.GetComponent<Image>().color.Equals(_white))
             {
                 _pressedOwnType = true;
-                buttonPressed.GetComponent<Image>().color = _green;
-                _ownType = buttonPressed.gameObject.transform.Find("Move Name").GetComponent<TextMeshProUGUI>().text;
+                buttonPressed.GetComponent<Image>().color = _red;
+                _ownType = buttonPressed.gameObject.name;
             }
             else
             {
