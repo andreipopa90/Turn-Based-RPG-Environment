@@ -122,10 +122,11 @@ namespace BattleSystem
             {
                 damageDealt = target.TakeDamage(action.Move, action.SourceUnit, multiplier: domainEffect * burnEffect);
                 damageTaken(damageDealt);
+                yield return WaitForDelay(1f,
+                    action.SourceUnit.name + " used " + action.Move.Name + " on " + target.name);
+                CharactersStatus.UpdateHealthBar(target);
             }
-            yield return WaitForDelay(1f,
-                action.SourceUnit.name + " used " + action.Move.Name + " on " + target.name);
-            CharactersStatus.UpdateHealthBar(target);
+            
             
             var characters = SceneCharacters.
                 Where(sc => sc.Ailments.Contains("HealthLink")).ToList();

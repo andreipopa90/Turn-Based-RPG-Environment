@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Model;
 using Model.Observer;
+using UI;
 using UI.Battle;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -99,33 +100,24 @@ namespace BattleSystem
         private void EnemyTurn()
         {
             
-            while (true)
+            while (_currentTurn != 0)
             {
                 var currentEnemy = _sceneCharacters[_currentTurn];
                 Action action;
-                action.Move = currentEnemy.Moves[new System.Random().Next(0, currentEnemy.Moves.Count)];
                 action.SourceUnit = currentEnemy;
                 action.TargetUnit = GameObject.Find("Player").GetComponent<Unit>();
+                action.Move = currentEnemy.ChooseMove(action.TargetUnit);
                 _actionQueue.Add(action);
-
                 _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
-                if (_currentTurn == 0)
-                {
-                    StartCoroutine(ResolveAttacks());
-                }
-                else
-                {
-                    continue;
-                }
-
-                break;
             }
+            StartCoroutine(ResolveAttacks());
         }
 
         public void OnAttackButtonPress()
         {
             if (GameObject.FindGameObjectWithTag("Player") == null || 
-                (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
+                (_currentState.Equals(BattleState.Battle) && 
+                 !_sceneCharacters[_currentTurn].name.Contains("Player")))
                 return;
 
             if (mainHUD.EnemyPanel.activeSelf)
@@ -136,26 +128,32 @@ namespace BattleSystem
         public void OnHealButtonPress()
         {
             if (GameObject.FindGameObjectWithTag("Player") == null || 
-                (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
+                (_currentState.Equals(BattleState.Battle) && 
+                 !_sceneCharacters[_currentTurn].name.Contains("Player")))
                 return;
             var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
             playerUnit.Heal(playerUnit.MaxHealth / 4);
             _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
             mainHUD.AbilityPanel.SetActive(false);
             mainHUD.EnemyPanel.SetActive(false);
+            _gameState.GameStatistics.AddMoveUsed(_gameState.CurrentLevel, "Heal");
             EnemyTurn();
         }
 
         public void OnCureButton()
         {
             if (GameObject.FindGameObjectWithTag("Player") == null || 
-                (_currentState.Equals(BattleState.Battle) && !_sceneCharacters[_currentTurn].name.Contains("Player")))
+                (_currentState.Equals(BattleState.Battle) && 
+                 !_sceneCharacters[_currentTurn].name.Contains("Player")))
                 return;
             var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
             playerUnit.Cure();
             _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
             mainHUD.AbilityPanel.SetActive(false);
             mainHUD.EnemyPanel.SetActive(false);
+            _gameState.GameStatistics.AddMoveUsed(_gameState.CurrentLevel, "Cure");
+            battleHandler.CharactersStatus.GetPanels()[_sceneCharacters[_currentTurn]].
+                GetComponent<AilmentIndicator>().HideAilments();
             EnemyTurn();
         }
 
@@ -174,12 +172,13 @@ namespace BattleSystem
             Action action;
             action.Move = _selectedMove;
             action.SourceUnit = _sceneCharacters[0].GetComponent<Unit>();
-            action.TargetUnit = GameObject.Find(EventSystem.current.currentSelectedGameObject.name).GetComponent<Unit>();
+            action.TargetUnit = 
+                GameObject.Find(EventSystem.current.currentSelectedGameObject.name).GetComponent<Unit>();
             _actionQueue.Add(action);
 
             mainHUD.EnemyPanel.SetActive(false);
             _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
-
+            _gameState.GameStatistics.AddMoveUsed(_gameState.CurrentLevel, action.Move.Name);
             EnemyTurn();
         }
 

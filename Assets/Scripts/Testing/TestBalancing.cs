@@ -65,16 +65,16 @@ namespace Testing
             _enemy1.Ev = ev;
             _enemy2.Ev = ev;
             _enemy3.Ev = ev;
-            _player.Level = 11;
+            _player.Level = 10;
             _enemy1.Level = 5;
             _enemy2.Level = 5;
             _enemy3.Level = 5;
             var playerBase = _baseStats.Find(b => b.KeyName.Equals("arceusgrass")).Clone();
             var enemyBase = _baseStats.Find(b => b.KeyName.Equals("arceusfire")).Clone();
             _player.OriginalStats = (BaseStat) playerBase;
-            _enemy1.OriginalStats = (BaseStat) enemyBase;
-            _enemy2.OriginalStats = (BaseStat) enemyBase;
-            _enemy3.OriginalStats = (BaseStat) enemyBase;
+            _enemy1.OriginalStats = (BaseStat) ((BaseStat) enemyBase).Clone();
+            _enemy2.OriginalStats = (BaseStat) ((BaseStat) enemyBase).Clone();
+            _enemy3.OriginalStats = (BaseStat) ((BaseStat) enemyBase).Clone();
             _player.Types = _player.OriginalStats.Types;
             _enemy1.Types = _enemy1.OriginalStats.Types;
             _enemy2.Types = _enemy2.OriginalStats.Types;
@@ -116,16 +116,15 @@ namespace Testing
             _enemy3.SetStats(_enemy3.OriginalStats);
         }
 
-        private void Start()
+        private void TestRun(int stepValue)
         {
-            _reader = new JSONReader();
-            _baseStats = _reader.ReadBaseStatsJson();
+            
             var enemies = new List<Unit>
             {
                 _enemy1, _enemy2, _enemy3
             };
             var average = 0f;
-            for (var index = 1; index <= 100; index++)
+            for (var index = 1; index <= 1000; index++)
             {
                 StartState();
                 var lost = 0;
@@ -150,9 +149,8 @@ namespace Testing
             
                     if (_player.CurrentHealth < 0)
                     {
-                        print(step);
                         lost += 1;
-                        step *= 10;
+                        step *= stepValue;
                         ReduceEnemyStats(step);
                     }
                     else
@@ -163,7 +161,17 @@ namespace Testing
                 average += lost;
             }
             
-            print("Average of lost games is " + average / 100);
+            print("Average of lost games is " + average / 1000 + " on step function " + stepValue);
+        }
+
+        private void Start()
+        {
+            _reader = new JSONReader();
+            _baseStats = _reader.ReadBaseStatsJson();
+            for (var i = 1; i <= 10; i++)
+            {
+                TestRun(i);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using JsonParser;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Model
         public int CurrentLevel { get; set; }
         public List<BaseStat> BaseStats { get; set; }
         public List<Type> TypeChart { get; set; }
-        public List<Nature> Natures { get; set; }
+        private List<Nature> Natures { get; set; }
         public string StarterPokemon { get; set; }
         public List<StartMoves> StartMoves { get; set; }
         
@@ -32,7 +33,8 @@ namespace Model
         private Generator _generator;
         public Log LevelLog { get; set; }
         public bool Dynamic { get; set; }
-        public int Step { get; set; }
+        private int Step { get; set; }
+        public Statistics GameStatistics { get; set; }
 
         // Start is called before the first frame update
         private void Start()
@@ -51,6 +53,7 @@ namespace Model
             StarterStats = new BaseStat();
             LostCurrentLevel = false;
             _generator = new Generator();
+            GameStatistics = Statistics.GetInstance();
             CreateLevel();
         }
         
@@ -99,7 +102,8 @@ namespace Model
 
         private void GenerateEnemies()
         {
-            _generator.StartGeneration(LevelLog);
+            _generator.StartGeneration(LevelLog, 
+                Path.Combine(@"Assets", "Scripts", "GenerativeGrammar", "Grammar", "Grammar.txt"));
             NpcsToUnits();
         }
 
@@ -149,7 +153,7 @@ namespace Model
             for (var i = 0; i < 3; i++)
             {
                 var randomNumber = new System.Random().
-                    Next(BaseStats.Count * i / 10, BaseStats.Count * (i + 1) / 10);
+                    Next(BaseStats.Count * (CurrentLevel - 1) / 10, BaseStats.Count * CurrentLevel / 10);
                 var enemyBase = BaseStats[randomNumber];
                 EnemiesBase.Add(enemyBase);
                 randomNumber = new System.Random().Next(0, Natures.Count);
@@ -161,7 +165,7 @@ namespace Model
                     StartMoves.Find(sm => keyName.Contains(sm.Name));
                 var newMoves = AllMoves.Where(m => learnSet.LearnSet.Contains(m.KeyName)).ToList();
                 var randomSeed = new System.Random();
-                newMoves = newMoves.OrderBy(a => randomSeed.Next()).Take(4).ToList();
+                newMoves = newMoves.OrderBy(_ => randomSeed.Next()).Take(4).ToList();
                 var ev = new Dictionary<string, int>
                 {
                     {"hp", 0},

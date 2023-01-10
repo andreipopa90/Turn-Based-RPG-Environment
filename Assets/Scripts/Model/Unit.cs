@@ -67,7 +67,26 @@ namespace Model
             GenerateIVs();
         }
 
-        public void GenerateIVs()
+        public Move ChooseMove(Unit target)
+        {
+            var maxDamage = -1;
+            var chosenMove = new Move();
+            var picked = false;
+            foreach (var move in Moves)
+            {
+                if (move.BasePower <= 0) continue;
+                var damage = target.CalculateDamageTaken(move, this);
+                if (damage <= maxDamage || target.CurrentHealth - damage > 0) continue;
+                maxDamage = damage;
+                chosenMove = move;
+                picked = true;
+            }
+
+            if (!picked) chosenMove = Moves[new System.Random().Next(0, Moves.Count)];
+            return chosenMove;
+        }
+
+        private void GenerateIVs()
         {
             _iv = new Dictionary<string, int>();
             var randomNumber = new System.Random().Next(0, 32);
@@ -118,7 +137,7 @@ namespace Model
             return effectiveness;
         }
 
-        public int TakeDamage(Move move, Unit enemySource, double multiplier = 1.0)
+        public int CalculateDamageTaken(Move move, Unit enemySource, double multiplier = 1.0)
         {
             var effectiveness = DetermineMoveEffectiveness(move.MoveType);
 
@@ -132,12 +151,17 @@ namespace Model
             var damageTaken = (int) (((Math.Round(2.0 * enemySource.Level / 5.0, 2) + 2) * 
                                          Math.Round(sourceAttackUsed / defenseUsed * move.BasePower / 50.0, 2) + 2) * 
                                      randomValue * effectiveness * stab * multiplier);
+            return damageTaken;
+        }
 
+        public int TakeDamage(Move move, Unit enemySource, double multiplier = 1.0)
+        {
+            var damageTaken = CalculateDamageTaken(move, enemySource, multiplier);
             var successChance = new System.Random().Next(0, 100);
             if (successChance <= move.Accuracy)
             {
                 CurrentHealth -= damageTaken;
-            } else if (Affixes.Contains("CounterAttack")) enemySource.TakeDamage(damageTaken / 4);
+            } else if (Affixes.Contains("CounterAttack")) enemySource.TakeDamage(damageTaken / 2);
 
             if (Affixes.Contains("Sturdy") && CurrentHealth <= 0)
             {

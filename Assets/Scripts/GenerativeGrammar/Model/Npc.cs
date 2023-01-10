@@ -7,13 +7,10 @@ namespace GenerativeGrammar.Model
 {
     public class Npc
     {
-        public Dictionary<string, int> Attributes { get; }
-
         public Dictionary<string, List<dynamic>> ValuesOfNodes { get; set; }
 
         public Npc()
         {
-            Attributes = new Dictionary<string, int>();
             ValuesOfNodes = new Dictionary<string, List<dynamic>>();
         }
 

@@ -17,7 +17,7 @@ namespace GenerativeGrammar.Grammar
 	{
 		private Dictionary<Node, List<string>> Augments { get; }
 		private Tree GenerativeTree { get; }
-		private Log LevelLog { get; }
+		public Log LevelLog { get; }
 
 		public Parser(Log levelLog)
 		{
@@ -132,9 +132,6 @@ namespace GenerativeGrammar.Grammar
 				{
 					switch (augment[0])
 					{
-						case "global":
-							HandleGlobalVariables(augment[1]);
-							break;
 						case "from":
 							HandleSourceFile(key.Name, augment[1]);
 							break;
@@ -166,33 +163,5 @@ namespace GenerativeGrammar.Grammar
 			GenerativeTree.Nodes[index] = node;
 		}
 
-		private void HandleGlobalVariables(string s)
-		{
-			var variables = s.Trim().Split(" | ");
-			foreach (var variable in variables)
-			{
-				var expression = HandleNeighbourCondition(variable.Trim());
-				var leftSide = expression.Trim().Split("<-")[0];
-				var rightSide = expression.Trim().Split("<-")[1];
-				GenerativeTree.GlobalVariables.Add(leftSide.Trim(), int.Parse(rightSide.Trim()));
-			}
-		}
-
-		private string HandleNeighbourCondition(string rightSide)
-		{
-			var handler = ExpressionHandler.GetInstance();
-			handler.GenerativeTree = GenerativeTree;
-			handler.LevelLog = LevelLog;
-			var sides = rightSide.Split(" ? ");
-			if (sides.Length != 2) return rightSide;
-
-			var condition = sides[0].Trim();
-			var conditionResult = handler.HandleCondition(condition);
-			var trueCondition = sides[1].Split(" : ")[0].Trim();
-			var falseCondition = sides[1].Split(" : ")[1].Trim();
-			return conditionResult ? trueCondition : falseCondition;
-		}
-
-		
 	}
 }

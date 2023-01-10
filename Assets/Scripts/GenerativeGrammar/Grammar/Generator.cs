@@ -13,26 +13,30 @@ namespace GenerativeGrammar.Grammar
 {
     public class Generator
     {
-        private readonly string _filePath =
-            Path.Combine(@"Assets", "Scripts", "GenerativeGrammar", "Grammar", "Grammar.txt");
+        private string _filePath;
         public List<Npc> Npcs { get; set; }
         private Tree GenerativeTree { get; set; }
         private Log LevelLog { get; set; }
         private ExpressionHandler Handler { get; set; }
         private WeightedListPicker Picker { get; set; }
 
-        public void StartGeneration(Log levelLog)
+        public Generator()
         {
             Npcs = new List<Npc>();
-            LevelLog = levelLog;
             Handler = ExpressionHandler.GetInstance();
-            Handler.Npcs = Npcs;
-            Handler.GenerativeTree = GenerativeTree;
-            Handler.LevelLog = LevelLog;
             Picker = new WeightedListPicker(Handler);
+        }
+        
+        public void StartGeneration(Log levelLog, string filePath)
+        {
+            _filePath = filePath;
+            LevelLog = levelLog;
             var parser = new Parser(levelLog: LevelLog);
             GenerativeTree = parser.HandleLines(parser.ReadGrammarFile(_filePath).ToList());
             var root = GenerativeTree.Root;
+            Handler.Npcs = Npcs;
+            Handler.LevelLog = LevelLog;
+            Handler.GenerativeTree = GenerativeTree;
             GenerateFromNode(root);
         }
 
@@ -47,7 +51,7 @@ namespace GenerativeGrammar.Grammar
      */
         private void GenerateFromNode(Node node)
         {
-            if (node.IsTerminalNode && !node.IsSourceNode)
+            if (node is {IsTerminalNode: true, IsSourceNode: false})
             {
                 HandleTerminalNode(node);
             }
@@ -257,7 +261,8 @@ namespace GenerativeGrammar.Grammar
 
             foreach (var neighbourNode in neighbourNodes.Where(neighbourNode => neighbourNode != null))
             {
-                result = FilterObjectsFromSource(result, neighbourNode);
+                if (neighbourNode != null) 
+                    result = FilterObjectsFromSource(result, neighbourNode);
             }
 
             var trial = 1;

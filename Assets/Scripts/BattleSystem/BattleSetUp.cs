@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using LogFiles;
 using Model;
 using Model.Observer;
@@ -59,6 +58,7 @@ namespace BattleSystem
                     GameState.EnemiesAffixes[i], GameState.EnemiesMoves[i], 
                     GameState.EnemiesTypes[i], GameState.EnemiesEvs[i]);
                 enemies.Add(enemyInstance.GetComponent<Unit>());
+                GameState.GameStatistics.AddDifficulty(GameState.CurrentLevel, enemyInstance.GetComponent<Unit>());
                 Manager.AddListener(enemyInstance.GetComponent<Unit>());
             }
             charactersStatus.SetUpEnemyStatusPanels(enemies);
@@ -81,7 +81,7 @@ namespace BattleSystem
                 return character;
             }
 
-            characterUnit.Level = GameState.CurrentLevel + 20;
+            characterUnit.Level = GameState.CurrentLevel + 4;
             characterUnit.SetTypes(GameState.StarterStats.Types);
             characterUnit.Manager = Manager;
             characterUnit.OriginalStats = GameState.StarterStats;
@@ -96,7 +96,6 @@ namespace BattleSystem
                 {"spe", 0}
             };
             characterUnit.SetStats(GameState.StarterStats);
-            // Add to logs.
             AddPlayerStatsToLogs(characterUnit);
 
             return character;
