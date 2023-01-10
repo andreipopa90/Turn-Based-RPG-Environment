@@ -59,27 +59,27 @@ namespace Model
         
         public void ReduceDifficulty()
         {
-            foreach (var npc in _generator.Npcs)
+            print("I decreased difficulty!");
+            for (var i = 0; i < 3; i++)
             {
-                ReduceStat(npc, "HPEV", "Hp", Step);
-                ReduceStat(npc, "ATKEV", "Atk", Step);
-                ReduceStat(npc, "DEFEV", "Def", Step);
-                ReduceStat(npc, "SPAEV", "Spa", Step);
-                ReduceStat(npc, "SPDEV", "Spd", Step);
-                ReduceStat(npc, "SPEEV", "Spe", Step);
+                ReduceStat(i, "hp", "Hp", Step);
+                ReduceStat(i, "atk", "Atk", Step);
+                ReduceStat(i, "def", "Def", Step);
+                ReduceStat(i, "spa", "Spa", Step);
+                ReduceStat(i, "spd", "Spd", Step);
+                ReduceStat(i, "spe", "Spe", Step);
             }
 
             Step *= 10;
         }
 
-        private static void ReduceStat(Npc npc, string ev, string stat, int step)
+        private void ReduceStat(int npc, string ev, string stat, int step)
         {
-            var nodes = npc.ValuesOfNodes;
-            if (nodes[ev][0] > 0) nodes[ev][0] = Math.Max(nodes[ev][0] - step, 0);
-            else if (nodes["BASE"][0].GetType().GetProperty(stat).GetValue(nodes["BASE"][0]) > 1)
+            if (EnemiesEvs[npc][ev] > 0) EnemiesEvs[npc][ev] = Math.Max(EnemiesEvs[npc][ev] - step, 0);
+            else if (Convert.ToInt32(EnemiesBase[npc].GetType().GetProperty(stat)?.GetValue(EnemiesBase[npc])) > 1)
             {
-                var value = nodes["BASE"][0].GetType().GetProperty(stat).GetValue(nodes["BASE"][0]);
-                nodes["BASE"][0].GetType().GetProperty(stat).SetValue(nodes["BASE"][0], Math.Max(value - step, 1));
+                var value = Convert.ToInt32(EnemiesBase[npc].GetType().GetProperty(stat)?.GetValue(EnemiesBase[npc]));
+                EnemiesBase[npc].GetType().GetProperty(stat)!.SetValue(EnemiesBase[npc], Math.Max(value - step, 1));
             }
         }
 
@@ -115,6 +115,7 @@ namespace Model
             EnemiesAffixes = new List<List<string>>();
             EnemiesEvs = new List<Dictionary<string, int>>();
             EnemiesTypes = new List<List<Type>>();
+            print(_generator.Npcs.Count);
             foreach (var npc in _generator.Npcs.Select(npcStructure => npcStructure.ValuesOfNodes))
             {
                 EnemiesBase.Add(npc["BASE"][0]);
@@ -140,6 +141,11 @@ namespace Model
                 EnemiesEvs.Add(evs);
                 EnemiesTypes.Add(npc["TYPE"].Cast<Type>().ToList());
             }
+
+            foreach (var bases in EnemiesBase)
+            {
+                print(bases.Name);
+            }
         }
 
         private void ChooseEnemies()
@@ -154,30 +160,34 @@ namespace Model
             {
                 var randomNumber = new System.Random().
                     Next(BaseStats.Count * (CurrentLevel - 1) / 10, BaseStats.Count * CurrentLevel / 10);
-                var enemyBase = BaseStats[randomNumber];
+                var enemyBase = BaseStats[randomNumber].Clone() as BaseStat;
                 EnemiesBase.Add(enemyBase);
                 randomNumber = new System.Random().Next(0, Natures.Count);
                 var enemyNature = Natures[randomNumber];
                 EnemiesNature.Add(enemyNature);
-                var keyName = enemyBase.KeyName;
-                var learnSet = 
-                    StartMoves.Find(sm => sm.Name.Equals(keyName)) ?? 
-                    StartMoves.Find(sm => keyName.Contains(sm.Name));
-                var newMoves = AllMoves.Where(m => learnSet.LearnSet.Contains(m.KeyName)).ToList();
-                var randomSeed = new System.Random();
-                newMoves = newMoves.OrderBy(_ => randomSeed.Next()).Take(4).ToList();
-                var ev = new Dictionary<string, int>
+                if (enemyBase != null)
                 {
-                    {"hp", 0},
-                    {"atk", 0},
-                    {"def", 0},
-                    {"spa", 0},
-                    {"spd", 0},
-                    {"spe", 0}
-                };
-                EnemiesEvs.Add(ev);
-                EnemiesMoves.Add(newMoves);
-                EnemiesTypes.Add(TypeChart.FindAll(t => enemyBase.Types.Contains(t.Name)));
+                    var keyName = enemyBase.KeyName;
+                    var learnSet = 
+                        StartMoves.Find(sm => sm.Name.Equals(keyName)) ?? 
+                        StartMoves.Find(sm => keyName.Contains(sm.Name));
+                    var newMoves = AllMoves.Where(m => learnSet.LearnSet.Contains(m.KeyName)).ToList();
+                    var randomSeed = new System.Random();
+                    newMoves = newMoves.OrderBy(_ => randomSeed.Next()).Take(4).ToList();
+                    var ev = new Dictionary<string, int>
+                    {
+                        {"hp", 0},
+                        {"atk", 0},
+                        {"def", 0},
+                        {"spa", 0},
+                        {"spd", 0},
+                        {"spe", 0}
+                    };
+                    EnemiesEvs.Add(ev);
+                    EnemiesMoves.Add(newMoves);
+                }
+
+                EnemiesTypes.Add(TypeChart.FindAll(t => enemyBase != null && enemyBase.Types.Contains(t.Name)));
                 EnemiesAffixes.Add(new List<string> {string.Empty});
             }
         }

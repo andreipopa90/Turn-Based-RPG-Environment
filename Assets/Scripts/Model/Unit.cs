@@ -137,7 +137,7 @@ namespace Model
             return effectiveness;
         }
 
-        public int CalculateDamageTaken(Move move, Unit enemySource, double multiplier = 1.0)
+        private int CalculateDamageTaken(Move move, Unit enemySource, double multiplier = 1.0)
         {
             var effectiveness = DetermineMoveEffectiveness(move.MoveType);
 

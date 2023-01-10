@@ -52,17 +52,25 @@ namespace BattleSystem
             _sceneCharacters = new List<Unit>();
             _manager = new EventManager();
             _enemies = new List<Unit>();
+            
             battleSetUp.GameState = _gameState;
             battleSetUp.Manager = _manager;
             battleSetUp.LevelLog = _gameState.LevelLog;
             battleSetUp.SetUpCharacters(player, enemy, charactersStatus, _enemies);
             battleSetUp.SetUpHUD(mainHUD);
             GatherCharactersInScene();
+            
             battleHandler.GameState = _gameState;
             battleHandler.SceneCharacters = _sceneCharacters;
             battleHandler.Enemies = _enemies;
             battleHandler.CharactersStatus = charactersStatus;
             battleHandler.BattleLog = battleLog;
+
+            foreach (var enemy in _enemies)
+            {
+                print(enemy.OriginalStats.ToString());
+            }
+            
             BeginBattle();
         }
 

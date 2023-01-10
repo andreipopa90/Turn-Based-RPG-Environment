@@ -76,5 +76,13 @@ namespace UI.Battle
                 Destroy(_panels[characterUnit]);
             }
         }
+
+        public void UpdateHealthBar(List<Unit> characterUnits)
+        {
+            foreach (var character in characterUnits)
+            {
+                UpdateHealthBar(character);
+            }
+        }
     }
 }

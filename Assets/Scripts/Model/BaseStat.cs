@@ -18,17 +18,29 @@ namespace Model
 		public List<string> Types { get; set; }
 		public object Clone()
 		{
-			var clone = new BaseStat();
-			clone.Hp = Hp;
-			clone.Atk = Atk;
-			clone.Spa = Spa;
-			clone.Def = Def;
-			clone.Spd = Spd;
-			clone.Spe = Spe;
-			clone.Types = Types;
-			clone.Name = Name;
-			clone.KeyName = KeyName;
+			var clone = new BaseStat
+			{
+				Hp = Hp,
+				Atk = Atk,
+				Spa = Spa,
+				Def = Def,
+				Spd = Spd,
+				Spe = Spe,
+				Types = Types,
+				Name = Name,
+				KeyName = KeyName
+			};
 			return clone;
+		}
+
+		public override string ToString()
+		{
+			return "hp: " + Hp + "\n" +
+			       "atk: " + Atk + "\n" +
+			       "def: " + Def + "\n" +
+			       "spa: " + Spa + "\n" +
+			       "spd: " + Spd + "\n" +
+			       "spe: " + Spe + "\n";
 		}
 	}
 }

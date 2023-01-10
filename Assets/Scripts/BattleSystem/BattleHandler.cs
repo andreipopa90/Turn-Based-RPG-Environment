@@ -85,7 +85,6 @@ namespace BattleSystem
             var statValue = (int) character.GetType()
                 .GetProperties().ToList().Find(p => p.Name.ToLower().Equals(stat))
                 .GetValue(character);
-            print(stat);
             var originalStat = (int) character.OriginalStats.GetType().GetProperties().ToList()
                 .Find(p => p.Name.ToLower().Equals(stat.ToLower())).GetValue(character.OriginalStats);
             var newStatValue = value > 0 ? statValue * (value + 2) / 2 : statValue * 2 / (-1 * value + 2);
@@ -122,21 +121,23 @@ namespace BattleSystem
             {
                 damageDealt = target.TakeDamage(action.Move, action.SourceUnit, multiplier: domainEffect * burnEffect);
                 damageTaken(damageDealt);
-                yield return WaitForDelay(1f,
-                    action.SourceUnit.name + " used " + action.Move.Name + " on " + target.name);
+                
                 CharactersStatus.UpdateHealthBar(target);
             }
-            
-            
-            var characters = SceneCharacters.
-                Where(sc => sc.Ailments.Contains("HealthLink")).ToList();
+
+
+            var characters = SceneCharacters.Where(sc => sc.Ailments.Contains("HealthLink")).ToList();
+            var message = string.Empty;
             foreach (var character in characters)
             {
                 damageDealt += character.TakeDamage(action.Move, action.SourceUnit, 
                     multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect);
-                CharactersStatus.UpdateHealthBar(character);
+                message += character.name + " & ";
             }
             damageTaken(damageDealt);
+            yield return WaitForDelay(1f,
+                action.SourceUnit.name + " used " + action.Move.Name + " on " + message);
+            CharactersStatus.UpdateHealthBar(characters);
         }
         
         private double HandleDomain(Action action, Unit target)
