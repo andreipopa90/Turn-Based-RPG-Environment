@@ -35,13 +35,13 @@ namespace Model
         private const double LowerBound = 0.85;
         public List<string> Types { get; set; }
         public string UnitName {get;set;}
-        public int MaxHealth {get;set;}
-        public int CurrentHealth {get;set;}
-        public int Atk {get;set;}
-        public int Def {get;set;}
-        public int Spa {get;set;}
-        public int Spd {get;set;}
-        public int Spe {get;set;}
+        [field: SerializeField] public int MaxHealth {get;set;}
+        [field: SerializeField] public int CurrentHealth {get;set;}
+        [field: SerializeField] public int Atk {get;set;}
+        [field: SerializeField] public int Def {get;set;}
+        [field: SerializeField] public int Spa {get;set;}
+        [field: SerializeField] public int Spd {get;set;}
+        [field: SerializeField] public int Spe {get;set;}
         public int Level {get;set;}
         
         public GameObject typeIndicatorOne;
@@ -52,7 +52,7 @@ namespace Model
         public Dictionary<string, int> Ev { get; set; }
         
         public Nature unitNature;
-        public List<string> Affixes { get; set; }
+        [field: SerializeField] public List<string> Affixes { get; set; }
         public List<string> Ailments { get; set; }
         public EventManager Manager { get; set; }
         public BaseStat OriginalStats { get; set; }
@@ -161,7 +161,11 @@ namespace Model
             if (successChance <= move.Accuracy)
             {
                 CurrentHealth -= damageTaken;
-            } else if (Affixes.Contains("CounterAttack")) enemySource.TakeDamage(damageTaken / 2);
+            } 
+            else if (Affixes.Contains("CounterAttack"))
+            {
+                enemySource.TakeDamage(damageTaken / 2);
+            }
 
             if (Affixes.Contains("Sturdy") && CurrentHealth <= 0)
             {
@@ -175,8 +179,9 @@ namespace Model
                 return damageTaken;
             }
 
-            Manager.RemoveListener(this);
-            Manager.NotifyOnDeath();
+            _gameState.Manager.RemoveListener(this);
+            print(_gameState.Manager.Listeners.Count);
+            _gameState.Manager.NotifyOnDeath();
             Destroy(gameObject);
 
             return damageTaken;
@@ -184,11 +189,13 @@ namespace Model
 
         private void Evolve()
         {
+            
             if (CurrentHealth > MaxHealth / 2) return;
+            print("Here!");
             var newUnit = _gameState.BaseStats.Find(bs => bs.Name.Equals("Zygarde-Complete"));
-            var currentHealthPercentage = CurrentHealth / (MaxHealth * 1.0);
             SetStats(newUnit, true);
-            CurrentHealth = (int) (CurrentHealth * currentHealthPercentage);
+            CurrentHealth = (int) (CurrentHealth * 0.75);
+            Affixes.Remove("Evolve!");
         }
 
         public void TakeDamage(int value)
@@ -199,13 +206,13 @@ namespace Model
                 CurrentHealth = 1;
                 Affixes.Remove("Sturdy");
             }
-            if (CurrentHealth <= 0)
+            if (CurrentHealth <= 0 && !Affixes.Contains("Evolve"))
             {
                 Manager.RemoveListener(this);
                 Manager.NotifyOnDeath();
                 Destroy(gameObject);
             }
-            else
+            else if (Affixes.Contains("Evolve"))
             {
                 Evolve();
             }
@@ -241,6 +248,7 @@ namespace Model
             Spa = CalculateStats(stats.Spa, "spa");
             Spd = CalculateStats(stats.Spd, "spd");
             Spe = CalculateStats(stats.Spe, "spe");
+            OriginalStats = stats;
         }
 
         private bool IsDead()

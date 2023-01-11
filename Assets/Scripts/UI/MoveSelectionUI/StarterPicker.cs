@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using Model;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -57,6 +56,8 @@ namespace UI.MoveSelectionUI
                 UpdateText(GameState.StarterPokemon);
                 var starter = GameState.BaseStats.Find(b => b.Name.Equals(GameState.StarterPokemon));
                 GameState.StarterStats = starter;
+                GameState.SelectedMoves = GameState.AllMoves
+                    .Where(m => StarterTable.StartersList[starter.Name].Contains(m.KeyName)).ToList();
 
             }
             else if (_nameMatcher[name].Equals(GameState.StarterPokemon))
@@ -65,6 +66,7 @@ namespace UI.MoveSelectionUI
                 GameState.StarterPokemon = string.Empty;
                 UpdateText(GameState.StarterPokemon);
                 GameState.StarterStats = new BaseStat();
+                GameState.SelectedMoves.Clear();
             }
         }
 
@@ -72,5 +74,13 @@ namespace UI.MoveSelectionUI
         {
             chosenIndicator.text = "You chose: " + starterName;
         }
+        
+        // public void OnPressLockIn()
+        // {
+        //     if (gameState.SelectedMoves.Count == 4 && !string.IsNullOrEmpty(gameState.StarterPokemon))
+        //     {
+        //         SceneManager.LoadScene("BattleScene");
+        //     }
+        // }
     }
 }

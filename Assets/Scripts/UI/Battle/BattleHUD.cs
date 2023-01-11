@@ -33,7 +33,7 @@ namespace UI.Battle
                 buttonTransform.anchoredPosition = buttonPosition;
 
                 button.onClick.AddListener(battleSystem.OnEnemySelect);
-                button.GetComponentInChildren<Text>().text = enemyList[i].UnitName;
+                button.GetComponentInChildren<TextMeshProUGUI>().text = enemyList[i].UnitName;
             }
         }
 

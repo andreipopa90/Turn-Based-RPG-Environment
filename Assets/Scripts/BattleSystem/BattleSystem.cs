@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Model;
-using Model.Observer;
 using UI;
 using UI.Battle;
 using UnityEngine;
@@ -39,7 +38,6 @@ namespace BattleSystem
         private BattleState _currentState;
         private Move _selectedMove;
         private GameStateStorage _gameState;
-        private EventManager _manager;
         
         
         // Start is called before the first frame update
@@ -50,11 +48,9 @@ namespace BattleSystem
             _gameState = GameObject.Find("GameState").GetComponent<GameStateStorage>();
             _gameState.LevelLog.CurrentLevel = _gameState.CurrentLevel;
             _sceneCharacters = new List<Unit>();
-            _manager = new EventManager();
             _enemies = new List<Unit>();
             
             battleSetUp.GameState = _gameState;
-            battleSetUp.Manager = _manager;
             battleSetUp.LevelLog = _gameState.LevelLog;
             battleSetUp.SetUpCharacters(player, enemy, charactersStatus, _enemies);
             battleSetUp.SetUpHUD(mainHUD);
@@ -66,10 +62,7 @@ namespace BattleSystem
             battleHandler.CharactersStatus = charactersStatus;
             battleHandler.BattleLog = battleLog;
 
-            foreach (var enemy in _enemies)
-            {
-                print(enemy.OriginalStats.ToString());
-            }
+            print(_gameState.Manager.Listeners.Count);
             
             BeginBattle();
         }
@@ -214,14 +207,14 @@ namespace BattleSystem
                 _currentState = BattleState.Win;
                 _gameState.CurrentLevel += 1;
                 _gameState.LostCurrentLevel = false;
-                _manager.Reset();
+                _gameState.Manager.Reset();
                 SceneManager.LoadScene("TransitionScene");
             }
             else if (!GameObject.FindGameObjectWithTag("Player"))
             {
                 _currentState = BattleState.Lost;
                 _gameState.LostCurrentLevel = true;
-                _manager.Reset();
+                _gameState.Manager.Reset();
                 SceneManager.LoadScene("TransitionScene");
             }
             else

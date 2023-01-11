@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,24 +10,11 @@ namespace UI
     {
 
         [SerializeField] private TextMeshProUGUI affixText;
-        [SerializeField] private GameObject panel;
         
-        public void AddAffixes(List<string> affixes)
+        public void AddAffixes(IEnumerable<string> affixes)
         {
-            foreach (var affix in affixes)
-            {
-                affixText.text = affix + " ";
-            }
-        }
-
-        public void ShowAffixes()
-        {
-            panel.SetActive(true);
-        }
-
-        public void HideAffixes()
-        {
-            panel.SetActive(false);
+            var text = affixes.Aggregate("", (current, affix) => current + affix + "\n");
+            affixText.text = text;
         }
     }
 }

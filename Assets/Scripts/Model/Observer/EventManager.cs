@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
+using UnityEngine;
 
 namespace Model.Observer
 {
     public class EventManager
     {
-        private List<Unit> Listeners { get; set; }
+        public List<Unit> Listeners { get; set; }
 
         public EventManager()
         {
@@ -30,11 +32,11 @@ namespace Model.Observer
         public void NotifyOnDeath()
         {
             foreach (var listener in Listeners.
-                         Where(l => l.Ailments.Contains("Avenger") && !l.UnitName.Equals("Player")))
+                         Where(l => !l.UnitName.Equals("Player")))
             {
-                listener.CurrentHealth += listener.MaxHealth * 3 / 2;
-                listener.MaxHealth *= 3 / 2;
-                listener.Spe *= 3 / 2;
+                listener.CurrentHealth = (int)(listener.CurrentHealth * 1.5);
+                listener.MaxHealth = (int)(listener.MaxHealth * 1.5);
+                listener.Spe = (int) (listener.Spe * 1.5);
             }
         }
     }

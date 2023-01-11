@@ -70,10 +70,10 @@ namespace BattleSystem
                 {
                     var damageTaken = 0;
                     yield return HandleDamageTaken(action, target, x => damageTaken = x);
-                    if (!target) yield break;
                     yield return HandleSelfBuff(action);
-                    yield return HandleDebuff(action, target);
                     yield return HandleDrain(action, damageTaken);
+                    if (!target) yield break;
+                    yield return HandleDebuff(action, target);
                     yield return HandleStatusAilment(action, target);
                     break;
                 }
@@ -121,23 +121,28 @@ namespace BattleSystem
             {
                 damageDealt = target.TakeDamage(action.Move, action.SourceUnit, multiplier: domainEffect * burnEffect);
                 damageTaken(damageDealt);
-                
+                yield return WaitForDelay(1f, action.SourceUnit.name + " used " + action.Move.Name + " on " +
+                                              target.name);
                 CharactersStatus.UpdateHealthBar(target);
             }
 
-
-            var characters = SceneCharacters.Where(sc => sc.Ailments.Contains("HealthLink")).ToList();
-            var message = string.Empty;
-            foreach (var character in characters)
+            else
             {
-                damageDealt += character.TakeDamage(action.Move, action.SourceUnit, 
-                    multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect);
-                message += character.name + " & ";
+
+                var characters = SceneCharacters.Where(sc => sc.Affixes.Contains("HealthLink")).ToList();
+                var message = string.Empty;
+                foreach (var character in characters)
+                {
+                    damageDealt += character.TakeDamage(action.Move, action.SourceUnit,
+                        multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect);
+                    message += character.name + " & ";
+                }
+
+                damageTaken(damageDealt);
+                yield return WaitForDelay(1f,
+                    action.SourceUnit.name + " used " + action.Move.Name + " on " + message);
+                CharactersStatus.UpdateHealthBar(characters);
             }
-            damageTaken(damageDealt);
-            yield return WaitForDelay(1f,
-                action.SourceUnit.name + " used " + action.Move.Name + " on " + message);
-            CharactersStatus.UpdateHealthBar(characters);
         }
         
         private double HandleDomain(Action action, Unit target)

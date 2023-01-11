@@ -7,6 +7,7 @@ using UnityEngine;
 using GenerativeGrammar.Grammar;
 using GenerativeGrammar.Model;
 using LogFiles;
+using Model.Observer;
 
 namespace Model
 {
@@ -35,6 +36,7 @@ namespace Model
         public bool Dynamic { get; set; }
         private int Step { get; set; }
         public Statistics GameStatistics { get; set; }
+        public EventManager Manager { get; set; }
 
         // Start is called before the first frame update
         private void Start()
@@ -54,6 +56,7 @@ namespace Model
             LostCurrentLevel = false;
             _generator = new Generator();
             GameStatistics = Statistics.GetInstance();
+            Manager = new EventManager();
             CreateLevel();
         }
         
@@ -188,7 +191,7 @@ namespace Model
                 }
 
                 EnemiesTypes.Add(TypeChart.FindAll(t => enemyBase != null && enemyBase.Types.Contains(t.Name)));
-                EnemiesAffixes.Add(new List<string> {string.Empty});
+                EnemiesAffixes.Add(new List<string>());
             }
         }
 

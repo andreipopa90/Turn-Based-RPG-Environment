@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using LogFiles;
 using Model;
-using Model.Observer;
 using UI.Battle;
 using UnityEngine;
 
@@ -12,7 +11,6 @@ namespace BattleSystem
     {
         private static BattleSetUp _instance;
         public GameStateStorage GameState { get; set; }
-        public EventManager Manager { get; set; }
         public Log LevelLog { get; set; }
 
         public void SetUpHUD(BattleHUD battleHUD)
@@ -28,13 +26,15 @@ namespace BattleSystem
             Dictionary<string, int> enemyEvs)
         {
             var characterUnit = character.GetComponent<Unit>();
-            characterUnit.Manager = Manager;
+            characterUnit.Manager = GameState.Manager;
             characterUnit.Level = GameState.CurrentLevel;
             characterUnit.SetTypes(enemyTypes.Select(t => t.Name).ToList());
             characterUnit.unitNature = characterNature;
             characterUnit.Moves = enemyMoves;
             characterUnit.Ev = enemyEvs;
             characterUnit.Affixes = affixes;
+            characterUnit.Affixes.Add("HealthLink");
+            characterUnit.Affixes.Add("Avenger");
             characterUnit.SetStats(characterBase);
             characterUnit.OriginalStats = characterBase;
             
@@ -46,7 +46,7 @@ namespace BattleSystem
             var playerInstance = 
                 InstantiateCharacter("Player", new Vector3(0, 0, -12.5f), player, true);
 
-            Manager.AddListener(playerInstance.GetComponent<Unit>());
+            // GameState.Manager.AddListener(playerInstance.GetComponent<Unit>());
 
             for (var i = 0; i < 3; i++)
             {
@@ -59,7 +59,7 @@ namespace BattleSystem
                     GameState.EnemiesTypes[i], GameState.EnemiesEvs[i]);
                 enemies.Add(enemyInstance.GetComponent<Unit>());
                 GameState.GameStatistics.AddDifficulty(GameState.CurrentLevel, enemyInstance.GetComponent<Unit>());
-                Manager.AddListener(enemyInstance.GetComponent<Unit>());
+                GameState.Manager.AddListener(enemyInstance.GetComponent<Unit>());
             }
             charactersStatus.SetUpEnemyStatusPanels(enemies);
             charactersStatus.SetUpPlayerStatusPanels(playerInstance.GetComponent<Unit>());
@@ -83,7 +83,7 @@ namespace BattleSystem
 
             characterUnit.Level = GameState.CurrentLevel + 5;
             characterUnit.SetTypes(GameState.StarterStats.Types);
-            characterUnit.Manager = Manager;
+            characterUnit.Manager = GameState.Manager;
             characterUnit.OriginalStats = GameState.StarterStats;
             
             characterUnit.Ev = new Dictionary<string, int>
