@@ -74,13 +74,5 @@ namespace UI.MoveSelectionUI
         {
             chosenIndicator.text = "You chose: " + starterName;
         }
-        
-        // public void OnPressLockIn()
-        // {
-        //     if (gameState.SelectedMoves.Count == 4 && !string.IsNullOrEmpty(gameState.StarterPokemon))
-        //     {
-        //         SceneManager.LoadScene("BattleScene");
-        //     }
-        // }
     }
 }

@@ -33,8 +33,6 @@ namespace BattleSystem
             characterUnit.Moves = enemyMoves;
             characterUnit.Ev = enemyEvs;
             characterUnit.Affixes = affixes;
-            characterUnit.Affixes.Add("HealthLink");
-            characterUnit.Affixes.Add("Avenger");
             characterUnit.SetStats(characterBase);
             characterUnit.OriginalStats = characterBase;
             

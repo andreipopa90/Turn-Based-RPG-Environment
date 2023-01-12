@@ -11,7 +11,7 @@ namespace UI.MoveSelectionUI
 
         public void OnPressLockIn()
         {
-            if (GameStateStorage.SelectedMoves.Count == 4 && !string.IsNullOrEmpty(GameStateStorage.StarterPokemon))
+            if (!string.IsNullOrEmpty(GameStateStorage.StarterPokemon))
             {
                 SceneManager.LoadScene("BattleScene");
             }
