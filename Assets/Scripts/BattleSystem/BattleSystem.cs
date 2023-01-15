@@ -61,8 +61,6 @@ namespace BattleSystem
             battleHandler.Enemies = _enemies;
             battleHandler.CharactersStatus = charactersStatus;
             battleHandler.BattleLog = battleLog;
-
-            print(_gameState.Manager.Listeners.Count);
             
             BeginBattle();
         }
@@ -133,7 +131,7 @@ namespace BattleSystem
                  !_sceneCharacters[_currentTurn].name.Contains("Player")))
                 return;
             var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
-            playerUnit.Heal(playerUnit.MaxHealth / 4);
+            playerUnit.Heal(playerUnit.MaxHealth / 2);
             _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
             mainHUD.AbilityPanel.SetActive(false);
             mainHUD.EnemyPanel.SetActive(false);

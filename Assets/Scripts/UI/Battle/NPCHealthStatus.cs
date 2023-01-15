@@ -21,14 +21,14 @@ namespace UI.Battle
         public void SetUpEnemyStatusPanels(List<Unit> enemies)
         {
             _panels = new Dictionary<Unit, GameObject>();
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < GameStateStorage.EnemyCount; i++)
             {
                 var enemyStatus = Instantiate(characterStatusPanel, 
                     new Vector3(0, 0, 0), Quaternion.identity);
                 enemyStatus.transform.SetParent(statusPanel.transform, false);
                 var statusPanelTransform = enemyStatus.GetComponent<RectTransform>();
                 var statusPanelPosition = statusPanelTransform.anchoredPosition;
-                statusPanelPosition.x = -200 + i * 200;
+                statusPanelPosition.x = -200 + i * 400;
                 statusPanelPosition.y = 125;
                 statusPanelTransform.anchoredPosition = statusPanelPosition;
                 _panels.Add(enemies[i], enemyStatus);

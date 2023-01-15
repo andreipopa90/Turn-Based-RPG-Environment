@@ -27,7 +27,7 @@ namespace BattleSystem
         {
             var characterUnit = character.GetComponent<Unit>();
             characterUnit.Manager = GameState.Manager;
-            characterUnit.Level = GameState.CurrentLevel;
+            characterUnit.Level = GameState.CurrentLevel + 3;
             characterUnit.SetTypes(enemyTypes.Select(t => t.Name).ToList());
             characterUnit.unitNature = characterNature;
             characterUnit.Moves = enemyMoves;
@@ -46,12 +46,12 @@ namespace BattleSystem
 
             // GameState.Manager.AddListener(playerInstance.GetComponent<Unit>());
 
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < GameStateStorage.EnemyCount; i++)
             {
                 AddEnemyBaseStatsToLogs(GameState.EnemiesBase[i]);
                 
                 var enemyInstance = InstantiateCharacter(GameState.EnemiesBase[i].Name + " " + (i + 1), 
-                    new Vector3(-12.5f + 12.5f * i, 0, 12.5f), enemy);
+                    new Vector3(-12.5f + 25f * i, 0, 12.5f), enemy);
                 enemyInstance = SetUpCharacterStats(enemyInstance, GameState.EnemiesBase[i], GameState.EnemiesNature[i],
                     GameState.EnemiesAffixes[i], GameState.EnemiesMoves[i], 
                     GameState.EnemiesTypes[i], GameState.EnemiesEvs[i]);
@@ -79,7 +79,7 @@ namespace BattleSystem
                 return character;
             }
 
-            characterUnit.Level = GameState.CurrentLevel + 4;
+            characterUnit.Level = GameState.CurrentLevel + 5;
             characterUnit.SetTypes(GameState.StarterStats.Types);
             characterUnit.Manager = GameState.Manager;
             characterUnit.OriginalStats = GameState.StarterStats;

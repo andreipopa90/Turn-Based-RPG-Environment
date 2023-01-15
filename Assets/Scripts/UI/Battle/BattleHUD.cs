@@ -29,7 +29,7 @@ namespace UI.Battle
                 button.transform.SetParent(EnemyPanel.transform, false);
                 var buttonTransform = button.GetComponent<RectTransform>();
                 var buttonPosition = buttonTransform.anchoredPosition;
-                buttonPosition.y = 150 - 150 * i;
+                buttonPosition.y = 150 - 300 * i;
                 buttonTransform.anchoredPosition = buttonPosition;
 
                 button.onClick.AddListener(battleSystem.OnEnemySelect);

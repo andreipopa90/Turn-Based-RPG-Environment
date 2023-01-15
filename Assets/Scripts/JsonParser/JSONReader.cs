@@ -2,13 +2,14 @@
 using System.IO;
 using Model;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace JsonParser
 {
 	public class JSONReader
 	{
 
-		private readonly string _pathRoot = Path.Combine(@"Assets", "Scripts", "JsonParser", "JsonFiles");
+		private readonly string _pathRoot = Path.Combine(Application.streamingAssetsPath, "JsonFiles");
 
 		public List<Move> ReadMovesJson()
 		{

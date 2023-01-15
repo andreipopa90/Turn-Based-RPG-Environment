@@ -267,13 +267,13 @@ namespace BattleSystem
             {
                 if (character.Ailments.Contains("brn"))
                 {
-                    yield return (WaitForDelay(1f, character.name + " was hurt by burn!"));
+                    yield return WaitForDelay(1f, character.name + " was hurt by burn!");
                     character.TakeDamage(character.CurrentHealth / 16);
                 }
 
                 if (character.Ailments.Contains("psn"))
                 {
-                    yield return (WaitForDelay(1f, character.name + " was hurt by poison!"));
+                    yield return WaitForDelay(1f, character.name + " was hurt by poison!");
                     character.TakeDamage(character.CurrentHealth / 8);
                 }
             }

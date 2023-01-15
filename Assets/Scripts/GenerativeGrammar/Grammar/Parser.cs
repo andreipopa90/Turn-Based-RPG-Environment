@@ -4,6 +4,8 @@ using System.Linq;
 using GenerativeGrammar.Handlers;
 using GenerativeGrammar.Model;
 using LogFiles;
+using UnityEngine;
+using Tree = GenerativeGrammar.Model.Tree;
 
 namespace GenerativeGrammar.Grammar
 {
@@ -28,6 +30,7 @@ namespace GenerativeGrammar.Grammar
 
 		public IEnumerable<string> ReadGrammarFile(string file)
 		{
+			// var lines = Resources.Load<TextAsset>(file).text.Split("\n");
 			var lines = File.ReadAllLines(file);
 			return lines;
 		}

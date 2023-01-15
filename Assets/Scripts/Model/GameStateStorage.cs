@@ -5,7 +5,6 @@ using System.Linq;
 using JsonParser;
 using UnityEngine;
 using GenerativeGrammar.Grammar;
-using GenerativeGrammar.Model;
 using LogFiles;
 using Model.Observer;
 
@@ -21,7 +20,6 @@ namespace Model
         private List<Nature> Natures { get; set; }
         public string StarterPokemon { get; set; }
         public List<StartMoves> StartMoves { get; set; }
-        
         public BaseStat StarterStats { get; set; }
         public List<BaseStat> EnemiesBase { get; set; }
         public List<Nature> EnemiesNature { get; set; }
@@ -37,6 +35,7 @@ namespace Model
         private int Step { get; set; }
         public Statistics GameStatistics { get; set; }
         public EventManager Manager { get; set; }
+        public const int EnemyCount = 2;
 
         // Start is called before the first frame update
         private void Start()
@@ -47,6 +46,7 @@ namespace Model
             CurrentLevel = 1;
             JSONReader reader = new();
             BaseStats = reader.ReadBaseStatsJson();
+            print(BaseStats);
             TypeChart = reader.ReadTypeChartJson();
             AllMoves = reader.ReadMovesJson();
             Natures = reader.ReadNaturesJson();
@@ -63,7 +63,7 @@ namespace Model
         public void ReduceDifficulty()
         {
             print("I decreased difficulty!");
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < EnemyCount; i++)
             {
                 ReduceStat(i, "hp", "Hp", Step);
                 ReduceStat(i, "atk", "Atk", Step);
@@ -105,8 +105,8 @@ namespace Model
 
         private void GenerateEnemies()
         {
-            _generator.StartGeneration(LevelLog, 
-                Path.Combine(@"Assets", "Scripts", "GenerativeGrammar", "Grammar", "Grammar.txt"));
+            _generator = new Generator();
+            _generator.StartGeneration(LevelLog, Path.Combine(Application.streamingAssetsPath, "Grammar.txt"));
             NpcsToUnits();
         }
 
@@ -159,7 +159,7 @@ namespace Model
             EnemiesTypes = new List<List<Type>>();
             EnemiesEvs = new List<Dictionary<string, int>>();
             EnemiesAffixes = new List<List<string>>();
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < EnemyCount; i++)
             {
                 var randomNumber = new System.Random().
                     Next(BaseStats.Count * (CurrentLevel - 1) / 10, BaseStats.Count * CurrentLevel / 10);

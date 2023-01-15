@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model;
+using UnityEngine.Device;
 
 namespace LogFiles
 {
@@ -58,7 +59,7 @@ namespace LogFiles
 
         public void PrintStatistics()
         {
-            var path = Path.Combine(@"Assets", "Scripts", "LogFiles", "Output.txt");
+            var path = Path.Combine(Application.streamingAssetsPath, "Output.txt");
             var file = new StreamWriter(path, append: true);
             file.WriteLine(ToString());
             file.Close();

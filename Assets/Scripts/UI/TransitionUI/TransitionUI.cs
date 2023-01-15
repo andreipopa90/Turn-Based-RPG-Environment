@@ -65,9 +65,6 @@ namespace UI.TransitionUI
             debuffs.RemoveAll(e => GameState.SelectedMoves.Contains(e));
             var newMoves = GameState.AllMoves.Where(e => !e.Target.Equals("self") && !e.Category.Equals("Status")).ToList();
             newMoves.RemoveAll(e => GameState.SelectedMoves.Contains(e));
-            print(buffs.Count);
-            print(debuffs.Count);
-            print(newMoves.Count);
 
             var randomIndex = new Random().Next(0, buffs.Count);
             newMovesButtons[0].name = buffs[randomIndex].Name;
