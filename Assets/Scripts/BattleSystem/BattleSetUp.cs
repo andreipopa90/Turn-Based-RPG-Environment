@@ -79,7 +79,7 @@ namespace BattleSystem
                 return character;
             }
 
-            characterUnit.Level = GameState.CurrentLevel + 5;
+            characterUnit.Level = GameState.CurrentLevel + 4;
             characterUnit.SetTypes(GameState.StarterStats.Types);
             characterUnit.Manager = GameState.Manager;
             characterUnit.OriginalStats = GameState.StarterStats;

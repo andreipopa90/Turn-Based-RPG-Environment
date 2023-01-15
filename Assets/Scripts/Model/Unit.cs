@@ -180,7 +180,6 @@ namespace Model
             }
 
             _gameState.Manager.RemoveListener(this);
-            print(_gameState.Manager.Listeners.Count);
             _gameState.Manager.NotifyOnDeath();
             Destroy(gameObject);
 
@@ -189,9 +188,8 @@ namespace Model
 
         private void Evolve()
         {
-            
+            if (!Affixes.Contains("Evolve")) return;
             if (CurrentHealth > MaxHealth / 2) return;
-            print("Here!");
             var newUnit = _gameState.BaseStats.Find(bs => bs.Name.Equals("Zygarde-Complete"));
             SetStats(newUnit, true);
             CurrentHealth = (int) (CurrentHealth * 0.75);

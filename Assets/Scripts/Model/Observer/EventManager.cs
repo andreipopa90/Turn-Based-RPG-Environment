@@ -32,11 +32,12 @@ namespace Model.Observer
         public void NotifyOnDeath()
         {
             foreach (var listener in Listeners.
-                         Where(l => !l.UnitName.Equals("Player")))
+                         Where(l => !l.UnitName.Equals("Player") && l.Affixes.Contains("Avenger")))
             {
                 listener.CurrentHealth = (int)(listener.CurrentHealth * 1.5);
                 listener.MaxHealth = (int)(listener.MaxHealth * 1.5);
                 listener.Spe = (int) (listener.Spe * 1.5);
+                listener.Affixes.Remove("Avenger");
             }
         }
     }
