@@ -31,7 +31,7 @@ namespace Model
 
         private Generator _generator;
         public Log LevelLog { get; set; }
-        public bool Dynamic { get; set; }
+        [field: SerializeField] public bool Dynamic { get; set; }
         private int Step { get; set; }
         public Statistics GameStatistics { get; set; }
         public EventManager Manager { get; set; }
@@ -40,7 +40,6 @@ namespace Model
         // Start is called before the first frame update
         private void Start()
         {
-            Dynamic = true;
             LevelLog = Log.GetInstance();
             SelectedMoves = new List<Move>();
             CurrentLevel = 1;

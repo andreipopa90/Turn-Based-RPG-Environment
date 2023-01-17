@@ -120,9 +120,20 @@ namespace BattleSystem
             if (!target.Affixes.Contains("HealthLink"))
             {
                 damageDealt = target.TakeDamage(action.Move, action.SourceUnit, multiplier: domainEffect * burnEffect);
-                damageTaken(damageDealt);
                 yield return WaitForDelay(1f, action.SourceUnit.name + " used " + action.Move.Name + " on " +
                                               target.name);
+                if (target.Evaded)
+                {
+                    yield return WaitForDelay(1f, target.name + " evaded the attack!");
+                    target.Evaded = false;
+                }
+
+                if (target.Countered)
+                {
+                    yield return WaitForDelay(1f, target.name + " hit you back!");
+                    CharactersStatus.UpdateHealthBar(action.SourceUnit);
+                }
+                damageTaken(damageDealt);
                 CharactersStatus.UpdateHealthBar(target);
             }
 
@@ -130,17 +141,31 @@ namespace BattleSystem
             {
 
                 var characters = SceneCharacters.Where(sc => sc.Affixes.Contains("HealthLink")).ToList();
-                var message = string.Empty;
-                foreach (var character in characters)
+                var message = characters.Aggregate(string.Empty, 
+                    (current, character) => current + character.name + " & ");
+                yield return WaitForDelay(1f,
+                    action.SourceUnit.name + " used " + action.Move.Name + " on " + message);
+                foreach (var newDamage in characters.Select(character => 
+                             character.TakeDamage(action.Move, action.SourceUnit,
+                             multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect)))
                 {
-                    damageDealt += character.TakeDamage(action.Move, action.SourceUnit,
-                        multiplier: Math.Round(1.0 / characters.Count, 2) * domainEffect * burnEffect);
-                    message += character.name + " & ";
+                    if (target.Evaded)
+                    {
+                        yield return WaitForDelay(1f, target.name + " evaded the attack!");
+                        target.Evaded = false;
+                    }
+
+                    if (target.Countered)
+                    {
+                        yield return WaitForDelay(1f, target.name + " hit you back!");
+                        CharactersStatus.UpdateHealthBar(action.SourceUnit);
+                    }
+
+                    damageDealt += newDamage;
                 }
 
                 damageTaken(damageDealt);
-                yield return WaitForDelay(1f,
-                    action.SourceUnit.name + " used " + action.Move.Name + " on " + message);
+                
                 CharactersStatus.UpdateHealthBar(characters);
             }
         }

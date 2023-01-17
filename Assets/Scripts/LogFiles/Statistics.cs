@@ -52,7 +52,13 @@ namespace LogFiles
             result.Append("Amount of Moves Used Over Time").AppendLine();
             foreach (var key in MovesUsed.Keys)
             {
-                result.Append("Level ").Append(key).Append(" ").Append(MovesUsed[key].Count).AppendLine();
+                result.Append("Level ").Append(key).Append(" ").Append(MovesUsed[key].Count).Append(": ");
+                foreach (var move in MovesUsed[key])
+                {
+                    result.Append(move).Append(" ");
+                }
+
+                result.AppendLine();
             }
             return result.ToString();
         }

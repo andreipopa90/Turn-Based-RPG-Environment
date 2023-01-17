@@ -1,7 +1,0 @@
-Difficulty Over Time
-Level 1 242.5
-Level 2 524
-Amount of Moves Used Over Time
-Level 1 2
-Level 2 2
-

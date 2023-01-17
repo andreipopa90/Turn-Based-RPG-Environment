@@ -57,6 +57,9 @@ namespace Model
         public EventManager Manager { get; set; }
         public BaseStat OriginalStats { get; set; }
 
+        public bool Countered { get; set; } = false;
+        public bool Evaded { get; set; } = false;
+
         private void Awake()
         {
             Moves = new List<Move>();
@@ -165,6 +168,13 @@ namespace Model
             else if (Affixes.Contains("CounterAttack"))
             {
                 enemySource.TakeDamage(damageTaken / 2);
+                Evaded = true;
+                Countered = true;
+            }
+            else
+            {
+                damageTaken = 0;
+                Evaded = true;
             }
 
             if (Affixes.Contains("Sturdy") && CurrentHealth <= 0)
