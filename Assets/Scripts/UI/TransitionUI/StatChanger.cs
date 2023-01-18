@@ -23,6 +23,7 @@ namespace UI.TransitionUI
                                GameStateStorage.StarterStats.Def +
                                GameStateStorage.StarterStats.Hp;
             NewStatSum = CurrentStatsSum;
+            display.UpdateTotalStats(CurrentStatsSum + "/" + CurrentStatsSum);
         }
         public void OnPlusClick(Text stat)
         {
@@ -34,6 +35,7 @@ namespace UI.TransitionUI
             NewStatSum += 1;
 
             UpdateDisplayStatValue(stat, property);
+            display.UpdateTotalStats(NewStatSum + "/" + CurrentStatsSum);
         }
 
         private void UpdateDisplayStatValue(Object stat, PropertyInfo property)
@@ -55,6 +57,7 @@ namespace UI.TransitionUI
                 NewStatSum -= 1;
             }
             UpdateDisplayStatValue(stat, property);
+            display.UpdateTotalStats(NewStatSum + "/" + CurrentStatsSum);
         }
         
     }

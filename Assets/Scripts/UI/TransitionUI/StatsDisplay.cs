@@ -1,5 +1,6 @@
 using System;
 using Model;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ namespace UI.TransitionUI
         public Text SPA;
         public Text SPD;
         public Text SPE;
+        public TextMeshProUGUI TotalStats;
 
         private GameStateStorage _gameState;
 
@@ -25,6 +27,11 @@ namespace UI.TransitionUI
             SPA.text = _gameState.StarterStats.Spa.ToString();
             SPD.text = _gameState.StarterStats.Spd.ToString();
             SPE.text = _gameState.StarterStats.Spe.ToString();
+        }
+
+        public void UpdateTotalStats(string newText)
+        {
+            TotalStats.text = newText;
         }
     }
 }

@@ -194,10 +194,10 @@ namespace BattleSystem
                 yield return battleHandler.HandleAction(action);
             }
             _actionQueue.Clear();
-            CheckCurrentBattleState();
+            StartCoroutine(CheckCurrentBattleState());
         }
 
-        private void CheckCurrentBattleState()
+        private IEnumerator CheckCurrentBattleState()
         {
             GatherCharactersInScene();
             if (_sceneCharacters.Count == 1 && _sceneCharacters[0].UnitName.Equals("Player"))
@@ -210,6 +210,7 @@ namespace BattleSystem
             }
             else if (!GameObject.FindGameObjectWithTag("Player"))
             {
+                yield return battleHandler.PlayerHasDied();
                 _currentState = BattleState.Lost;
                 _gameState.LostCurrentLevel = true;
                 _gameState.Manager.Reset();
@@ -217,7 +218,7 @@ namespace BattleSystem
             }
             else
             {
-                StartCoroutine(battleHandler.HandleDamageOverTime());
+                yield return battleHandler.HandleDamageOverTime();
                 battleLog.Hide();
                 BeginBattle();
             }

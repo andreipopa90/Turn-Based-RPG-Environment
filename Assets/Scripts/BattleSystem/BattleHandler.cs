@@ -309,5 +309,10 @@ namespace BattleSystem
             BattleLog.ShowMessage(message);
             yield return new WaitForSeconds(delay);
         }
+
+        public IEnumerator PlayerHasDied()
+        {
+            yield return WaitForDelay(2f, "You have lost the level!");
+        }
     }
 }
