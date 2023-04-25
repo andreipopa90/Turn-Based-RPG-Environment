@@ -1,0 +1,7 @@
+Difficulty Over Time
+Level 1 264
+Level 2 307.5
+Amount of Moves Used Over Time
+Level 1 1: Ember 
+Level 2 1: Cure 
+
