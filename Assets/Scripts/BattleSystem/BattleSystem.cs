@@ -132,6 +132,7 @@ namespace BattleSystem
                 return;
             var playerUnit = _sceneCharacters[0].GetComponent<Unit>();
             playerUnit.Heal(playerUnit.MaxHealth / 2);
+            charactersStatus.UpdateHealthBar(playerUnit);
             _currentTurn = (_currentTurn + 1) % _sceneCharacters.Count;
             mainHUD.AbilityPanel.SetActive(false);
             mainHUD.EnemyPanel.SetActive(false);
